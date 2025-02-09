@@ -1,0 +1,31 @@
+.modal {
+	position: fixed;
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: rgba(25, 27, 37, 0.7);
+	inset: 0;
+	z-index: 9999;
+	padding: 10px;
+
+	.content {
+		width: 417px;
+		padding: 20px;
+		border-radius: 12px;
+		background: rgb(25, 27, 37);
+
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+	}
+
+	@media (max-width: 768px) {
+		align-items: start;
+		.content{
+			padding: 16px;
+			gap: 12px;
+		}
+	}
+}

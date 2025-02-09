@@ -1,0 +1,51 @@
+.header {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	.left {
+		h2 {
+			color: rgb(255, 255, 255);
+			font-size: 20px;
+			font-weight: 800;
+			line-height: 26px;
+			margin-bottom: 4px;
+		}
+
+		p {
+			color: rgb(167, 170, 183);
+			font-size: 15px;
+			font-weight: 600;
+			line-height: 20px;
+		}
+	}
+
+	.right {
+		padding: 9px 10px;
+		border-radius: 8px;
+		background: rgb(31, 33, 44);
+		border: none;
+		cursor: pointer;
+
+		img {
+			width: 8.17px;
+			height: 8.17px;
+		}
+	}
+
+	@media (max-width: 768px) {
+		gap: 4px;
+		.left {
+			h2 {
+				font-size: 16px;
+				line-height: 21px;
+				margin-bottom: 2px;
+			}
+			p {
+				font-size: 14px;
+				line-height: 15px;
+			}
+		}
+	}
+}

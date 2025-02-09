@@ -1,0 +1,37 @@
+.tabs {
+	display: flex;
+	gap: 8px;
+	padding: 4px;
+	border-radius: 12px;
+	background: rgb(16, 17, 22);
+
+	button {
+		width: 100%;
+		padding: 12px 24px;
+		border: none;
+		cursor: pointer;
+		border-radius: 8px;
+		font-size: 15px;
+		font-weight: 800;
+		line-height: 19px;
+		text-transform: uppercase;
+
+		&:nth-child(1) {
+			background-color: transparent;
+			color: rgb(104, 108, 123);
+		}
+		&:nth-child(2) {
+			background: rgb(158, 217, 39);
+			color: rgb(20, 40, 0);
+		}
+	}
+
+	@media (max-width: 768px) {
+		button {
+			padding: 10px 14px;
+
+			font-size: 14px;
+			line-height: 100%;
+		}
+	}
+}

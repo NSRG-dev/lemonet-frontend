@@ -1,0 +1,47 @@
+.input {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+
+	label {
+		color: rgb(116, 119, 131);
+		font-size: 14px;
+		font-weight: 500;
+		line-height: 18px;
+		text-align: left;
+	}
+
+	input {
+		padding: 16px;
+		border-radius: 12px;
+		border: none;
+		background: rgb(31, 33, 44);
+		color: rgb(104, 108, 123);
+		font-size: 15px;
+		font-weight: 600;
+		line-height: 20px;
+
+		&:focus {
+			outline: none;
+		}
+	}
+
+	.address {
+		border-radius: 12px;
+		background: rgb(16, 17, 22);
+		font-size: 14px;
+		font-weight: 600;
+		line-height: 15px;
+
+		&::placeholder{
+			color: white;
+		}
+	}
+
+	@media (max-width: 768px) {
+		input {
+			padding: 14px;
+			font-size: 14px;
+		}
+	}
+}

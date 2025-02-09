@@ -1,0 +1,72 @@
+.deposit {
+	.depOpt {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		gap: 16px;
+	}
+
+	.sum {
+		display: flex;
+		justify-content: space-between;
+
+		span {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			color: rgb(255, 255, 255);
+			font-size: 15px;
+			font-weight: 600;
+			line-height: 20px;
+
+			b {
+				color: rgb(167, 170, 183);
+				font-size: 15px;
+				font-weight: 600;
+				line-height: 20px;
+			}
+		}
+	}
+
+	.amountBlock {
+		padding: 13px 12px;
+		border-radius: 12px;
+		background: rgb(31, 33, 44);
+		.amountInfo {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+
+			span {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+
+				font-size: 15px;
+				font-weight: 600;
+				line-height: 20px;
+
+				&:nth-child(1) {
+					color: rgb(167, 170, 183);
+				}
+				&:nth-child(2) {
+					color: rgb(255, 255, 255);
+				}
+			}
+		}
+	}
+
+	.text {
+		color: rgb(116, 119, 131);
+		font-size: 12px;
+		font-weight: 500;
+		line-height: 18px;
+		text-align: center;
+	}
+
+	@media (max-width: 768px) {
+		.depOpt {
+			gap: 12px;
+		}
+	}
+}

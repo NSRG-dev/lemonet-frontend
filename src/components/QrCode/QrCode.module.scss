@@ -1,0 +1,29 @@
+.qrcodeCont {
+	position: relative;
+
+	button {
+		position: absolute;
+		top: 35px;
+		right: 10px;
+		border: none;
+		background-color: transparent;
+		cursor: pointer;
+	}
+}
+
+.qrcodeImage {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	.qrcode {
+		width: 150px;
+		height: 150px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 19px;
+		border-radius: 12px;
+		background: rgb(25, 27, 37);
+		border: 3px solid rgb(158, 217, 39);
+	}
+}
