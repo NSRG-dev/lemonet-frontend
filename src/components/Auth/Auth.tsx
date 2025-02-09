@@ -1,9 +1,4 @@
-import arrow from '@/assets/angle-down.svg'
-import check from '@/assets/check.svg'
-import code from '@/assets/code.svg'
-import facebook from '@/assets/facebook.svg'
-import google from '@/assets/google.svg'
-import telegram from '@/assets/telegram.svg'
+import { icons } from '@/assets'
 import { Suspense, useState } from 'react'
 import { HeaderForm } from '../HeaderForm/HeaderForm'
 import { Button, Input, Modal, Tabs } from '../ui'
@@ -17,12 +12,12 @@ export const Auth = () => {
 		<div className={s.tab}>
 			<div className={s.label}>
 				<span>
-					<img src={code} alt='code' loading='lazy' />
+					<img src={icons.code} alt='code' loading='lazy' />
 					Do you have code?
 				</span>
 				<button onClick={() => setOpenCode(prev => !prev)}>
 					<img
-						src={arrow}
+						src={icons.arrow}
 						alt='arrow'
 						className={isOpenCode ? s.rotated : ''}
 					/>
@@ -62,9 +57,9 @@ export const Auth = () => {
 					<>
 						{renderReferralCodeSection()}
 						<div className={s.checked}>
-							<button>
-								<img src={check} alt='check' loading='lazy' />
-							</button>
+							<Button type='green'>
+								<img src={icons.checkbox} alt='check' loading='lazy' />
+							</Button>
 							<p>
 								I agree to the <span>User Agreement</span> & confirm I am at
 								least 18 years old
@@ -77,7 +72,7 @@ export const Auth = () => {
 				</Button>
 				<span>OR</span>
 				<div className={s.btns}>
-					{[google, telegram, facebook].map((btn, index) => (
+					{[icons.google, icons.telegram, icons.facebook].map((btn, index) => (
 						<Button key={index} type='icon'>
 							<img src={btn} alt='btn' loading='lazy' />
 						</Button>

@@ -1,0 +1,40 @@
+<svg width="155.814453" height="57.629150" viewBox="0 0 155.814 57.6292" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<desc>
+			Created with Pixso.
+	</desc>
+	<defs>
+		<filter id="filter_22_95_dd" x="0.000000" y="0.000000" width="57.628906" height="57.629150" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+			<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+			<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+			<feGaussianBlur stdDeviation="5.93821" result="effect_layerBlur_1"/>
+		</filter>
+		<filter id="filter_22_96_dd" x="3.114258" y="7.114624" width="44.400391" height="45.399902" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+			<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+			<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+			<feOffset dx="-5" dy="3"/>
+			<feGaussianBlur stdDeviation="2.9"/>
+			<feComposite in2="hardAlpha" operator="out" k2="-1" k3="1"/>
+			<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.51 0"/>
+			<feBlend mode="normal" in2="BackgroundImageFix" result="effect_dropShadow_1"/>
+			<feBlend mode="normal" in="SourceGraphic" in2="effect_dropShadow_1" result="shape"/>
+		</filter>
+		<linearGradient x1="55.814453" y1="26.314575" x2="155.814453" y2="26.314575" id="paint_linear_22_103_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#F6FFCF"/>
+			<stop offset="0.355000" stop-color="#FFFFFF"/>
+			<stop offset="1.000000" stop-color="#DBD9D9"/>
+		</linearGradient>
+	</defs>
+	<g filter="url(#filter_22_95_dd)">
+		<circle id="Ellipse 1" cx="28.814453" cy="28.814575" r="11.000000" fill="#F2D714" fill-opacity="1.000000"/>
+	</g>
+	<g filter="url(#filter_22_96_dd)">
+		<rect id="Layer_2" rx="0.000000" width="26.000000" height="27.000000" transform="translate(17.314453 13.314575)" fill="#FFFFFF" fill-opacity="0"/>
+		<path id="Vector" d="M40.66 20.49C36.49 14.18 30.58 12.93 26.29 12.9C24.99 12.89 23.83 13.79 22.08 13.78C21.48 14.13 20.83 14.68 20.2 15.56C18.36 18.15 18.27 18.87 18.22 21.35C18.16 23.83 18.66 30 22.85 33.77C27.04 37.55 31.09 38.31 33.77 38.51C36.45 38.71 37.17 38.45 38.18 37.13C39.18 35.8 41.12 35.35 41.98 35.47C40.2 35.73 39.02 36.89 38.74 38.3C38.63 38.86 38.66 39.39 38.84 39.8C39.87 39.67 41.02 39.66 41.97 39.17C43.34 38.45 42.67 37.51 43.27 35.18C43.86 32.85 44.83 26.81 40.66 20.49L40.66 20.49Z" fill="#EFC820" fill-opacity="1.000000" fill-rule="nonzero"/>
+		<path id="Vector" d="M23.46 27.56C27.99 36.87 37.87 35.52 40.5 33.61C42.12 32.42 43.4 30.83 43.64 28.28C43.31 25.92 42.47 23.23 40.66 20.49C36.49 14.18 30.58 12.93 26.29 12.9C22.77 14.29 18.94 18.25 23.46 27.56L23.46 27.56Z" fill="#F2D714" fill-opacity="1.000000" fill-rule="nonzero"/>
+		<path id="Vector" d="M27.63 14.48C25.27 16.7 30.35 32.14 40.44 27.56C46.97 24.6 30.84 11.47 27.63 14.48Z" fill="#FFE424" fill-opacity="1.000000" fill-rule="nonzero"/>
+		<path id="Vector" d="M31.06 16.21C28.53 18.07 33.79 24.47 36.87 22.13C39.95 19.78 32.7 15.01 31.06 16.21Z" fill="#FDF262" fill-opacity="1.000000" fill-rule="nonzero"/>
+		<path id="Vector" d="M22.06 13.35C20.59 13.75 19.69 14.8 19 16.02C18.3 17.24 18.04 18.14 18.05 16.66C18.07 15.18 17.02 14.32 17.73 13.39C18.44 12.46 16.81 12.95 16.81 12.95" stroke="#F4CE11" stroke-opacity="1.000000" stroke-width="1.000000"/>
+		<path id="Vector" d="M38.74 38.3C39.02 36.89 40.2 35.73 41.98 35.47C41.12 35.35 39.18 35.8 38.18 37.13C37.17 38.45 36.45 38.71 33.77 38.51C31.09 38.31 27.04 37.55 22.85 33.77C18.66 30 18.16 23.83 18.22 21.35C18.27 18.87 18.36 18.15 20.2 15.56C20.83 14.68 21.48 14.13 22.08 13.78C21.73 13.78 21.37 13.74 20.97 13.65C19.46 13.32 18.33 12.68 17.73 13.39C16.63 14.71 17.92 16.02 17.73 18.54C17.55 21.06 14.83 27.93 20.78 35.37C26.74 42.81 36.27 40.63 37.54 40.11C37.93 39.94 38.37 39.86 38.84 39.8C38.66 39.39 38.63 38.86 38.74 38.3Z" fill="#F0B71F" fill-opacity="1.000000" fill-rule="nonzero"/>
+	</g>
+	<path id="Lemonet" d="M57.1 33.03L67.76 33.03L67.76 29.09L61.17 29.09L61.17 16.77L57.1 16.77L57.1 33.03ZM70.09 33.03L81.14 33.03L81.14 29.11L74.16 29.11L74.16 26.74L79.8 26.74L79.8 22.97L74.16 22.97L74.16 20.67L81.14 20.67L81.14 16.77L70.09 16.77L70.09 33.03ZM83.6 33.03L87.67 33.03L87.67 23.57L90.51 27.89L93.35 23.57L93.35 33.03L97.43 33.03L97.43 16.77L93.37 16.77L90.51 21.42L87.66 16.77L83.6 16.77L83.6 33.03ZM100 30.57L102.45 33.03L109.34 33.03L111.8 30.57L111.8 19.21L109.34 16.77L102.45 16.77L100 19.21L100 30.57ZM114.38 33.03L118.45 33.03L118.45 23.87L122.69 33.03L126.86 33.03L126.86 16.77L122.79 16.77L122.79 25.93L118.56 16.77L114.38 16.77L114.38 33.03ZM129.46 33.03L140.51 33.03L140.51 29.11L133.53 29.11L133.53 26.74L139.17 26.74L139.17 22.97L133.53 22.97L133.53 20.67L140.51 20.67L140.51 16.77L129.46 16.77L129.46 33.03ZM146.68 33.03L150.75 33.03L150.75 20.7L154.94 20.7L154.94 16.77L142.49 16.77L142.49 20.7L146.68 20.7L146.68 33.03ZM104.07 29.09L104.07 20.7L107.73 20.7L107.73 29.09L104.07 29.09Z" fill="url(#paint_linear_22_103_0)" fill-opacity="1.000000" fill-rule="evenodd"/>
+</svg>

@@ -1,5 +1,4 @@
-import coin from '@/assets/coin.svg'
-import usdt from '@/assets/usdt.svg'
+import { icons } from '@/assets'
 import { useState } from 'react'
 import { AmountForm } from '../AmountForm/AmountForm'
 import { HeaderForm } from '../HeaderForm/HeaderForm'
@@ -20,12 +19,12 @@ export const DepositForm = () => {
 		} else {
 			return (
 				<>
-					<Input label='Withdraw address' placeholder='Withdraw address' />{' '}
+					<Input label='Withdraw address' placeholder='Withdraw address' />
 					<div className={s.amountBlock}>
 						<div className={s.amountInfo}>
 							<span>Withdraw amount</span>
 							<span>
-								<img src={coin} alt='coin' loading='lazy' />
+								<img src={icons.coin} alt='coin' loading='lazy' />
 								28
 							</span>
 						</div>
@@ -50,7 +49,7 @@ export const DepositForm = () => {
 				<Option
 					title={
 						<>
-							<img src={usdt} alt='usdt' loading='lazy' /> USDT
+							<img src={icons.usdt} alt='usdt' loading='lazy' /> USDT
 						</>
 					}
 					label='Deposit currency'
@@ -61,10 +60,10 @@ export const DepositForm = () => {
 			<AmountForm title='Deposit amount' placeholder='Deposit amount' />
 			<div className={s.sum}>
 				<span>
-					<img src={usdt} alt='usdt' loading='lazy' />1 <b>USDT</b>
+					<img src={icons.usdt} alt='usdt' loading='lazy' />1 <b>USDT</b>
 				</span>
 				<span>
-					<img src={coin} alt='coin' loading='lazy' />3
+					<img src={icons.coin} alt='coin' loading='lazy' />3
 				</span>
 			</div>
 			{renderContent()}

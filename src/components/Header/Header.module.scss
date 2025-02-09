@@ -1,0 +1,179 @@
+.header {
+	width: 100%;
+	padding: 10px 16px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	.left {
+		display: flex;
+		gap: 20px;
+		align-items: center;
+
+		.logo {
+			width: 139px;
+			height: 28px;
+			margin-right: 16px;
+			img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+		}
+
+		.point {
+			position: relative;
+			display: flex;
+			align-items: center;
+			padding: 10px 11px;
+			gap: 10px;
+			border-radius: 12px;
+			background: linear-gradient(
+				90deg,
+				rgb(41, 44, 60),
+				rgba(30, 32, 43, 0.35) 100%
+			);
+			overflow: hidden;
+
+			.descr {
+				display: flex;
+				flex-direction: column;
+
+				span {
+					color: rgb(116, 119, 131);
+					font-size: 13px;
+					font-weight: 700;
+					line-height: 17px;
+				}
+
+				b {
+					color: rgb(255, 255, 255);
+					font-size: 14px;
+					font-weight: 700;
+					line-height: 18px;
+				}
+			}
+
+			&::before {
+				content: '';
+				position: absolute;
+				width: 40px;
+				height: 33px;
+				box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
+				filter: blur(19.8px);
+				left: 0;
+				background: rgb(255, 217, 3);
+			}
+		}
+	}
+
+	.center {
+		display: flex;
+		padding: 8px 5px;
+		border-radius: 12px;
+		align-items: center;
+		gap: 18px;
+		background: rgb(16, 17, 22);
+
+		span {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			padding-left: 9px;
+			color: rgb(255, 255, 255);
+			font-size: 16px;
+			font-weight: 700;
+			line-height: 21px;
+		}
+
+		button {
+			font-size: 15px;
+			line-height: 19px;
+			padding: 8px 12px;
+			text-transform: uppercase;
+		}
+	}
+
+	.right {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+
+		.search {
+			padding: 14px 15px;
+		}
+
+		.optText {
+			display: flex;
+			flex-direction: column;
+			gap: 2px;
+			margin-right: 8px;
+			span {
+				color: rgb(193, 195, 209);
+				font-size: 12px;
+				font-weight: 800;
+				line-height: 16px;
+			}
+
+			.slider {
+				position: relative;
+				width: 87px;
+				height: 6px;
+				border-radius: 20px;
+				background: rgb(63, 65, 76);
+
+				span {
+					position: absolute;
+					width: 60%;
+					height: 100%;
+					border-radius: 20px;
+					background: rgb(158, 217, 39);
+				}
+			}
+		}
+	}
+
+	@media (max-width: 1280px) {
+		.right {
+			div {
+				&:nth-child(1) {
+					display: none;
+				}
+			}
+		}
+	}
+	@media (max-width: 1024px) {
+		.right {
+			display: none;
+		}
+	}
+	@media (max-width: 768px) {
+		padding: 10px 12px;
+		.left {
+			gap: 8px;
+			.point {
+				display: none;
+			}
+			.logo {
+				width: 90.64px;
+				height: 35px;
+			}
+		}
+		.center {
+			padding: 5px;
+			gap: 8px;
+
+			span {
+				font-size: 13px;
+				line-height: 18px;
+				padding-left: 1px;
+			}
+
+			button {
+				font-size: 14px;
+				line-height: 100%;
+				padding: 8px;
+			}
+		}
+	}
+}
