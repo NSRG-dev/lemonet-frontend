@@ -1,0 +1,52 @@
+.comment {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+
+	.top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		.left {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+
+			img {
+				width: 24px;
+				height: 24px;
+				object-fit: cover;
+			}
+
+			span {
+				color: rgb(193, 195, 209);
+				font-size: 12px;
+				font-weight: 800;
+				line-height: 16px;
+			}
+		}
+
+		.right {
+			span {
+				color: rgb(104, 108, 123);
+				font-size: 12px;
+				font-weight: 500;
+				line-height: 18px;
+			}
+		}
+	}
+
+	.bottom {
+		padding: 8px;
+		border-radius: 6px;
+		background: rgb(38, 40, 50);
+
+		p {
+			color: rgb(255, 255, 255);
+			font-size: 15px;
+			font-weight: 600;
+			line-height: 20px;
+		}
+	}
+}

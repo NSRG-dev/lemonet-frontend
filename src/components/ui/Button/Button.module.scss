@@ -48,6 +48,17 @@
 	background: rgb(158, 217, 39);
 }
 
+.disabled {
+	padding: 16px;
+	border-radius: 8px;
+	background: rgb(63, 65, 76);
+
+	color: rgb(255, 255, 255);
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 21px;
+}
+
 @media (max-width: 768px) {
 	.default {
 		font-size: 14px;

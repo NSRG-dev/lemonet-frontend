@@ -1,0 +1,96 @@
+.openChat {
+	position: fixed;
+	height: 45px;
+	top: 5rem;
+	right: 3px;
+	z-index: 1000;
+	margin-right: 12px;
+
+	@media (max-width: 1280px) {
+		display: none;
+	}
+}
+
+.chat {
+	width: 26rem;
+	padding: 12px;
+	background: rgb(31, 33, 44);
+	transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+	transform: translateX(0);
+	opacity: 1;
+
+	@media (max-width: 1280px) {
+		display: none !important;
+	}
+
+	&.closed {
+		transform: translateX(100%);
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	.title {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		h3 {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			color: rgb(255, 255, 255);
+			font-size: 16px;
+			font-weight: 700;
+			line-height: 21px;
+		}
+
+		button {
+			background-color: rgb(48, 50, 61);
+		}
+	}
+
+	.onlineChat {
+		height: 500px;
+		overflow-y: scroll;
+		margin-top: 12px;
+
+		&::-webkit-scrollbar {
+			width: 0;
+		}
+	}
+
+	.sendMessage {
+		padding: 8px;
+		border-radius: 9px;
+		background: rgb(16, 17, 22);
+
+		input {
+			padding: 8px;
+			border-radius: 8px;
+		}
+
+		.pushMessage {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin-top: 6px;
+
+			span {
+				color: rgb(116, 119, 131);
+				font-size: 13px;
+				font-weight: 500;
+				line-height: 17px;
+			}
+
+			.btnMessage {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+
+				button {
+					padding: 4px 8px;
+				}
+			}
+		}
+	}
+}

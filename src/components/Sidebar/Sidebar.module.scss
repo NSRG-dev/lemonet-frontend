@@ -1,0 +1,85 @@
+.wind {
+	.sidebar {
+		transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+		transform: translateX(0);
+		opacity: 1;
+		width: 20rem;
+		padding: 8px;
+
+		&.closed {
+			transform: translateX(-100%);
+			opacity: 0;
+			pointer-events: none;
+		}
+
+		.title {
+			display: none;
+			align-items: center;
+			justify-content: space-between;
+			h4 {
+				color: rgb(255, 255, 255);
+				font-size: 16px;
+				font-weight: 600;
+				line-height: 20px;
+			}
+
+			button {
+				background: rgb(48, 50, 61);
+			}
+		}
+
+		.gameBanner {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+			grid-gap: 8px;
+		}
+
+		.navigation {
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+			padding: 8px;
+			margin-top: 8px;
+			border-radius: 12px;
+			background: rgb(31, 33, 44);
+
+			h4 {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				color: rgb(255, 255, 255);
+				font-size: 16px;
+				font-weight: 600;
+				line-height: 20px;
+				padding: 12px;
+			}
+		}
+	}
+	@media (max-width: 768px) {
+		position: fixed;
+		width: 100%;
+		height: 100vh;
+		background: rgba(25, 27, 37, 0.7);
+		top: 0;
+		transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+		transform: translateX(0);
+		opacity: 1;
+
+		&.closed {
+			transform: translateX(-100%);
+			opacity: 0;
+			pointer-events: none;
+		}
+
+		.sidebar {
+			margin-top: 60px;
+			background: rgb(25, 27, 37);
+			border-radius: 8px;
+
+
+			.title{
+				display: flex;
+			}
+		}
+	}
+}

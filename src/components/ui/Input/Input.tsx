@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import s from './Input.module.scss'
 
 interface Input {
-	label: string
+	label?: string
 	placeholder?: string
 	open?: boolean
 	disabled?: boolean

@@ -1,17 +1,20 @@
+import { icons } from '@/assets'
+import { useBurger } from '@/Context/BurgerProvider'
 import { Button, Option } from '../ui'
 import s from './Header.module.scss'
-import { icons } from '@/assets'
 
 export const Header = () => {
+	const { toggleMenu } = useBurger()
+
 	return (
 		<header className={s.header}>
 			<div className={s.left}>
-				<Button type='icon'>
+				<Button type='icon' onClick={toggleMenu}>
 					<img src={icons.burger} alt='burger' loading='lazy' />
 				</Button>
-				<span className={s.logo}>
-					<img src={icons.logo} alt='logo' loading='lazy' />
-				</span>
+				<>
+					<img src={icons.logo} alt='logo' loading='lazy' className={s.logo} />
+				</>
 				<div className={s.point}>
 					<img src={icons.lemonPoint} alt='lemon point' />
 					<div className={s.descr}>
@@ -32,7 +35,7 @@ export const Header = () => {
 			</div>
 			<div className={s.right}>
 				<Option
-					open={true}
+					open={false}
 					title={
 						<>
 							<img src={icons.bonus} alt='bonus' loading='lazy' /> Bonuses
@@ -47,7 +50,7 @@ export const Header = () => {
 					}}
 				/>
 				<Option
-					open={true}
+					open={false}
 					title={
 						<>
 							<img src={icons.avatar} alt='avatar' loading='lazy' />
