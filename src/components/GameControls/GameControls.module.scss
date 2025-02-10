@@ -1,0 +1,25 @@
+.control {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	padding: 8px;
+	border-radius: 12px;
+	background: rgb(31, 33, 44);
+
+	.left {
+		button {
+			padding: 8px 24px;
+		}
+	}
+
+	.right {
+		display: flex;
+		gap: 8px;
+
+		button {
+			background: rgb(38, 40, 50);
+		}
+	}
+}

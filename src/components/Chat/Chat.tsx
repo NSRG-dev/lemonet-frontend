@@ -29,12 +29,7 @@ export const Chat = React.memo(() => {
 					/>
 				</Button>
 			)}
-			<aside
-				className={`${s.chat} ${isOpen ? s.open : s.closed}`}
-				style={{
-					display: isOpen ? 'block' : 'none',
-				}}
-			>
+			<aside className={`${s.chat} ${isOpen ? s.open : s.closed}`}>
 				<div className={s.title}>
 					<h3>
 						<img src={icons.chat} alt='chat' /> Chat

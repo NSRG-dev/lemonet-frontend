@@ -1,16 +1,14 @@
 import { icons } from '@/assets'
 import s from './RecentBigWins.module.scss'
 
-interface RecentBigWinsProps {
-	array: number
-}
+const RECENT_WINS_COUNT = 16
 
-export const RecentBigWins = ({ array }: RecentBigWinsProps) => {
+export const RecentBigWins = () => {
 	return (
 		<div className={s.recentBigWins}>
 			<h4>Recent Big Wins</h4>
 			<div className={s.cont}>
-				{Array.from({ length: array }, (_, index) => (
+				{Array.from({ length: RECENT_WINS_COUNT }, (_, index) => (
 					<div key={index} className={s.card}>
 						<img src='/avatar (3).jpeg' alt='game' className={s.imageGame} />
 						<div className={s.descr}>

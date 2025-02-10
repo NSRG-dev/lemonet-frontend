@@ -1,5 +1,6 @@
 import App from '@/App'
 import { Home } from '@/pages/Home/Home'
+import { SlotGame } from '@/pages/SlotGame/SlotGame'
 import { Slots } from '@/pages/Slots/Slots'
 import { createBrowserRouter } from 'react-router-dom'
 
@@ -9,7 +10,15 @@ export const router = createBrowserRouter([
 		element: <App />,
 		children: [
 			{ path: '/', element: <Home /> },
-			{ path: '/slots', element: <Slots /> },
+			{
+				path: '/slots',
+				element: <Slots />,
+				children: [],
+			},
+			{
+				path: '/slots/:id',
+				element: <SlotGame />,
+			},
 		],
 	},
 ])
