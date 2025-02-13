@@ -16,6 +16,7 @@ import search from '@/assets/search-01.svg'
 import telegram from '@/assets/telegram.svg'
 import usdt from '@/assets/usdt.svg'
 import slots from '@/assets/slots.svg'
+import promotions from '@/assets/Promotions.svg'
 
 export const icons = {
 	arrow,
@@ -35,5 +36,6 @@ export const icons = {
 	usdt,
 	home,
 	chat,
+	promotions,
 	slots
 }
