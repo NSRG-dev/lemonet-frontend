@@ -1,0 +1,36 @@
+.affiliates {
+	width: 100%;
+	padding: 20px;
+
+	@media (max-width: 1280px) {
+		width: 100%;
+	}
+
+	.bannersStarted {
+		margin-top: 24px;
+		h4 {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			color: rgb(167, 170, 183);
+			font-size: 16px;
+			font-weight: 600;
+			line-height: 20px;
+			margin-bottom: 16px;
+		}
+
+		.container {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(385px, 1fr));
+			grid-gap: 15px;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.bannersStarted {
+			.container {
+				grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+			}
+		}
+	}
+}

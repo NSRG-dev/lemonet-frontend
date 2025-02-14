@@ -1,5 +1,6 @@
 import arrow from '@/assets/angle-down.svg'
 import avatar from '@/assets/avatar.svg'
+import bonuses from '@/assets/Bonuses.svg'
 import burger from '@/assets/burger.svg'
 import chat from '@/assets/chat.svg'
 import checkbox from '@/assets/check.svg'
@@ -7,19 +8,22 @@ import code from '@/assets/code.svg'
 import coin from '@/assets/coin.svg'
 import facebook from '@/assets/facebook.svg'
 import google from '@/assets/google.svg'
+import headphone from '@/assets/headphone.svg'
 import home from '@/assets/home.svg'
 import bonus from '@/assets/illustration (3).svg'
 import lemonPoint from '@/assets/lemon.svg'
 import loading from '@/assets/loading.svg'
 import logo from '@/assets/logo.svg'
+import promotions from '@/assets/Promotions.svg'
+import rocket from '@/assets/rocket.svg'
 import search from '@/assets/search-01.svg'
+import slots from '@/assets/slots.svg'
 import telegram from '@/assets/telegram.svg'
 import usdt from '@/assets/usdt.svg'
-import slots from '@/assets/slots.svg'
-import promotions from '@/assets/Promotions.svg'
 
 export const icons = {
 	arrow,
+	headphone,
 	checkbox,
 	code,
 	facebook,
@@ -34,8 +38,10 @@ export const icons = {
 	avatar,
 	bonus,
 	usdt,
+	rocket,
 	home,
 	chat,
 	promotions,
-	slots
+	slots,
+	bonuses,
 }

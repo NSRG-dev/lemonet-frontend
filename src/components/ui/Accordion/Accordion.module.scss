@@ -1,0 +1,75 @@
+.accordion {
+	.accordionTitle {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		background: rgb(31, 33, 44);
+		height: auto;
+		padding: 14px 16px;
+		transition: border-radius 0.3s ease;
+		cursor: pointer;
+
+		h3 {
+			color: rgb(255, 255, 255);
+			font-size: 16px;
+			font-weight: 600;
+			line-height: 20px;
+		}
+
+		button {
+			background: rgb(38, 40, 50);
+		}
+
+		.active {
+			background: linear-gradient(
+				180deg,
+				rgb(255, 199, 27),
+				rgb(255, 233, 43) 100%
+			);
+
+			img {
+				svg {
+					fill: rgb(51, 54, 0);
+				}
+			}
+		}
+	}
+
+	.content {
+		max-height: 100px;
+		opacity: 0;
+		overflow: hidden;
+		transition: max-height 0.3s ease, opacity 0.3s ease;
+		background: rgb(31, 33, 44);
+		border-radius: 0px 0px 10px 10px;
+
+		height: auto;
+		padding: 14px 16px;
+		p {
+			color: rgb(167, 170, 183);
+			font-size: 14px;
+			font-weight: 500;
+			line-height: 18px;
+			text-align: left;
+		}
+	}
+	.open {
+		max-height: 100px;
+		opacity: 1;
+	}
+
+	@media (max-width: 768px) {
+		.accordionTitle {
+			padding: 12px 16px;
+
+			h3 {
+				font-size: 14px;
+				line-height: 18px;
+			}
+		}
+
+		.content {
+			padding: 8px 16px;
+		}
+	}
+}

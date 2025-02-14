@@ -15,10 +15,9 @@ export const Promotions = () => {
 			<div className={s.search}>
 				<Input placeholder='Search for game' open />
 			</div>
-
 			<div className={s.grid}>
 				{Array.from({ length: 10 }, (_, index) => (
-					<PromotionCard key={index} />
+					<PromotionCard key={index} index={index}/>
 				))}
 			</div>
 		</div>
