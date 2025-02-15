@@ -4,11 +4,12 @@ interface ITabs {
 	tabs: string[]
 	isTab?: string
 	onClick: (value: string) => void
+	newClass?: string
 }
 
-export const Tabs = ({ tabs, onClick, isTab }: ITabs) => {
+export const Tabs = ({ tabs, onClick, isTab, newClass }: ITabs) => {
 	return (
-		<div className={s.tabs}>
+		<div className={`${s.tabs} ${newClass}`}>
 			{tabs.map(tab => (
 				<button
 					key={tab}

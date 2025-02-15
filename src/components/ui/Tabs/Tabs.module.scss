@@ -4,6 +4,12 @@
 	padding: 4px;
 	border-radius: 12px;
 	background: rgb(16, 17, 22);
+	overflow-x: scroll;
+
+	&::-webkit-scrollbar {
+		height: 1px;
+		width: 0;
+	}
 
 	button {
 		width: 100%;

@@ -1,4 +1,7 @@
 .help {
+	display: flex;
+	flex-direction: column;
+	align-items: start;
 	width: 100%;
 	padding: 20px;
 
@@ -15,5 +18,106 @@
 		font-weight: 800;
 		line-height: 36px;
 		margin-top: 12px;
+	}
+
+	.tabs {
+		background: rgb(31, 33, 44);
+		margin: 16px 24px 0 0;
+
+		button {
+			text-transform: none;
+			white-space: nowrap;
+		}
+	}
+
+	.info {
+		h2 {
+			color: rgb(255, 255, 255);
+			font-size: 30px;
+			font-weight: 800;
+			line-height: 39px;
+		}
+		p {
+			color: rgb(116, 119, 131);
+			font-size: 15px;
+			font-weight: 600;
+			line-height: 20px;
+			margin-top: 8px;
+		}
+	}
+
+	.infoLinks {
+		margin-top: 20px;
+
+		h3 {
+			color: rgb(193, 195, 209);
+			font-size: 20px;
+			font-weight: 800;
+			line-height: 26px;
+		}
+		p {
+			color: rgb(116, 119, 131);
+			font-size: 15px;
+			font-weight: 600;
+			line-height: 20px;
+			margin-top: 8px;
+		}
+
+		ul {
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+			margin-top: 8px;
+
+			li {
+				color: rgb(116, 119, 131);
+				font-size: 15px;
+				font-weight: 600;
+				line-height: 20px;
+
+				span {
+					color: white;
+				}
+				&::marker {
+					color: rgb(158, 217, 39);
+				}
+			}
+		}
+	}
+
+	.faq {
+		margin-top: 20px;
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	@media (max-width: 768px) {
+		.tabs {
+			width: 100%;
+		}
+	}
+	@media (max-width: 425px) {
+		.info {
+			h2 {
+				font-size: 20px;
+				line-height: 26px;
+			}
+			p {
+				font-size: 12px;
+				line-height: 18px;
+			}
+		}
+
+		.infoLinks {
+			h3 {
+				font-size: 18px;
+				line-height: 24px;
+			}
+			ul > li {
+				font-size: 12px;
+				line-height: 18px;
+			}
+		}
 	}
 }
