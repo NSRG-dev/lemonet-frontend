@@ -2,6 +2,7 @@ import App from '@/App'
 import { Affiliates } from '@/pages/Affiliates/Affiliates'
 import { Help } from '@/pages/Help/Help'
 import { Home } from '@/pages/Home/Home'
+import { Profile } from '@/pages/Profile/Profile'
 import { PromotionInfo } from '@/pages/PromotionInfo/PromotionInfo'
 import { Promotions } from '@/pages/Promotions/Promotions'
 import { SlotGame } from '@/pages/SlotGame/SlotGame'
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
 			{
 				path: '/help',
 				element: <Help />,
+			},
+			{
+				path: '/profile',
+				element: <Profile />,
 			},
 		],
 	},

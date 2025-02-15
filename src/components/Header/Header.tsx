@@ -1,10 +1,12 @@
 import { icons } from '@/assets'
 import { useBurger } from '@/Context/BurgerProvider'
+import { useChat } from '@/Context/ChatProvider'
 import { Button, Option } from '../ui'
 import s from './Header.module.scss'
 
 export const Header = () => {
 	const { toggleMenu } = useBurger()
+	const { toggleChat } = useChat()
 
 	return (
 		<header className={s.header}>
@@ -38,21 +40,6 @@ export const Header = () => {
 					open={false}
 					title={
 						<>
-							<img src={icons.bonus} alt='bonus' loading='lazy' /> Bonuses
-						</>
-					}
-					options={['Option']}
-					sx={{
-						bottom: '-20px',
-					}}
-					sxB={{
-						padding: '11px 16px',
-					}}
-				/>
-				<Option
-					open={false}
-					title={
-						<>
 							<img src={icons.avatar} alt='avatar' loading='lazy' />
 							<div className={s.optText}>
 								<span>ACCOUNT</span>
@@ -72,6 +59,9 @@ export const Header = () => {
 				/>
 				<Button type='icon' newClass={s.search}>
 					<img src={icons.search} alt='search' />
+				</Button>
+				<Button type='icon' newClass={s.chat} onClick={toggleChat}>
+					<img src={icons.chat} alt='chat' />
 				</Button>
 			</div>
 		</header>

@@ -1,11 +1,12 @@
 import { icons } from '@/assets'
-import React, { useState } from 'react'
+import { useChat } from '@/Context/ChatProvider'
+import React from 'react'
 import { Comment } from '../Comment/Comment'
 import { Button, Input } from '../ui'
 import s from './Chat.module.scss'
 
 export const Chat = React.memo(() => {
-	const [isOpen, setOpen] = useState(true)
+	const { isOpenChat, toggleChat } = useChat()
 
 	const comments = [
 		{
@@ -18,23 +19,12 @@ export const Chat = React.memo(() => {
 
 	return (
 		<>
-			{!isOpen && (
-				<Button type='icon' onClick={() => setOpen(true)} newClass={s.openChat}>
-					<img
-						src={icons.arrow}
-						alt='arrow'
-						style={{
-							transform: 'rotate(-90deg)',
-						}}
-					/>
-				</Button>
-			)}
-			<aside className={`${s.chat} ${isOpen ? s.open : s.closed}`}>
+			<aside className={`${s.chat} ${isOpenChat ? s.open : s.closed}`}>
 				<div className={s.title}>
 					<h3>
 						<img src={icons.chat} alt='chat' /> Chat
 					</h3>
-					<Button type='icon' onClick={() => setOpen(false)}>
+					<Button type='icon' onClick={toggleChat}>
 						<img
 							src={icons.arrow}
 							alt='arrow'

@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import s from './Tabs.module.scss'
 
 interface ITabs {
@@ -5,24 +6,34 @@ interface ITabs {
 	isTab?: string
 	onClick: (value: string) => void
 	newClass?: string
+	type?: 'default' | 'sidebar'
 }
 
-export const Tabs = ({ tabs, onClick, isTab, newClass }: ITabs) => {
+export const Tabs = ({
+	tabs,
+	onClick,
+	isTab,
+	newClass,
+	type = 'default',
+}: ITabs) => {
+	const className = classNames(newClass, {
+		[s.tabs]: type === 'default',
+		[s.sidebar]: type === 'sidebar',
+	})
+
 	return (
-		<div className={`${s.tabs} ${newClass}`}>
-			{tabs.map(tab => (
-				<button
-					key={tab}
-					onClick={() => onClick(tab)}
-					style={{
-						backgroundColor:
-							isTab === tab ? 'rgb(158, 217, 39)' : 'transparent',
-						color: isTab === tab ? 'rgb(20, 40, 0)' : ' rgb(104, 108, 123)',
-					}}
-				>
-					{tab}
-				</button>
-			))}
+		<div className={className}>
+			<ul>
+				{tabs.map(tab => (
+					<li
+						key={tab}
+						onClick={() => onClick(tab)}
+						className={isTab === tab ? s.active : ''}
+					>
+						{tab}
+					</li>
+				))}
+			</ul>
 		</div>
 	)
 }

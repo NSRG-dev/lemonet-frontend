@@ -44,7 +44,7 @@ export const Auth = () => {
 							: 'Join the game, start winning!'
 					}
 				/>
-				<Tabs tabs={['Sign up', 'Login']} onClick={setTab} isTab={isTab} />
+				<Tabs tabs={['Sign up', 'Login']} onClick={setTab} isTab={isTab} newClass={s.tabs} />
 				<form className={s.form}>
 					{isTab === 'Login' ? null : (
 						<Input label='Your username' placeholder='Enter your username' />

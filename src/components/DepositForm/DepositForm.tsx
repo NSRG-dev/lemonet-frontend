@@ -44,7 +44,12 @@ export const DepositForm = () => {
 						: 'Fast & secure payouts'
 				}
 			/>
-			<Tabs tabs={['Deposit', 'Withdraw']} onClick={setTab} isTab={isTab} />
+			<Tabs
+				tabs={['Deposit', 'Withdraw']}
+				onClick={setTab}
+				isTab={isTab}
+				newClass={s.tabs}
+			/>
 			<div className={s.depOpt}>
 				<Option
 					title={

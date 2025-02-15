@@ -5,7 +5,6 @@ import { RecentBigWins } from '@/components/RecentBigWins/RecentBigWins'
 import { Input } from '@/components/ui'
 import s from './Slots.module.scss'
 
-// Константы для повторяющихся значений
 const GAME_ITEMS_COUNT = 8
 const SORT_ITEMS = Array(9).fill('Slots')
 

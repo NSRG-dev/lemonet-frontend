@@ -1,0 +1,72 @@
+.profileInfo {
+	width: 100%;
+	border-radius: 12px;
+	background: linear-gradient(
+			0deg,
+			rgba(25, 27, 37, 0) 0%,
+			rgb(25, 27, 37) 100%
+		),
+		url('/public/Frame 1016 (1).jpeg');
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	padding: 20px 24px;
+
+	.top {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin-bottom: 16px;
+
+		.avatar {
+			img {
+				width: 56px;
+				height: 56px;
+				border: 1.5px solid rgb(133, 219, 255);
+				border-radius: 12px;
+			}
+		}
+		.rank {
+			display: flex;
+			gap: 6px;
+			align-items: center;
+			margin-top: 4px;
+
+			span {
+				width: 14px;
+				height: 14px;
+				border-radius: 4px;
+				background: rgb(141, 202, 255);
+			}
+
+			b {
+				color: rgb(255, 255, 255);
+				font-size: 12px;
+				font-weight: 800;
+				line-height: 16px;
+			}
+		}
+	}
+
+	.middle {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		.user {
+			h3 {
+				color: rgb(255, 255, 255);
+				font-size: 16px;
+				font-weight: 800;
+				line-height: 21px;
+			}
+
+			p {
+				color: rgb(167, 170, 183);
+				font-size: 15px;
+				font-weight: 600;
+				line-height: 20px;
+			}
+		}
+	}
+}

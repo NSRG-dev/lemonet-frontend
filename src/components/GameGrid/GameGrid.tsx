@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { Button } from '../ui'
 import s from './GameGrid.module.scss'
 
@@ -12,7 +13,9 @@ export const GameGrid = ({ gamesCount, imageSrc, altText }: GameGridProps) => {
 		<>
 			<div className={s.contGame}>
 				{Array.from({ length: gamesCount }, (_, index) => (
-					<img key={index} src={imageSrc} alt={altText} />
+					<Link to={`/slots/${index}`}>
+						<img key={index} src={imageSrc} alt={altText} />
+					</Link>
 				))}
 			</div>
 			<div className={s.footer}>

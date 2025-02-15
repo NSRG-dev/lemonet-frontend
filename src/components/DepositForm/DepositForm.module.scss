@@ -6,6 +6,13 @@
 		gap: 16px;
 	}
 
+	.tabs {
+		ul {
+			width: 100%;
+			text-align: center;
+		}
+	}
+
 	.sum {
 		display: flex;
 		justify-content: space-between;

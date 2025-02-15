@@ -1,5 +1,7 @@
 import arrow from '@/assets/angle-down.svg'
 import avatar from '@/assets/avatar.svg'
+import money from '@/assets/Bold _ Money _ Wallet Money.svg'
+import user from '@/assets/Bold _ Users _ User Rounded (1).svg'
 import bonuses from '@/assets/Bonuses.svg'
 import burger from '@/assets/burger.svg'
 import chat from '@/assets/chat.svg'
@@ -19,10 +21,16 @@ import rocket from '@/assets/rocket.svg'
 import search from '@/assets/search-01.svg'
 import slots from '@/assets/slots.svg'
 import telegram from '@/assets/telegram.svg'
+import logout from '@/assets/UniqIcons_interface_solid_logout.svg'
 import usdt from '@/assets/usdt.svg'
+import vect from '@/assets/Vector 474.svg'
 
 export const icons = {
 	arrow,
+	vect,
+	logout,
+	user,
+	money,
 	headphone,
 	checkbox,
 	code,

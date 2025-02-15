@@ -1,0 +1,40 @@
+.sumCounter {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border-radius: 12px;
+	background: rgb(31, 33, 44);
+	padding: 12px;
+	margin: 12px 0;
+
+	.sum {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+
+		span {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			color: rgb(255, 255, 255);
+			font-size: 16px;
+			font-weight: 700;
+			line-height: 21px;
+		}
+	}
+
+	.countBtn {
+		display: flex;
+		align-items: center;
+		gap: 5px;
+
+		button {
+			padding: 12px 16px;
+
+			&:nth-child(2) {
+				padding: 13px 17px;
+				background: rgb(63, 65, 76);
+			}
+		}
+	}
+}
