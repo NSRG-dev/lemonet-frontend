@@ -1,0 +1,94 @@
+.top {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border-bottom: 1px solid rgb(48, 50, 61);
+	padding-bottom: 17px;
+	gap: 12px;
+
+	.balance {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+
+		.icon {
+			padding: 15px 17px;
+			border-radius: 14px;
+			box-shadow: 0px 3px 0px 0px rgb(0, 75, 162),
+				5px 7px 16px 0px rgba(0, 88, 252, 0.41);
+			background: linear-gradient(
+				180deg,
+				rgb(0, 146, 255),
+				rgb(110, 193, 255) 100%
+			);
+
+			img {
+				filter: brightness(0) invert(1);
+			}
+		}
+
+		.infoBalance {
+			p {
+				color: rgb(167, 170, 183);
+				font-size: 16px;
+				font-weight: 600;
+				line-height: 20px;
+			}
+
+			.sum {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				margin-top: 8px;
+
+				span {
+					display: flex;
+					align-items: center;
+					gap: 8px;
+					color: rgb(255, 255, 255);
+					font-size: 16px;
+					font-weight: 800;
+					line-height: 21px;
+				}
+
+				b {
+					background: linear-gradient(
+						180deg,
+						rgb(255, 199, 27),
+						rgb(255, 233, 43)
+					);
+					-webkit-background-clip: text;
+					-webkit-text-fill-color: transparent;
+					background-clip: text;
+					text-fill-color: transparent;
+					font-family: Reddit Sans;
+					font-size: 16px;
+					font-weight: 700;
+					line-height: 21px;
+					letter-spacing: 0%;
+					text-align: left;
+				}
+			}
+		}
+	}
+
+	.input {
+		width: 40%;
+		input {
+			background: rgb(38, 40, 50);
+		}
+	}
+
+	@media (max-width: 1024px) {
+		flex-wrap: wrap;
+		.input {
+			width: 100%;
+		}
+	}
+	@media (max-width: 375px) {
+		.balance {
+			flex-wrap: wrap;
+		}
+	}
+}

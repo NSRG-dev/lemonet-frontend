@@ -6,6 +6,8 @@ import { SumCounter } from '@/components/SumCounter/SumCounter'
 import { Tabs } from '@/components/ui'
 import { useCallback, useState } from 'react'
 import s from './Profile.module.scss'
+import { GameHistory } from '@/components/GameHistory/GameHistory'
+import { TransactionHistory } from '@/components/TransactionHistory/TransactionHistory'
 
 export const Profile = () => {
 	const [isTab, setTab] = useState('Personal information')
@@ -25,7 +27,13 @@ export const Profile = () => {
 					type='sidebar'
 					isTab={isTab}
 					onClick={setTab}
-					tabs={['Personal information', 'Referal system']}
+					tabs={[
+						'Personal information',
+						'Referal system',
+						'VIP program',
+						'Game history',
+						'Transactions history',
+					]}
 				/>
 			</div>
 			<div className={s.right}>
@@ -44,6 +52,12 @@ export const Profile = () => {
 				)}
 				{isTab === 'Referal system' && (
 					<ReferralSystem isTabs={isTabs} setTabs={setTabs} />
+				)}
+				{isTab === 'Game history' && (
+					<GameHistory isTabs={isTabs} setTabs={setTabs} />
+				)}
+				{isTab === 'Transactions history' && (
+					<TransactionHistory isTabs={isTabs} setTabs={setTabs} />
 				)}
 			</div>
 		</div>

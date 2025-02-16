@@ -1,0 +1,96 @@
+.row {
+	display: flex;
+	gap: 16px;
+	padding: 8px;
+	.cellSmall {
+		display: none;
+
+		button {
+			background: rgb(25, 27, 37);
+		}
+	}
+}
+
+.info {
+	display: none;
+	max-height: 0;
+	opacity: 0;
+	overflow: hidden;
+	transition: max-height 0.3s ease, opacity 0.3s ease;
+	border-radius: 8px;
+
+	.tableRowInfo {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		padding: 8px;
+		border-radius: 8px;
+		background: rgb(38, 40, 50);
+		margin-top: -3px;
+
+		.cellInfo {
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+
+			span {
+				color: rgb(116, 119, 131);
+				font-size: 14px;
+				font-weight: 700;
+				line-height: 18px;
+				text-align: left;
+			}
+
+			.date {
+				display: flex;
+				align-items: center;
+				gap: 6px;
+				span {
+					&:nth-child(1) {
+						color: rgb(167, 170, 183);
+						font-size: 15px;
+						font-weight: 600;
+						line-height: 20px;
+					}
+					&:nth-child(2) {
+						color: rgb(104, 108, 123);
+						font-size: 15px;
+						font-weight: 600;
+						line-height: 20px;
+					}
+				}
+			}
+		}
+	}
+}
+
+.open {
+	max-height: 200px;
+	opacity: 1;
+	padding: 4px;
+}
+
+@media (max-width: 650px) {
+	.row {
+		.cellSmall {
+			display: block;
+		}
+	}
+
+	.info {
+		display: flex;
+	}
+}
+
+@media (max-width: 425px) {
+	.cell {
+		&:nth-child(3),
+		&:nth-child(4) {
+			span {
+				font-size: 12px;
+				line-height: 14px;
+			}
+		}
+	}
+}

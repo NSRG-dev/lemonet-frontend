@@ -6,6 +6,7 @@ import bonuses from '@/assets/Bonuses.svg'
 import burger from '@/assets/burger.svg'
 import chat from '@/assets/chat.svg'
 import checkbox from '@/assets/check.svg'
+import chekedTable from '@/assets/chekedTable.svg'
 import code from '@/assets/code.svg'
 import coin from '@/assets/coin.svg'
 import facebook from '@/assets/facebook.svg'
@@ -20,12 +21,15 @@ import promotions from '@/assets/Promotions.svg'
 import rocket from '@/assets/rocket.svg'
 import search from '@/assets/search-01.svg'
 import slots from '@/assets/slots.svg'
+import tcoin from '@/assets/tCouin.svg'
 import telegram from '@/assets/telegram.svg'
 import logout from '@/assets/UniqIcons_interface_solid_logout.svg'
 import usdt from '@/assets/usdt.svg'
 import vect from '@/assets/Vector 474.svg'
 
 export const icons = {
+	chekedTable,
+	tcoin,
 	arrow,
 	vect,
 	logout,
