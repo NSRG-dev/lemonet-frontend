@@ -1,13 +1,14 @@
 import { icons } from '@/assets'
+import { BannerSection } from '@/components/BannerSection/BannerSection'
 import { FormBlock } from '@/components/FormBlock/FormBlock'
+import { GameHistory } from '@/components/GameHistory/GameHistory'
 import { ProfileInfo } from '@/components/ProfileInfo/ProfileInfo'
 import { ReferralSystem } from '@/components/ReferralSystem/ReferralSystem'
 import { SumCounter } from '@/components/SumCounter/SumCounter'
+import { TransactionHistory } from '@/components/TransactionHistory/TransactionHistory'
 import { Tabs } from '@/components/ui'
 import { useCallback, useState } from 'react'
 import s from './Profile.module.scss'
-import { GameHistory } from '@/components/GameHistory/GameHistory'
-import { TransactionHistory } from '@/components/TransactionHistory/TransactionHistory'
 
 export const Profile = () => {
 	const [isTab, setTab] = useState('Personal information')
@@ -20,45 +21,54 @@ export const Profile = () => {
 
 	return (
 		<div className={s.profile}>
-			<div className={s.left}>
-				<ProfileInfo />
-				<SumCounter />
-				<Tabs
-					type='sidebar'
-					isTab={isTab}
-					onClick={setTab}
-					tabs={[
-						'Personal information',
-						'Referal system',
-						'VIP program',
-						'Game history',
-						'Transactions history',
-					]}
-				/>
-			</div>
-			<div className={s.right}>
-				<div className={s.blocks}>
-					{Array.from({ length: 4 }, (_, index) => (
-						<div key={index} className={s.block}>
-							<span>
-								<img src={icons.vect} alt='' />
-							</span>
-							<h3>Check loyal system</h3>
-						</div>
-					))}
+			<BannerSection
+				title='Deposit and Claim Your Bonus'
+				description='Deposit up to $100 and get 180% added to your account!'
+				image={icons.banner}
+				buttonText='DEPOSIT'
+				onButtonClick={() => console.log('Deposit clicked')}
+			/>
+			<div className={s.profileContent}>
+				<div className={s.left}>
+					<ProfileInfo />
+					<SumCounter />
+					<Tabs
+						type='sidebar'
+						isTab={isTab}
+						onClick={setTab}
+						tabs={[
+							'Personal information',
+							'Referal system',
+							'VIP program',
+							'Game history',
+							'Transactions history',
+						]}
+					/>
 				</div>
-				{isTab === 'Personal information' && (
-					<div className={s.form}>{renderForms()}</div>
-				)}
-				{isTab === 'Referal system' && (
-					<ReferralSystem isTabs={isTabs} setTabs={setTabs} />
-				)}
-				{isTab === 'Game history' && (
-					<GameHistory isTabs={isTabs} setTabs={setTabs} />
-				)}
-				{isTab === 'Transactions history' && (
-					<TransactionHistory isTabs={isTabs} setTabs={setTabs} />
-				)}
+				<div className={s.right}>
+					<div className={s.blocks}>
+						{Array.from({ length: 4 }, (_, index) => (
+							<div key={index} className={s.block}>
+								<span>
+									<img src={icons.vect} alt='' />
+								</span>
+								<h3>Check loyal system</h3>
+							</div>
+						))}
+					</div>
+					{isTab === 'Personal information' && (
+						<div className={s.form}>{renderForms()}</div>
+					)}
+					{isTab === 'Referal system' && (
+						<ReferralSystem isTabs={isTabs} setTabs={setTabs} />
+					)}
+					{isTab === 'Game history' && (
+						<GameHistory isTabs={isTabs} setTabs={setTabs} />
+					)}
+					{isTab === 'Transactions history' && (
+						<TransactionHistory isTabs={isTabs} setTabs={setTabs} />
+					)}
+				</div>
 			</div>
 		</div>
 	)

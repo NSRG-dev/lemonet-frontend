@@ -1,5 +1,7 @@
 import { icons } from '@/assets'
-import { Button, Tabs } from '@/components/ui'
+import { Button, Input, Tabs } from '@/components/ui'
+import { useMemo } from 'react'
+import { BannerSection } from '../BannerSection/BannerSection'
 import s from './ReferralSystem.module.scss'
 
 interface ReferralSystemProps {
@@ -7,33 +9,62 @@ interface ReferralSystemProps {
 	setTabs: (tab: string) => void
 }
 
-const TableRow = ({ index }: { index: number }) => (
+interface TableRowProps {
+	index: number
+	user: string
+	date: string
+	time: string
+	deposit: number
+	profit: number
+}
+
+const TableRow = ({
+	index,
+	user,
+	date,
+	time,
+	deposit,
+	profit,
+}: TableRowProps) => (
 	<div key={index} className={s.row}>
 		<div className={s.cell}>
 			<img src={icons.avatar} alt='avatar' />
-			<h4>@MegaJackpot</h4>
+			<h4>{user}</h4>
 		</div>
 		<div className={s.cell}>
-			<span>12:35</span>
-			<span>17/02/2025</span>
+			<span>{time}</span>
+			<span>{date}</span>
 		</div>
 		<div className={s.cell}>
 			<span>
-				<img src={icons.coin} alt='coin' /> 100 490
+				<img src={icons.coin} alt='coin' /> {deposit}
 			</span>
 		</div>
 		<div className={s.cell}>
 			<span>
-				<img src={icons.coin} alt='coin' /> 100 490
+				<img src={icons.coin} alt='coin' /> {profit}
 			</span>
 		</div>
 	</div>
 )
 
-export const ReferralSystem = ({ isTabs, setTabs }: ReferralSystemProps) => (
-	<div className={s.referalSystem}>
-		<div className={s.referalSystemBlock}>
-			{Array.from({ length: 3 }, (_, index) => (
+const ReferralInput = () => (
+	<div className={s.bannerInput}>
+		<Input
+			label='Your referral code'
+			placeholder='v4K9300dfnm0'
+			newClass={s.input}
+			disabled
+			type='address'
+		/>
+		<Button type='default'>COPY</Button>
+	</div>
+)
+
+export const ReferralSystem = ({ isTabs, setTabs }: ReferralSystemProps) => {
+	const balanceBlocks = useMemo(
+		() =>
+			[1, 2, 3].map((_, index) => (
 				<div key={index} className={s.balanceBlock}>
 					<div className={s.balance}>
 						<h3>Referral balance</h3>
@@ -43,34 +74,57 @@ export const ReferralSystem = ({ isTabs, setTabs }: ReferralSystemProps) => (
 					</div>
 					<Button type='default'>WITHDRAW</Button>
 				</div>
-			))}
-		</div>
+			)),
+		[]
+	)
 
-		<div className={s.table}>
-			<div className={s.header}>
-				<div className={s.title}>
-					<h3>Your referals</h3>
-					<p>Controle your earnings</p>
+	return (
+		<div className={s.referalSystem}>
+			<BannerSection
+				title='Partner with Us and Earn Big!'
+				description='Join our affiliate program today and unlock unlimited earning potential with high commissions and exclusive rewards!'
+				image={icons.banner2}
+				newClass={s.banner2}
+			>
+				<form>
+					<ReferralInput />
+					<ReferralInput />
+				</form>
+			</BannerSection>
+			<div className={s.referalSystemBlock}>{balanceBlocks}</div>
+			<div className={s.table}>
+				<div className={s.header}>
+					<div className={s.title}>
+						<h3>Your referals</h3>
+						<p>Controle your earnings</p>
+					</div>
+					<Tabs
+						isTab={isTabs}
+						onClick={setTabs}
+						tabs={['DAILY', 'WEEKLY', 'MONTHLY']}
+					/>
 				</div>
-				<Tabs
-					isTab={isTabs}
-					onClick={setTabs}
-					tabs={['DAILY', 'WEEKLY', 'MONTHLY']}
-				/>
-			</div>
-
-			<div className={s.tables}>
-				<div className={s.tableRow}>
-					{['USERS', 'DATE', 'DEPOSITS', 'YOUR PROFIT'].map((row, index) => (
-						<div className={s.cell} key={index}>
-							<span>{row}</span>
-						</div>
+				<div className={s.tables}>
+					<div className={s.tableRow}>
+						{['USERS', 'DATE', 'DEPOSITS', 'YOUR PROFIT'].map((row, index) => (
+							<div className={s.cell} key={index}>
+								<span>{row}</span>
+							</div>
+						))}
+					</div>
+					{Array.from({ length: 6 }, (_, index) => (
+						<TableRow
+							key={index}
+							index={index}
+							user='@MegaJackpot'
+							date='17/02/2025'
+							time='12:35'
+							deposit={100490}
+							profit={100490}
+						/>
 					))}
 				</div>
-				{Array.from({ length: 6 }, (_, index) => (
-					<TableRow key={index} index={index} />
-				))}
 			</div>
 		</div>
-	</div>
-)
+	)
+}

@@ -7,6 +7,7 @@ import { PromotionInfo } from '@/pages/PromotionInfo/PromotionInfo'
 import { Promotions } from '@/pages/Promotions/Promotions'
 import { SlotGame } from '@/pages/SlotGame/SlotGame'
 import { Slots } from '@/pages/Slots/Slots'
+import { VipProgram } from '@/pages/VipProgram/VipProgram'
 import { createBrowserRouter } from 'react-router-dom'
 
 export const router = createBrowserRouter([
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
 			{
 				path: '/profile',
 				element: <Profile />,
+			},
+			{
+				path: '/vipprogram',
+				element: <VipProgram />,
 			},
 		],
 	},

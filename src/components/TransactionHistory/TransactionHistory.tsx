@@ -2,6 +2,7 @@ import { icons } from '@/assets'
 import {
 	gameHistoryTableHeaders,
 	transactionHistoryTableData,
+	transactionHistoryTableHeaders,
 } from '@/constant/tableData'
 import { TableDataTransactionHistory } from '@/types/table'
 import { GenericTable } from '../GenericTable/GenericTable'
@@ -74,7 +75,7 @@ export const TransactionHistory = ({
 
 	return (
 		<GenericTable
-			headers={gameHistoryTableHeaders}
+			headers={transactionHistoryTableHeaders}
 			data={transactionHistoryTableData}
 			renderRow={renderRow}
 			title='Your transactions history'

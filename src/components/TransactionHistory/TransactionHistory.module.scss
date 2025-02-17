@@ -4,6 +4,14 @@
 	align-items: center;
 	gap: 8px;
 
+	@media (max-width: 1024px) {
+		min-width: 110px;
+	}
+
+	@media (max-width: 600px) {
+		min-width: auto;
+	}
+
 	&:nth-child(5) {
 		span {
 			color: rgb(158, 217, 39);
@@ -63,7 +71,7 @@
 		background: rgba(158, 217, 39, 0.2);
 		margin-right: 5px;
 
-		img{
+		img {
 			width: 10px;
 			height: 10px;
 		}

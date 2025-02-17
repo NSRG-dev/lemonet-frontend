@@ -1,3 +1,4 @@
+import { icons } from '@/assets'
 import { GameHistoryData, TableDataTransactionHistory } from '@/types/table'
 
 export const gameHistoryTableData: GameHistoryData[] = Array.from(
@@ -42,4 +43,22 @@ export const transactionHistoryTableHeaders = [
 	'AMOUNT',
 	'STATUS',
 	'BALANCE AFTER',
+]
+
+export const TABLE_HEADERS_VIP = [
+	'VIP Rank',
+	'BRONZE',
+	'SILVER',
+	'GOLD',
+	'Platinum',
+	'JADE',
+	'SAPHIRE',
+]
+
+export const TABLE_ROWS_VIP = [
+	{
+		title: 'Quick Cashback',
+		icon: icons.bonuses,
+		cells: Array.from({ length: 6 }, () => icons.chekedTable),
+	},
 ]

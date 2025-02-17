@@ -10,6 +10,9 @@ import chekedTable from '@/assets/chekedTable.svg'
 import code from '@/assets/code.svg'
 import coin from '@/assets/coin.svg'
 import facebook from '@/assets/facebook.svg'
+import banner2 from '@/assets/Frame 51 (1).svg'
+import banner3 from '@/assets/Frame 51 (2).svg'
+import banner from '@/assets/Frame 51.svg'
 import google from '@/assets/google.svg'
 import headphone from '@/assets/headphone.svg'
 import home from '@/assets/home.svg'
@@ -28,7 +31,10 @@ import usdt from '@/assets/usdt.svg'
 import vect from '@/assets/Vector 474.svg'
 
 export const icons = {
+	banner3,
 	chekedTable,
+	banner,
+	banner2,
 	tcoin,
 	arrow,
 	vect,
