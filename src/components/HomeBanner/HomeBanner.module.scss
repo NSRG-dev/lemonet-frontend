@@ -1,0 +1,37 @@
+.banner {
+	width: 600px;
+	height: 245px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	padding: 16px;
+	border-radius: 16px;
+	overflow: hidden;
+
+	display: flex;
+	align-items: end;
+	justify-content: space-between;
+	flex-wrap: wrap;
+
+	p {
+		color: rgb(193, 195, 209);
+		font-size: 16px;
+		font-weight: 600;
+		line-height: 20px;
+		width: 350px;
+	}
+
+	@media (max-width: 1280px) {
+		flex-shrink: 0;
+	}
+	@media (max-width: 600px) {
+		width: 100%;
+		text-align: center;
+		justify-content: center;
+
+		p{
+			width: 100%;
+			margin-top: 80px;
+		}
+	}
+}

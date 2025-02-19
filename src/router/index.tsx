@@ -7,6 +7,7 @@ import { PromotionInfo } from '@/pages/PromotionInfo/PromotionInfo'
 import { Promotions } from '@/pages/Promotions/Promotions'
 import { SlotGame } from '@/pages/SlotGame/SlotGame'
 import { Slots } from '@/pages/Slots/Slots'
+import { Sport } from '@/pages/Sport/Sport'
 import { VipProgram } from '@/pages/VipProgram/VipProgram'
 import { createBrowserRouter } from 'react-router-dom'
 
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
 			{
 				path: '/vipprogram',
 				element: <VipProgram />,
+			},
+			{
+				path: '/sport',
+				element: <Sport />,
 			},
 		],
 	},

@@ -1,0 +1,119 @@
+.tableRow {
+	display: flex;
+	background: rgb(31, 33, 44);
+	padding: 10px 12px;
+	margin-top: 8px;
+	gap: 6px;
+	border-radius: 12px;
+	align-items: center;
+
+	&:nth-child(1) {
+		margin-top: 0;
+	}
+
+	.tableValueTeam {
+		flex: 1;
+		display: flex;
+		align-items: start;
+		flex-direction: column;
+		gap: 12px;
+
+		.time {
+			display: flex;
+			margin-right: 10px;
+			gap: 8px;
+
+			span {
+				font-size: 14px;
+				font-weight: 500;
+				line-height: 18px;
+				color: rgb(255, 255, 255);
+			}
+
+			b {
+				color: rgb(116, 119, 131);
+				font-size: 12px;
+				font-weight: 500;
+				line-height: 18px;
+			}
+		}
+
+		.againstWhom {
+			display: flex;
+			align-items: center;
+			gap: 18px;
+
+			.vs {
+				padding: 4px 6px;
+				box-sizing: border-box;
+				border-radius: 25px;
+				background: rgba(158, 217, 39, 0.15);
+				color: rgb(255, 255, 255);
+				font-size: 12px;
+				font-weight: 500;
+				line-height: 18px;
+			}
+
+			.team {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+
+				span {
+					color: rgb(255, 255, 255);
+					font-size: 14px;
+					font-weight: 600;
+					line-height: 15px;
+				}
+
+				img {
+					width: 19px;
+					height: 21px;
+				}
+			}
+		}
+	}
+
+	.tableValueLeft {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+
+		.tableValue2 {
+			padding: 8px;
+			border-radius: 8px;
+			background: rgb(25, 27, 37);
+
+			span {
+				color: rgb(255, 255, 255);
+				font-size: 14px;
+				font-weight: 500;
+				line-height: 18px;
+			}
+		}
+
+		.tableValueBtn {
+			border: 1px solid rgb(48, 50, 61);
+			border-radius: 8px;
+			background: rgb(38, 40, 50);
+			padding: 12px 18px;
+			cursor: pointer;
+
+			span {
+				color: rgb(255, 255, 255);
+				font-size: 14px;
+				font-weight: 500;
+				line-height: 18px;
+			}
+
+			&.active {
+				border: 1px solid rgb(158, 217, 39);
+				background: rgba(158, 217, 39, 0.2);
+
+				span {
+					color: rgb(158, 217, 39);
+				}
+			}
+		}
+	}
+}
