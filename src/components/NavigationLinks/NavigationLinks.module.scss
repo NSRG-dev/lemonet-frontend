@@ -1,0 +1,24 @@
+.navigation {
+	h3 {
+		color: rgb(255, 255, 255);
+		font-size: 15px;
+		font-weight: 600;
+		line-height: 20px;
+	}
+
+	ul {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		margin-top: 12px;
+
+		li {
+			list-style-type: none;
+			color: rgb(116, 119, 131);
+			font-size: 14px;
+			font-weight: 500;
+			line-height: 18px;
+			cursor: pointer;
+		}
+	}
+}

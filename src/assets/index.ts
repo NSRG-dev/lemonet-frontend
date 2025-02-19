@@ -19,6 +19,7 @@ import home from '@/assets/home.svg'
 import bonus from '@/assets/illustration (3).svg'
 import banner4 from '@/assets/illustration (5).svg'
 import gamev from '@/assets/image 23.svg'
+import instagram from '@/assets/instagram.svg'
 import lemonPoint from '@/assets/lemon.svg'
 import loading from '@/assets/loading.svg'
 import logo from '@/assets/logo.svg'
@@ -34,9 +35,12 @@ import usdt from '@/assets/usdt.svg'
 import ticket from '@/assets/Vector (96).svg'
 import sport from '@/assets/Vector (97).svg'
 import vect from '@/assets/Vector 474.svg'
+import youtube from '@/assets/youtube.svg'
 
 export const icons = {
 	gamev,
+	instagram,
+	youtube,
 	banner4,
 	sport,
 	star,

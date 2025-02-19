@@ -1,11 +1,24 @@
 .tbody {
 	max-height: 0;
-	overflow: hidden;
 	transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out;
 	opacity: 0;
 
 	&.open {
 		max-height: 1000px;
 		opacity: 1;
+	}
+}
+
+@media (max-width: 767px) {
+	.tbody {
+		.tableRow {
+			width: max-content;
+			.tableValue2 {
+				span {
+					font-size: 10px;
+					line-height: 12px;
+				}
+			}
+		}
 	}
 }

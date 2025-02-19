@@ -79,10 +79,19 @@
 		align-items: center;
 		gap: 12px;
 
-		.tableValue2 {
+		.result {
+			background-color: transparent !important;
+		}
+
+		.tableValue2,
+		.result {
 			padding: 8px;
 			border-radius: 8px;
 			background: rgb(25, 27, 37);
+			min-width: 55px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
 
 			span {
 				color: rgb(255, 255, 255);
@@ -115,5 +124,11 @@
 				}
 			}
 		}
+	}
+}
+
+@media (max-width: 1440px) {
+	.tableRow {
+		width: max-content;
 	}
 }

@@ -3,152 +3,11 @@
 	border-radius: 16px;
 	margin-top: 8px;
 	overflow-x: scroll;
+	white-space: nowrap;
 
 	&::-webkit-scrollbar {
 		width: 0;
 		height: 1px;
-	}
-
-	.tbody {
-		max-height: 0;
-		overflow: hidden;
-		transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out;
-		opacity: 0;
-
-		&.open {
-			max-height: 1000px;
-			opacity: 1;
-		}
-
-		.tableRow {
-			display: flex;
-			background: rgb(31, 33, 44);
-			padding: 10px 12px;
-			margin-top: 8px;
-			gap: 6px;
-			border-radius: 12px;
-			align-items: center;
-
-			@media (max-width: 1024px) {
-				width: max-content;
-			}
-
-			&:nth-child(1) {
-				margin-top: 0;
-			}
-
-			.tableValueTeam {
-				flex: 1;
-				display: flex;
-				align-items: start;
-				flex-direction: column;
-				gap: 12px;
-
-				.time {
-					display: flex;
-					margin-right: 10px;
-					gap: 8px;
-
-					span {
-						font-size: 14px;
-						font-weight: 500;
-						line-height: 18px;
-						color: rgb(255, 255, 255);
-					}
-
-					b {
-						color: rgb(116, 119, 131);
-						font-size: 12px;
-						font-weight: 500;
-						line-height: 18px;
-					}
-				}
-
-				.againstWhom {
-					display: flex;
-					align-items: center;
-					gap: 18px;
-
-					.vs {
-						padding: 4px 6px;
-						box-sizing: border-box;
-						border-radius: 25px;
-						background: rgba(158, 217, 39, 0.15);
-
-						color: rgb(255, 255, 255);
-						font-size: 12px;
-						font-weight: 500;
-						line-height: 18px;
-					}
-
-					.team {
-						display: flex;
-						align-items: center;
-						gap: 8px;
-
-						span {
-							color: rgb(255, 255, 255);
-							font-size: 14px;
-							font-weight: 600;
-							line-height: 15px;
-						}
-
-						img {
-							width: 19px;
-							height: 21px;
-						}
-					}
-				}
-			}
-
-			.tableValueLeft {
-				display: flex;
-			}
-
-			.result {
-				span {
-					background-color: transparent !important;
-				}
-			}
-
-			.tableValueBtn {
-				border: 1px solid rgb(48, 50, 61);
-				border-radius: 8px;
-				background: rgb(38, 40, 50);
-				padding: 12px 18px;
-
-				span {
-					color: rgb(255, 255, 255);
-					font-size: 14px;
-					font-weight: 500;
-					line-height: 18px;
-				}
-			}
-
-			.tableValue2,
-			.result,
-			.tableValueMore {
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				gap: 4px;
-				cursor: pointer;
-				border-radius: 8px;
-				flex: 1;
-				min-width: 70px;
-
-				span {
-					color: rgb(255, 255, 255);
-					font-size: 14px;
-					font-weight: 500;
-					line-height: 18px;
-
-					padding: 12px;
-					border-radius: 8px;
-					background: rgb(25, 27, 37);
-				}
-			}
-		}
 	}
 
 	@media (max-width: 768px) {
@@ -158,27 +17,15 @@
 		&::-webkit-scrollbar {
 			width: 0;
 		}
-
-		.tbody {
-			.tableRow {
-				width: max-content;
-				.tableValue2 {
-					span {
-						font-size: 10px;
-						line-height: 12px;
-					}
-				}
-			}
-		}
 	}
 }
 
-.tableModile {
+.tableMobile {
 	display: none;
 	flex-direction: column;
 	gap: 12px;
 
-	.gameModile {
+	.gameMobile {
 		display: flex;
 		align-items: center;
 		gap: 8px;
@@ -206,31 +53,45 @@
 		background: rgb(31, 33, 44);
 	}
 
-	.tableValueTeamModile {
+	.tableHeader {
 		display: flex;
-		align-items: center;
-		gap: 12px;
-		width: 100%;
 		justify-content: space-between;
-		flex-direction: column;
+		max-width: 165px;
 
-		span {
-			border-radius: 8px;
-			padding: 4px;
-		}
+		.tableHeaderCell {
+			flex: 1;
+			padding: 8px;
+			text-align: center;
+			min-width: 50px;
 
-		.timeModile {
-			width: 100%;
-			display: flex;
-			justify-content: space-between;
-			gap: 12px;
-
-			.timeInfo {
-				display: flex;
-				align-items: center;
-				gap: 12px;
-				margin-right: 10px;
+			span {
+				color: rgb(116, 119, 131);
+				font-size: 12px;
+				font-weight: 800;
+				line-height: 16px;
 			}
+		}
+	}
+
+	.tableBody {
+		width: 100%;
+	}
+
+	.tableRow {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.tableValueTeamMobile {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+
+		.timeMobile {
+			display: flex;
+			align-items: center;
+			gap: 8px;
 
 			span {
 				color: rgb(255, 255, 255);
@@ -238,6 +99,7 @@
 				font-weight: 500;
 				line-height: 18px;
 			}
+
 			b {
 				color: rgb(116, 119, 131);
 				font-size: 12px;
@@ -246,26 +108,23 @@
 			}
 		}
 
-		.againstWhomModile {
+		.againstWhomMobile {
 			display: flex;
 			align-items: center;
-			gap: 18px;
-			justify-content: space-between;
-			width: 100%;
+			gap: 12px;
+			justify-content: center;
 
 			.vs {
 				padding: 4px 6px;
-				box-sizing: border-box;
 				border-radius: 25px;
 				background: rgba(158, 217, 39, 0.15);
-
 				color: rgb(255, 255, 255);
 				font-size: 12px;
 				font-weight: 500;
 				line-height: 18px;
 			}
 
-			.teamModile {
+			.teamMobile {
 				display: flex;
 				align-items: center;
 				gap: 8px;
@@ -285,42 +144,19 @@
 		}
 	}
 
-	.tableHeader {
+	.tableBodyMobile {
 		display: flex;
-		width: 100%;
-		gap: 32px;
-	}
-
-	.tableHeaderCell {
-		padding: 8px;
-		text-align: left;
-
-		span {
-			color: rgb(116, 119, 131);
-			font-size: 12px;
-			font-weight: 800;
-			line-height: 16px;
-		}
-	}
-
-	.tableBody {
-		width: 100%;
-	}
-
-	.tableRow {
-		display: flex;
-		align-items: center;
 		justify-content: space-between;
-		width: 100%;
+		align-items: center;
 	}
 
-	.tableModileRowleft {
+	.tableRowLeftMobile {
 		display: flex;
 		gap: 12px;
 	}
 
-	.tableValueModile,
-	.modileResult {
+	.tableValueMobile,
+	.mobileResult {
 		padding: 8px;
 		border-radius: 8px;
 		background: rgb(25, 27, 37);
@@ -333,11 +169,11 @@
 		}
 	}
 
-	.modileResult {
+	.mobileResult {
 		background-color: transparent !important;
 	}
 
-	.tableValueBtn {
+	.tableValueBtnMobile {
 		border: 1px solid rgb(48, 50, 61);
 		border-radius: 8px;
 		background: rgb(38, 40, 50);
@@ -349,6 +185,12 @@
 			font-weight: 500;
 			line-height: 18px;
 		}
+	}
+}
+
+@media (max-width: 500px) {
+	.tableMobile {
+		display: flex;
 	}
 }
 
