@@ -25,7 +25,7 @@ export const VipProgram = () => {
 
 			<div className={s.bannersStarted}>
 				<h4>
-					<img src={icons.bonuses} alt='' />
+					<img src={icons.trophy} alt='' />
 					Getting started
 				</h4>
 				<div className={s.container}>
@@ -36,13 +36,23 @@ export const VipProgram = () => {
 			</div>
 			<div className={s.tables}>
 				<h4>
-					<img src={icons.bonuses} alt='' />
+					<img src={icons.trophy} alt='' />
 					The benefits
 				</h4>
 				<div className={s.table}>
 					<div className={s.tableRow}>
 						{TABLE_HEADERS_VIP.map((header, index) => (
-							<TableCell key={index}>{header}</TableCell>
+							<>
+								<TableCell key={index}>
+									<div
+										className={s.rankColor}
+										style={{
+											backgroundColor: header.color,
+										}}
+									></div>
+									{header.title}
+								</TableCell>
+							</>
 						))}
 					</div>
 					{TABLE_ROWS_VIP.map((row, index) => (

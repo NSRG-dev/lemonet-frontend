@@ -9,18 +9,78 @@ export const socialLinks = [
 export const navigationSections = [
 	{
 		title: 'Navigation',
-		links: ['Affiliates', 'Vip program', 'Promotion'],
+		links: [
+			{
+				label: 'Affiliates',
+				url: '/affiliates',
+			},
+			{
+				label: 'Vip program',
+				url: '/vipprogram',
+			},
+			{
+				label: 'Promotion',
+				url: '/promotions',
+			},
+		],
 	},
 	{
 		title: 'Casino',
-		links: ['Slots', 'Live casino', 'Table games', 'BlackJack'],
+		links: [
+			{
+				label: 'Slots',
+				url: '/slots',
+			},
+			{
+				label: 'Live casino',
+				url: '/slots/:id',
+			},
+			{
+				label: 'Table games',
+				url: '/sport',
+			},
+			{
+				label: 'BlackJack',
+				url: '/sport',
+			},
+		],
 	},
 	{
 		title: 'Sport',
-		links: ['Live matches', 'Starting soon'],
+		links: [
+			{
+				label: 'Live matches',
+				url: '/sport',
+			},
+			{
+				label: 'Starting soon',
+				url: '/sport',
+			},
+		],
 	},
 	{
 		title: 'Help center',
-		links: ['Terms & Conditions', 'Probably Fair', 'FAQ', 'AML', 'Support'],
+		links: [
+			{
+				label: 'Terms & Conditions',
+				url: '/help',
+			},
+			{
+				label: 'Probably Fair',
+				url: '/help',
+			},
+			{
+				label: 'FAQ',
+				url: '/help',
+			},
+			{
+				label: 'AML',
+				url: '/help',
+			},
+			{
+				label: 'Support',
+				url: '/help',
+			},
+		],
 	},
 ]

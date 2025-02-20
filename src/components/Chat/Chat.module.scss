@@ -12,16 +12,27 @@
 }
 
 .chat {
-	width: 26rem;
 	padding: 12px;
 	background: rgb(31, 33, 44);
-	transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-	transform: translateX(0);
+	max-width: 26rem;
 	opacity: 1;
+	overflow: hidden;
+	transition: max-width 0.3s ease, opacity 0.3s ease-in-out,
+		transform 0.3s ease-in-out;
+	transform: translateX(0);
+	z-index: 999999999;
 
-	@media (max-width: 1280px) {
-		display: none !important;
+	&.closed {
+		max-width: 0;
+		opacity: 0;
+		transform: translateX(-100%);
+		pointer-events: none;
 	}
+
+	&.open {
+		min-width: 320px;
+	}
+
 
 	&.closed {
 		transform: translateX(100%);
@@ -50,6 +61,9 @@
 	}
 
 	.onlineChat {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
 		height: 500px;
 		overflow-y: scroll;
 		margin-top: 12px;
@@ -67,6 +81,7 @@
 		input {
 			padding: 8px;
 			border-radius: 8px;
+			color: white;
 		}
 
 		.pushMessage {
@@ -92,5 +107,12 @@
 				}
 			}
 		}
+	}
+
+	
+	@media (max-width: 1280px) {
+		position: fixed;
+		right: 0;
+		width: 320px;
 	}
 }

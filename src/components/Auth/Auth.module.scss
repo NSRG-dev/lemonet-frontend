@@ -51,6 +51,12 @@
 				padding: 1px 3px;
 				background: transparent;
 				cursor: pointer;
+				transition: transform 0.3s ease;
+				transform: rotate(-180deg);
+			}
+
+			.rotated {
+				transform: rotate(180deg);
 			}
 			span {
 				display: flex;

@@ -46,19 +46,39 @@ export const transactionHistoryTableHeaders = [
 ]
 
 export const TABLE_HEADERS_VIP = [
-	'VIP Rank',
-	'BRONZE',
-	'SILVER',
-	'GOLD',
-	'Platinum',
-	'JADE',
-	'SAPHIRE',
+	{
+		title: 'VIP Rank',
+	},
+	{
+		title: 'BRONZE',
+		color: 'rgb(255, 132, 105)',
+	},
+	{
+		title: 'SILVER',
+		color: 'rgb(141, 202, 255)',
+	},
+	{
+		title: 'GOLD',
+		color: 'rgb(255, 186, 133)',
+	},
+	{
+		title: 'Platinum',
+		color: 'rgb(104, 160, 255)',
+	},
+	{
+		title: 'JADE',
+		color: 'rgb(111, 239, 162)',
+	},
+	{
+		title: 'SAPHIRE',
+		color: 'rgb(103, 43, 255)',
+	},
 ]
 
 export const TABLE_ROWS_VIP = [
 	{
 		title: 'Quick Cashback',
-		icon: icons.bonuses,
+		icon: icons.sparkle,
 		cells: Array.from({ length: 6 }, () => icons.chekedTable),
 	},
 ]

@@ -7,25 +7,37 @@
 	justify-content: center;
 	background-color: rgba(25, 27, 37, 0.7);
 	inset: 0;
-	z-index: 9999;
+	z-index: 9999999999;
 	padding: 10px;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.3s ease, visibility 0.3s ease;
+}
 
-	.content {
-		width: 417px;
-		padding: 20px;
-		border-radius: 12px;
-		background: rgb(25, 27, 37);
+.modal.open {
+	opacity: 1;
+	visibility: visible;
+}
 
-		display: flex;
-		flex-direction: column;
-		gap: 20px;
-	}
+.modal .content {
+	width: 417px;
+	padding: 20px;
+	border-radius: 12px;
+	background: rgb(25, 27, 37);
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	transform: translateY(-20px);
+	transition: transform 0.3s ease;
+}
 
-	@media (max-width: 768px) {
-		align-items: start;
-		.content{
-			padding: 16px;
-			gap: 12px;
-		}
+.modal.open .content {
+	transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+	.modal .content {
+		padding: 16px;
+		gap: 12px;
 	}
 }

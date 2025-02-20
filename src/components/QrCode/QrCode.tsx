@@ -1,9 +1,16 @@
-import { Input } from '../ui'
-import s from './QrCode.module.scss'
 import clone from '@/assets/clone-3 1.svg'
 import qrcode from '@/assets/qrcode.svg'
+import { toast } from 'react-toastify'
+import { Button, Input } from '../ui'
+import s from './QrCode.module.scss'
 
-export const QrCode = () => {
+export const QrCode = ({ notify }) => {
+
+	const handleCopy = () => {
+		navigator.clipboard.writeText('GJlxpep749djkkdgUJKVFYUfjicen78bHY')
+		notify()
+	}
+
 	return (
 		<>
 			<div className={s.qrcodeCont}>
@@ -13,9 +20,9 @@ export const QrCode = () => {
 					placeholder='GJlxpep749djkkdgUJKVFYUfjicen78bHY'
 					disabled
 				/>
-				<button>
+				<Button type='text' onClick={handleCopy}>
 					<img src={clone} alt='clone' loading='lazy' />
-				</button>
+				</Button>
 			</div>
 			<div className={s.qrcodeImage}>
 				<div className={s.qrcode}>

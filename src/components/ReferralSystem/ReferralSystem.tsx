@@ -1,7 +1,8 @@
 import { icons } from '@/assets'
-import { Button, Input, Tabs } from '@/components/ui'
+import { Button, Tabs } from '@/components/ui'
 import { useMemo } from 'react'
 import { BannerSection } from '../BannerSection/BannerSection'
+import { InputForm } from '../InputForm/InputForm'
 import s from './ReferralSystem.module.scss'
 
 interface ReferralSystemProps {
@@ -48,19 +49,6 @@ const TableRow = ({
 	</div>
 )
 
-const ReferralInput = () => (
-	<div className={s.bannerInput}>
-		<Input
-			label='Your referral code'
-			placeholder='v4K9300dfnm0'
-			newClass={s.input}
-			disabled
-			type='address'
-		/>
-		<Button type='default'>COPY</Button>
-	</div>
-)
-
 export const ReferralSystem = ({ isTabs, setTabs }: ReferralSystemProps) => {
 	const balanceBlocks = useMemo(
 		() =>
@@ -87,8 +75,8 @@ export const ReferralSystem = ({ isTabs, setTabs }: ReferralSystemProps) => {
 				newClass={s.banner2}
 			>
 				<form>
-					<ReferralInput />
-					<ReferralInput />
+					<InputForm />
+					<InputForm />
 				</form>
 			</BannerSection>
 			<div className={s.referalSystemBlock}>{balanceBlocks}</div>

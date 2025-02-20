@@ -22,7 +22,6 @@ import gamev from '@/assets/image 23.svg'
 import instagram from '@/assets/instagram.svg'
 import lemonPoint from '@/assets/lemon.svg'
 import loading from '@/assets/loading.svg'
-import logo from '@/assets/logo.svg'
 import promotions from '@/assets/Promotions.svg'
 import rocket from '@/assets/rocket.svg'
 import search from '@/assets/search-01.svg'
@@ -37,8 +36,35 @@ import sport from '@/assets/Vector (97).svg'
 import vect from '@/assets/Vector 474.svg'
 import youtube from '@/assets/youtube.svg'
 
+import cancel from '@/assets/controls/cancel.svg'
+import info_circle from '@/assets/controls/info-circle.svg'
+import close from '@/assets/controls/Vector (100).svg'
+import volume_high from '@/assets/controls/volume-high.svg'
+
+import logo from '@/assets/1.svg'
+import dots3 from '@/assets/3-dots-horizontal .svg'
+import sparkle from '@/assets/sparkle-4.svg'
+import trophy from '@/assets/trophy.svg'
+
+import bucket from '@/assets/OptionChat/fi_2710178.svg'
+import sound from '@/assets/OptionChat/sound.svg'
+import pin from '@/assets/OptionChat/Vector - 2025-02-20T205828.848.svg'
+
+import notfoundimage from '@/assets/illustration (6).svg'
+
 export const icons = {
 	gamev,
+	notfoundimage,
+	sound,
+	bucket,
+	pin,
+	dots3,
+	trophy,
+	close,
+	sparkle,
+	cancel,
+	info_circle,
+	volume_high,
 	instagram,
 	youtube,
 	banner4,

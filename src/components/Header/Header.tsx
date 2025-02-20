@@ -1,12 +1,18 @@
 import { icons } from '@/assets'
+import { useAuth } from '@/Context/AuthProvider'
 import { useBurger } from '@/Context/BurgerProvider'
 import { useChat } from '@/Context/ChatProvider'
-import { Button, Option } from '../ui'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { Button, Input, Option } from '../ui'
 import s from './Header.module.scss'
 
 export const Header = () => {
 	const { toggleMenu } = useBurger()
 	const { toggleChat } = useChat()
+	const { toggleDeposit } = useAuth()
+
+	const [isSearch, setSearch] = useState(false)
 
 	return (
 		<header className={s.header}>
@@ -14,9 +20,9 @@ export const Header = () => {
 				<Button type='icon' onClick={toggleMenu}>
 					<img src={icons.burger} alt='burger' loading='lazy' />
 				</Button>
-				<>
+				<Link to={'/'}>
 					<img src={icons.logo} alt='logo' loading='lazy' className={s.logo} />
-				</>
+				</Link>
 				<div className={s.point}>
 					<img src={icons.lemonPoint} alt='lemon point' />
 					<div className={s.descr}>
@@ -33,7 +39,9 @@ export const Header = () => {
 					<img src={icons.coin} alt='coin' />
 					100 490
 				</span>
-				<Button type='default'>Deposit</Button>
+				<Button type='default' onClick={toggleDeposit}>
+					Deposit
+				</Button>
 			</div>
 			<div className={s.right}>
 				<Option
@@ -43,23 +51,34 @@ export const Header = () => {
 							<img src={icons.avatar} alt='avatar' loading='lazy' />
 							<div className={s.optText}>
 								<span>ACCOUNT</span>
-								<div className={s.slider}>
+								<div className={s.rank}>
 									<span></span>
+									<b>Silver</b>
 								</div>
 							</div>
 						</>
 					}
-					options={['Option']}
-					sx={{
-						bottom: '-20px',
-					}}
+					options={['Personal information']}
+					newClass={s.profile}
 					sxB={{
 						padding: '9px 16px',
 					}}
 				/>
-				<Button type='icon' newClass={s.search}>
-					<img src={icons.search} alt='search' />
-				</Button>
+				<div className={s.inputSearch}>
+					<Button
+						type='icon'
+						newClass={`${s.search} ${isSearch ? s.activeSearch : ''}`}
+						onClick={() => setSearch(!isSearch)}
+					>
+						<img src={icons.search} alt='search' />
+					</Button>
+					<form className={`${s.formSearch} ${isSearch ? s.open : ''}`}>
+						<Input placeholder='Search...' open newClass={`${s.searchInput}`} />
+						<Button type='default' newClass={s.submit}>
+							SEARCH
+						</Button>
+					</form>
+				</div>
 				<Button type='icon' newClass={s.chat} onClick={toggleChat}>
 					<img src={icons.chat} alt='chat' />
 				</Button>

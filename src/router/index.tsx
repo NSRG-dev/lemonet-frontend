@@ -1,4 +1,5 @@
 import App from '@/App'
+import { PageNotFound } from '@/pages/404/PageNotFound'
 import { Affiliates } from '@/pages/Affiliates/Affiliates'
 import { Help } from '@/pages/Help/Help'
 import { Home } from '@/pages/Home/Home'
@@ -53,6 +54,10 @@ export const router = createBrowserRouter([
 			{
 				path: '/sport',
 				element: <Sport />,
+			},
+			{
+				path: '*',
+				element: <PageNotFound />,
 			},
 		],
 	},

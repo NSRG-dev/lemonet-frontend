@@ -5,7 +5,7 @@ import { RecentBigWins } from '@/components/RecentBigWins/RecentBigWins'
 import { Input } from '@/components/ui'
 import s from './Slots.module.scss'
 
-const GAME_ITEMS_COUNT = 8
+const GAME_ITEMS_COUNT = 28
 const SORT_ITEMS = Array(9).fill('Slots')
 
 export const Slots = () => {

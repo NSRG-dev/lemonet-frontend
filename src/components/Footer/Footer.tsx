@@ -31,7 +31,7 @@ export const Footer = () => {
 						<NavigationLinks
 							key={index}
 							title={section.title}
-							links={section.links}
+							links={section}
 						/>
 					))}
 				</div>

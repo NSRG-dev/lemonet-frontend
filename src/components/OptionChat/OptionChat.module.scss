@@ -1,0 +1,42 @@
+.option {
+	position: absolute;
+	right: 0;
+	width: 166px;
+	border-radius: 12px;
+	box-shadow: 0px 39px 52.8px 0px rgba(0, 0, 0, 0.11);
+	background: rgb(48, 50, 61);
+	padding: 4px;
+	z-index: 999999;
+	bottom: -8.6rem;
+
+	max-height: 0;
+	opacity: 0;
+	overflow: hidden;
+	transition: max-height 0.3s ease, opacity 0.3s ease;
+
+	&.open {
+		max-height: 200px;
+		opacity: 1;
+	}
+
+	ul {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+
+		li {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+
+			color: rgb(255, 255, 255);
+			font-size: 14px;
+			font-weight: 500;
+			line-height: 18px;
+
+			padding: 10px;
+			border-radius: 8px;
+			background: rgb(25, 27, 37);
+		}
+	}
+}

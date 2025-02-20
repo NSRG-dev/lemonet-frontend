@@ -8,6 +8,8 @@ interface Input {
 	disabled?: boolean
 	type?: 'address'
 	newClass?: string
+	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
+	value?: string
 }
 
 export const Input = ({
@@ -17,6 +19,8 @@ export const Input = ({
 	disabled,
 	type,
 	newClass,
+	onChange,
+	value,
 }: Input) => {
 	const className = classNames({
 		[s.address]: type === 'address',
@@ -29,6 +33,8 @@ export const Input = ({
 				placeholder={placeholder}
 				disabled={disabled}
 				className={className}
+				onChange={onChange}
+				value={value}
 			/>
 		</div>
 	)

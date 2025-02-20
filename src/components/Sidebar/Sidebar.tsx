@@ -1,7 +1,8 @@
 import { icons } from '@/assets'
+import { useAuth } from '@/Context/AuthProvider'
 import { useBurger } from '@/Context/BurgerProvider'
 import { useState } from 'react'
-import { GameBanner } from '../GameBanner/GameBanner'
+import { Link } from 'react-router-dom'
 import { NavigationColumn } from '../NavigationColumn/NavigationColumn'
 import { Button } from '../ui'
 import s from './Sidebar.module.scss'
@@ -9,6 +10,7 @@ import s from './Sidebar.module.scss'
 export const Sidebar = () => {
 	const [isColumnsOpen, setColumnsOpen] = useState([true, true])
 	const { isOpenMenu, toggleMenu } = useBurger()
+	const { toggleAuth } = useAuth()
 
 	const toggleColumn = (index: number) => {
 		setColumnsOpen(prevState => {
@@ -23,16 +25,17 @@ export const Sidebar = () => {
 		<div className={`${s.wind} ${!isOpenMenu ? s.open : s.closed}`}>
 			<aside className={`${s.sidebar} ${!isOpenMenu ? s.open : s.closed}`}>
 				<div className={s.gameBanner}>
-					<GameBanner iconSrc={icons.lemonPoint} alt='game' label='Jackpot' />
-					<GameBanner iconSrc={icons.lemonPoint} alt='game' label='Jackpot' />
+					<h3>Multiply your winnings – click and claim!</h3>
+					<Button type='default' onClick={toggleAuth}>
+						LOG IN
+					</Button>
 				</div>
 				<div className={s.navigation}>
 					<div className={s.title}>
-						<h4>
+						<Link to={'/'}>
 							<img src={icons.home} alt='home' />
 							Home page
-						</h4>
-
+						</Link>
 						<Button type='icon' onClick={toggleMenu}>
 							<img
 								src={icons.arrow}

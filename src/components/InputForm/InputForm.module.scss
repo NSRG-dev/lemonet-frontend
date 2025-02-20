@@ -1,0 +1,17 @@
+.bannerInput {
+	display: flex;
+	align-items: end;
+	gap: 4px;
+
+	.input {
+		width: 180px;
+
+		input {
+			background-color: rgb(31, 33, 44);
+		}
+	}
+
+	button {
+		padding: 13px;
+	}
+}

@@ -28,9 +28,7 @@
 			);
 
 			img {
-				svg {
-					fill: rgb(51, 54, 0);
-				}
+				filter: brightness(2) saturate(1000%) invert(1);
 			}
 		}
 	}

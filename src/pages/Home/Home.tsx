@@ -4,9 +4,11 @@ import { GameGrid } from '@/components/GameGrid/GameGrid'
 import { HomeBanner } from '@/components/HomeBanner/HomeBanner'
 import { RecentBigWins } from '@/components/RecentBigWins/RecentBigWins'
 import { Tabs } from '@/components/ui'
+import { useAuth } from '@/Context/AuthProvider'
 import { useState } from 'react'
 import s from './Home.module.scss'
 import casinoBanner from '/casino banner.jpeg'
+import cardImage from '/public/container game (6).jpeg'
 import sportBanner from '/sport banner.jpeg'
 
 const GAME_ITEMS_COUNT = 14
@@ -43,6 +45,7 @@ const TableRow = ({ index, user, date, time, deposit, profit }) => (
 
 export const Home = () => {
 	const [isTab, setTab] = useState('DAILY')
+	const { toggleAuth } = useAuth()
 
 	return (
 		<div className={s.home}>
@@ -51,7 +54,7 @@ export const Home = () => {
 				description='Spin the reels and win big today'
 				image={icons.banner4}
 				buttonText='LOG IN'
-				onButtonClick={() => console.log('Deposit clicked')}
+				onButtonClick={toggleAuth}
 				newClass={s.bannerBlock}
 			/>
 
@@ -75,16 +78,15 @@ export const Home = () => {
 					<img src={icons.slots} alt='slots' />
 					Top games
 				</h3>
-				<GameGrid
-					gamesCount={GAME_ITEMS_COUNT}
-					imageSrc='/public/container game (6).jpeg'
-					altText='game'
-				/>
+				<GameGrid gamesCount={GAME_ITEMS_COUNT} imageSrc={cardImage} />
 			</div>
 
 			<div className={s.table}>
 				<div className={s.header}>
-					<h3>Leaderboards</h3>
+					<h3>
+						<img src={icons.trophy} alt='trophy' />
+						Leaderboards
+					</h3>
 					<Tabs
 						isTab={isTab}
 						onClick={setTab}

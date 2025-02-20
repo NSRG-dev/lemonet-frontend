@@ -1,4 +1,5 @@
 import arrow from '@/assets/angle-down.svg'
+import classNames from 'classnames'
 import React, { useState } from 'react'
 import s from './Option.module.scss'
 
@@ -9,6 +10,7 @@ interface IOption {
 	open?: boolean
 	sx?: React.CSSProperties
 	sxB?: React.CSSProperties
+	newClass?: string
 }
 
 export const Option = ({
@@ -18,6 +20,7 @@ export const Option = ({
 	open = false,
 	sx,
 	sxB,
+	newClass,
 }: IOption) => {
 	const [isOpen, setOpen] = useState(open)
 
@@ -26,7 +29,7 @@ export const Option = ({
 	}
 
 	return (
-		<div className={s.option}>
+		<div className={classNames(s.option, newClass)}>
 			{label && !open && <span className={s.subtitle}>{label}</span>}
 			<div className={s.block} onClick={handleToggle} style={sxB}>
 				<b>{title}</b>
@@ -42,7 +45,7 @@ export const Option = ({
 				</button>
 				<div className={`${s.opt} ${isOpen ? s.open : ''}`} style={sx}>
 					{options.map((opt, index) => (
-						<b key={index}>{opt}</b>
+						<span key={index}>{opt}</span>
 					))}
 				</div>
 			</div>

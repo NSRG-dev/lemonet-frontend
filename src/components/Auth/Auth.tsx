@@ -1,4 +1,5 @@
 import { icons } from '@/assets'
+import { useAuth } from '@/Context/AuthProvider'
 import { Suspense, useState } from 'react'
 import { HeaderForm } from '../HeaderForm/HeaderForm'
 import { Button, Input, Modal, Tabs } from '../ui'
@@ -7,6 +8,7 @@ import s from './Auth.module.scss'
 export const Auth = () => {
 	const [isTab, setTab] = useState('Login')
 	const [isOpenCode, setOpenCode] = useState(false)
+	const { isOpenAuth, toggleAuth } = useAuth()
 
 	const renderReferralCodeSection = () => (
 		<div className={s.tab}>
@@ -20,6 +22,7 @@ export const Auth = () => {
 						src={icons.arrow}
 						alt='arrow'
 						className={isOpenCode ? s.rotated : ''}
+						
 					/>
 				</button>
 			</div>
@@ -35,7 +38,7 @@ export const Auth = () => {
 
 	return (
 		<Suspense fallback={<div>Loading...</div>}>
-			<Modal className={s.auth}>
+			<Modal className={s.auth} isOpen={isOpenAuth}>
 				<HeaderForm
 					title={isTab === 'Login' ? 'Log In' : 'Sign Up'}
 					subtitle={
@@ -43,8 +46,14 @@ export const Auth = () => {
 							? 'Welcome back, let’s play!'
 							: 'Join the game, start winning!'
 					}
+					onClose={toggleAuth}
 				/>
-				<Tabs tabs={['Sign up', 'Login']} onClick={setTab} isTab={isTab} newClass={s.tabs} />
+				<Tabs
+					tabs={['Sign up', 'Login']}
+					onClick={setTab}
+					isTab={isTab}
+					newClass={s.tabs}
+				/>
 				<form className={s.form}>
 					{isTab === 'Login' ? null : (
 						<Input label='Your username' placeholder='Enter your username' />

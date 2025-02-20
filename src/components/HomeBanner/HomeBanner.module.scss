@@ -1,5 +1,5 @@
 .banner {
-	width: 600px;
+	width: 100%;
 	height: 245px;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -21,7 +21,7 @@
 		width: 350px;
 	}
 
-	@media (max-width: 1280px) {
+	@media (max-width: 950px) {
 		flex-shrink: 0;
 	}
 	@media (max-width: 600px) {

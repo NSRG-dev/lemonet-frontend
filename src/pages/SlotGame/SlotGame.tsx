@@ -5,7 +5,7 @@ import { RecentBigWins } from '@/components/RecentBigWins/RecentBigWins'
 import { useState } from 'react'
 import s from './SlotGame.module.scss'
 
-const GAME_ITEMS_COUNT = 8
+const GAME_ITEMS_COUNT = 7
 
 export const SlotGame = () => {
 	const [isTab, setTab] = useState('play')

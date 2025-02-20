@@ -1,7 +1,7 @@
 import { icons } from '@/assets'
 import s from './RecentBigWins.module.scss'
 
-const RECENT_WINS_COUNT = 16
+const RECENT_WINS_COUNT = 22
 
 export const RecentBigWins = () => {
 	return (
