@@ -3,6 +3,7 @@ import { BannerSection } from '@/components/BannerSection/BannerSection'
 import { GameGrid } from '@/components/GameGrid/GameGrid'
 import { HomeBanner } from '@/components/HomeBanner/HomeBanner'
 import { RecentBigWins } from '@/components/RecentBigWins/RecentBigWins'
+import { TableHome } from '@/components/TableHome/TableHome'
 import { Tabs } from '@/components/ui'
 import { useAuth } from '@/Context/AuthProvider'
 import { useState } from 'react'
@@ -12,36 +13,6 @@ import cardImage from '/public/container game (6).jpeg'
 import sportBanner from '/sport banner.jpeg'
 
 const GAME_ITEMS_COUNT = 14
-
-const TableRow = ({ index, user, date, time, deposit, profit }) => (
-	<div key={index} className={s.row}>
-		<div className={s.cell}>
-			<img src={icons.avatar} alt='avatar' />
-			<h4>{user}</h4>
-		</div>
-		<div className={s.cell}>
-			<img src={icons.avatar} alt='avatar' />
-			<h4>{user}</h4>
-		</div>
-		<div className={s.cell}>
-			<span>{time}</span>
-			<span>{date}</span>
-		</div>
-		<div className={s.cell}>
-			<span>
-				<img src={icons.coin} alt='coin' /> {deposit}
-			</span>
-		</div>
-		<div className={s.cell}>
-			<span>2x</span>
-		</div>
-		<div className={s.cell}>
-			<span>
-				<img src={icons.coin} alt='coin' /> <b>+</b> {profit}
-			</span>
-		</div>
-	</div>
-)
 
 export const Home = () => {
 	const [isTab, setTab] = useState('DAILY')
@@ -105,9 +76,8 @@ export const Home = () => {
 						)}
 					</div>
 					{Array.from({ length: 6 }, (_, index) => (
-						<TableRow
+						<TableHome
 							key={index}
-							index={index}
 							user='@MegaJackpot'
 							date='17/02/2025'
 							time='12:35'

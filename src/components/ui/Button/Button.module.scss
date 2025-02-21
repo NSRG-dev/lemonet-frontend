@@ -1,6 +1,6 @@
 .btn {
 	border: none;
-	cursor: pointer;
+	cursor: pointer !important;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -20,6 +20,15 @@
 	font-size: 16px;
 	font-weight: 800;
 	line-height: 21px;
+	transition: background 0.3s ease-in-out;
+
+	&:hover {
+		background: linear-gradient(
+			180deg,
+			rgb(255, 205, 50),
+			rgb(255, 241, 117) 100%
+		);
+	}
 }
 
 .icon {

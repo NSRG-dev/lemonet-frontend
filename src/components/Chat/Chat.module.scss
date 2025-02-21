@@ -77,4 +77,9 @@
 		right: 0;
 		width: 320px;
 	}
+	@media (max-width: 600px) {
+		.onlineChat {
+			height: 450px;
+		}
+	}
 }
