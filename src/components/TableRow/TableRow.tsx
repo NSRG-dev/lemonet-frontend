@@ -21,7 +21,11 @@ export const TableRow = ({
 		<div className={s.row}>
 			{renderCells(data)}
 			<div className={s.cellSmall}>
-				<Button type='icon' onClick={() => setOpenInfo(index)}>
+				<Button
+					type='icon'
+					onClick={() => setOpenInfo(index)}
+					newClass={isOpenInfo ? s.active : ''}
+				>
 					<img
 						src={icons.arrow}
 						alt='arrow'

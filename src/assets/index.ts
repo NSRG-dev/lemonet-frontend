@@ -50,11 +50,15 @@ import bucket from '@/assets/OptionChat/fi_2710178.svg'
 import sound from '@/assets/OptionChat/sound.svg'
 import pin from '@/assets/OptionChat/Vector - 2025-02-20T205828.848.svg'
 
+import arrowc from '@/assets/arrowCr.svg'
 import notfoundimage from '@/assets/illustration (6).svg'
+import pinnend from '@/assets/pin.svg'
 
 export const icons = {
 	gamev,
+	pinnend,
 	notfoundimage,
+	arrowc,
 	sound,
 	bucket,
 	pin,

@@ -52,7 +52,7 @@
 		width: 100%;
 		left: 0;
 		bottom: -54px;
-    z-index: 9999999999;
+		z-index: 9999999999;
 
 		span {
 			color: rgb(193, 195, 209);
@@ -66,16 +66,13 @@
 			cursor: pointer;
 
 			&:hover {
-				background: linear-gradient(
-					180deg,
-					rgba(255, 199, 27, 0.15),
-					rgba(255, 233, 43, 0.15) 100%
-				);
+				background-color: rgb(185, 166, 44);
+				color: rgb(51, 54, 0);
 			}
 		}
 	}
 	.open {
-		max-height: 100px;
+		max-height: 200px;
 		opacity: 1;
 	}
 }

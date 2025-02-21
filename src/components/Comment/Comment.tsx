@@ -1,7 +1,9 @@
 import { icons } from '@/assets'
+import { IChat } from '@/types/chat'
 import { useState } from 'react'
 import { OptionChat } from '../OptionChat/OptionChat'
 import { Button } from '../ui'
+import { UserInfo } from '../UserInfo/UserInfo'
 import s from './Comment.module.scss'
 
 interface CommentProps {
@@ -9,8 +11,13 @@ interface CommentProps {
 	username: string
 	time: string
 	message: string
-	prefix: string
-	color: string
+	prefix?: string
+	color?: string
+	onMute?: () => void
+	onDelete?: () => void
+	onDoubleClick?: () => void
+	reply?: string
+	handlePinMessage: (comment: IChat) => void
 }
 
 export const Comment = ({
@@ -19,27 +26,42 @@ export const Comment = ({
 	time,
 	message,
 	prefix,
-	color,
+	color = 'rgb(38, 40, 50)',
+	onMute,
+	onDelete,
+	onDoubleClick,
+	reply,
+	handlePinMessage,
 }: CommentProps) => {
 	const [isOpenOption, setOption] = useState(false)
 
+	const currentComment: IChat = {
+		id: Date.now().toString(),
+		time,
+		avatarSrc,
+		username,
+		message,
+		prefix,
+		color,
+		muted: false,
+	}
+
+	const handlePinMessageFromOption = () => {
+		handlePinMessage(currentComment)
+		setOption(false)
+	}
+
 	return (
-		<div className={s.comment}>
-			<div className={s.top}>
-				<div className={s.left}>
-					<img src={avatarSrc} alt='avatar' />
-					<span>{username}</span>
-					{prefix && <span className={s.prefix}>{prefix}</span>}
-				</div>
-				<div className={s.right}>
-					<span>{time}</span>
-				</div>
-			</div>
+		<div className={s.comment} onDoubleClick={onDoubleClick}>
+			<UserInfo
+				avatarSrc={avatarSrc}
+				username={username}
+				prefix={prefix}
+				time={time}
+			/>
 			<div
 				className={s.bottom}
-				style={{
-					background: prefix ? color : 'rgb(38, 40, 50)',
-				}}
+				style={{ background: prefix ? color : 'rgb(38, 40, 50)' }}
 			>
 				<p>
 					{message}
@@ -48,12 +70,36 @@ export const Comment = ({
 							<Button type='text' onClick={() => setOption(!isOpenOption)}>
 								<img src={icons.dots3} alt='3dots' />
 							</Button>
-
-							<OptionChat isOpenOption={isOpenOption} />
+							<OptionChat
+								isOpenOption={isOpenOption}
+								onMute={onMute}
+								onDelete={onDelete}
+								onPin={handlePinMessageFromOption}
+							/>
 						</>
 					)}
 				</p>
 			</div>
+
+			{reply && (
+				<div className={s.youComment}>
+					<Button type='text'>
+						<img src={icons.arrowc} alt='arrowc' /> You
+					</Button>
+
+					<div className={s.commentYou}>
+						<UserInfo
+							avatarSrc={avatarSrc}
+							username={username}
+							prefix={prefix}
+							time={time}
+						/>
+						<div className={s.youMessage}>
+							<p>{reply}</p>
+						</div>
+					</div>
+				</div>
+			)}
 		</div>
 	)
 }

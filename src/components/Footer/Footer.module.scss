@@ -71,4 +71,14 @@
 			}
 		}
 	}
+	@media (max-width: 768px) {
+		.content {
+			.left {
+				.social {
+					gap: 20px;
+					margin-left: 0;
+				}
+			}
+		}
+	}
 }

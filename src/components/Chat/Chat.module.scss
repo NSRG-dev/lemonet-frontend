@@ -33,7 +33,6 @@
 		min-width: 320px;
 	}
 
-
 	&.closed {
 		transform: translateX(100%);
 		opacity: 0;
@@ -73,43 +72,6 @@
 		}
 	}
 
-	.sendMessage {
-		padding: 8px;
-		border-radius: 9px;
-		background: rgb(16, 17, 22);
-
-		input {
-			padding: 8px;
-			border-radius: 8px;
-			color: white;
-		}
-
-		.pushMessage {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			margin-top: 6px;
-
-			span {
-				color: rgb(116, 119, 131);
-				font-size: 13px;
-				font-weight: 500;
-				line-height: 17px;
-			}
-
-			.btnMessage {
-				display: flex;
-				align-items: center;
-				gap: 8px;
-
-				button {
-					padding: 4px 8px;
-				}
-			}
-		}
-	}
-
-	
 	@media (max-width: 1280px) {
 		position: fixed;
 		right: 0;

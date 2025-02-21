@@ -66,7 +66,7 @@ export const DepositForm = () => {
 						label='Deposit currency'
 						options={['USDT', 'USDT']}
 						sx={{
-							bottom: '-105px',
+							bottom: '-110px',
 						}}
 					/>
 					<Option
@@ -74,7 +74,7 @@ export const DepositForm = () => {
 						label='Network'
 						options={['Trk-20', 'Trk-20']}
 						sx={{
-							bottom: '-105px',
+							bottom: '-110px',
 						}}
 					/>
 				</div>
