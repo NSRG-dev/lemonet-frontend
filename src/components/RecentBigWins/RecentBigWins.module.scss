@@ -3,6 +3,10 @@
 	overflow: hidden;
 
 	h4 {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+
 		color: rgb(167, 170, 183);
 		font-size: 16px;
 		font-weight: 600;

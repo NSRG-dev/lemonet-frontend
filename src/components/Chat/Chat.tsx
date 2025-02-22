@@ -17,10 +17,12 @@ const getFromLocalStorage = <T,>(key: string, defaultValue: T): T => {
 	}
 	return defaultValue
 }
+
 export const Chat = React.memo(() => {
 	const { isOpenChat, toggleChat } = useChat()
 	const [comment, setComment] = useState('')
 	const [selectedComment, setSelectedComment] = useState<IChat | null>(null)
+	const [isScrolled, setIsScrolled] = useState(false)
 
 	const savedChatData = getFromLocalStorage('chatData', {
 		pinnedMessage: null,
@@ -49,6 +51,21 @@ export const Chat = React.memo(() => {
 		}
 		localStorage.setItem('chatData', JSON.stringify(chatData))
 	}, [pinnedMessage, replies, comments])
+
+	useEffect(() => {
+		const chatContainer = document.querySelector(`.${s.onlineChat}`)
+		if (!chatContainer) return
+
+		const handleScroll = () => {
+			const isUserScrolledUp =
+				chatContainer.scrollTop + chatContainer.clientHeight <
+				chatContainer.scrollHeight - 100
+			setIsScrolled(isUserScrolledUp)
+		}
+
+		chatContainer.addEventListener('scroll', handleScroll)
+		return () => chatContainer.removeEventListener('scroll', handleScroll)
+	}, [])
 
 	const notify = () => toast.error('You crossed the limit of 500 characters')
 
@@ -176,6 +193,23 @@ export const Chat = React.memo(() => {
 					/>
 				))}
 			</div>
+			{isScrolled && (
+				<Button
+					type='icon'
+					newClass={s.scrollToBottomButton}
+					onClick={() => {
+						const chatContainer = document.querySelector(`.${s.onlineChat}`)
+						if (chatContainer) {
+							chatContainer.scrollTo({
+								top: chatContainer.scrollHeight,
+								behavior: 'smooth',
+							})
+						}
+					}}
+				>
+					<img src={icons.arrow} alt='Scroll to bottom' />
+				</Button>
+			)}
 			<SendMessageBlock
 				comment={comment}
 				setComment={setComment}

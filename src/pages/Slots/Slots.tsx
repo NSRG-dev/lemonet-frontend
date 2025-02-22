@@ -23,14 +23,16 @@ export const Slots = () => {
 			<div className={s.sort}>
 				<ul>
 					{SORT_ITEMS.map((item, index) => (
-						<li key={index}>{item}</li>
+						<li key={index}>
+							<img src={icons.slots} alt='slots' />
+							{item}
+						</li>
 					))}
 				</ul>
 			</div>
 			<GameGrid
 				gamesCount={GAME_ITEMS_COUNT}
 				imageSrc='/public/container game (6).jpeg'
-				altText='game'
 			/>
 		</div>
 	)

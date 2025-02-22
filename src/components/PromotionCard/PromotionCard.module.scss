@@ -23,7 +23,7 @@
 			line-height: 20px;
 		}
 
-		a {
+		button {
 			display: flex;
 			align-items: center;
 			gap: 5px;
@@ -31,11 +31,15 @@
 			font-size: 14px;
 			font-weight: 500;
 			line-height: 18px;
-			text-decoration: none;
 
 			img {
 				transform: rotate(90deg);
+				filter: invert(0.25) sepia(0.6) saturate(2) hue-rotate(90deg);
 			}
 		}
 	}
 }
+
+a {
+	text-decoration: none;
+}	

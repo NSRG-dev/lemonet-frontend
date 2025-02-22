@@ -1,4 +1,5 @@
 import { icons } from '@/assets'
+import { Button } from '@/components/ui'
 import styles from './TableHeader.module.scss'
 
 interface TableHeaderProps {
@@ -27,15 +28,17 @@ export const TableHeader = ({
 					<span>
 						{header}
 						{header === 'More' && (
-							<img
-								src={icons.arrow}
-								alt='arrow'
-								style={{
-									transform: isOpenMore ? 'rotate(180deg)' : 'rotate(0deg)',
-									transition: 'transform 0.3s ease-in-out',
-									cursor: 'pointer',
-								}}
-							/>
+							<Button type='icon'>
+								<img
+									src={icons.arrow}
+									alt='arrow'
+									style={{
+										transform: isOpenMore ? 'rotate(180deg)' : 'rotate(0deg)',
+										transition: 'transform 0.3s ease-in-out',
+										cursor: 'pointer',
+									}}
+								/>
+							</Button>
 						)}
 					</span>
 				</div>

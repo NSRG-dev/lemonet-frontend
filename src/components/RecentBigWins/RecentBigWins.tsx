@@ -6,7 +6,10 @@ const RECENT_WINS_COUNT = 22
 export const RecentBigWins = () => {
 	return (
 		<div className={s.recentBigWins}>
-			<h4>Recent Big Wins</h4>
+			<h4>
+				<img src={icons.trophy} alt='trophy' />
+				Recent Big Wins
+			</h4>
 			<div className={s.cont}>
 				{Array.from({ length: RECENT_WINS_COUNT }, (_, index) => (
 					<div key={index} className={s.card}>
