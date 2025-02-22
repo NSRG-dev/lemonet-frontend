@@ -1,12 +1,12 @@
 import { icons } from '@/assets'
 import { IChat } from '@/types/chat'
-import { useState } from 'react'
 import { OptionChat } from '../OptionChat/OptionChat'
 import { Button } from '../ui'
 import { UserInfo } from '../UserInfo/UserInfo'
 import s from './Comment.module.scss'
 
 interface CommentProps {
+	id: string
 	avatarSrc: string
 	username: string
 	time: string
@@ -16,11 +16,18 @@ interface CommentProps {
 	onMute?: () => void
 	onDelete?: () => void
 	onDoubleClick?: () => void
-	reply?: string
+	replies?: IChat[]
 	handlePinMessage: (comment: IChat) => void
+	onDeleteReply?: (replyId: string) => void
+	openOptionsId: string | null
+	setOpenOptionsId: (id: string | null) => void
+
+	openReplyOptionsId: string | null // Новый пропс
+	setOpenReplyOptionsId: (id: string | null) => void
 }
 
 export const Comment = ({
+	id,
 	avatarSrc,
 	username,
 	time,
@@ -30,13 +37,16 @@ export const Comment = ({
 	onMute,
 	onDelete,
 	onDoubleClick,
-	reply,
+	replies = [],
 	handlePinMessage,
+	onDeleteReply,
+	openOptionsId,
+	openReplyOptionsId,
+	setOpenReplyOptionsId,
+	setOpenOptionsId,
 }: CommentProps) => {
-	const [isOpenOption, setOption] = useState(false)
-
 	const currentComment: IChat = {
-		id: Date.now().toString(),
+		id,
 		time,
 		avatarSrc,
 		username,
@@ -48,7 +58,24 @@ export const Comment = ({
 
 	const handlePinMessageFromOption = () => {
 		handlePinMessage(currentComment)
-		setOption(false)
+	}
+
+	const toggleOptions = () => {
+		if (openOptionsId === id) {
+			setOpenOptionsId(null)
+		} else {
+			setOpenOptionsId(id)
+			setOpenReplyOptionsId(null)
+		}
+	}
+
+	const toggleReplyOptions = (replyId: string) => {
+		if (openReplyOptionsId === replyId) {
+			setOpenReplyOptionsId(null)
+		} else {
+			setOpenReplyOptionsId(replyId)
+			setOpenOptionsId(null)
+		}
 	}
 
 	return (
@@ -63,40 +90,62 @@ export const Comment = ({
 				className={s.bottom}
 				style={{ background: prefix ? color : 'rgb(38, 40, 50)' }}
 			>
-				<p>
-					{message}
+				<div className={s.mes}>
+					<p>{message}</p>
 					{!prefix && (
 						<>
-							<Button type='text' onClick={() => setOption(!isOpenOption)}>
+							<Button type='text' onClick={toggleOptions}>
 								<img src={icons.dots3} alt='3dots' />
 							</Button>
-							<OptionChat
-								isOpenOption={isOpenOption}
-								onMute={onMute}
-								onDelete={onDelete}
-								onPin={handlePinMessageFromOption}
-							/>
+							{openOptionsId === id && (
+								<OptionChat
+									isOpenOption={true}
+									onMute={onMute}
+									onDelete={onDelete}
+									onPin={handlePinMessageFromOption}
+								/>
+							)}
 						</>
 					)}
-				</p>
+				</div>
 			</div>
 
-			{reply && (
+			{Array.isArray(replies) && replies.length > 0 && (
 				<div className={s.youComment}>
 					<Button type='text'>
 						<img src={icons.arrowc} alt='arrowc' /> You
 					</Button>
-
-					<div className={s.commentYou}>
-						<UserInfo
-							avatarSrc={avatarSrc}
-							username={username}
-							prefix={prefix}
-							time={time}
-						/>
-						<div className={s.youMessage}>
-							<p>{reply}</p>
-						</div>
+					<div className={s.replies}>
+						{replies.map(reply => (
+							<div key={reply.id} className={s.commentYou}>
+								<UserInfo
+									avatarSrc={reply.avatarSrc}
+									username={reply.username}
+									time={reply.time}
+								/>
+								<div className={s.youMessage}>
+									<p>{reply.message}</p>
+									{!prefix && (
+										<>
+											<Button
+												type='text'
+												onClick={() => toggleReplyOptions(reply.id)}
+											>
+												<img src={icons.dots3} alt='3dots' />
+											</Button>
+											{openReplyOptionsId === reply.id && (
+												<OptionChat
+													isOpenOption={true}
+													onMute={onMute}
+													onDelete={() => onDeleteReply?.(reply.id)}
+													onPin={handlePinMessageFromOption}
+												/>
+											)}
+										</>
+									)}
+								</div>
+							</div>
+						))}
 					</div>
 				</div>
 			)}

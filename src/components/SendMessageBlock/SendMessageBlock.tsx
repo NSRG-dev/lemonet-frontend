@@ -18,6 +18,11 @@ export const SendMessageBlock = ({
 			placeholder='Enter message'
 			value={comment}
 			onChange={e => setComment(e.target.value)}
+			onKeyDown={e => {
+				if (e.key === 'Enter') {
+					handleSendMessage()
+				}
+			}}
 		/>
 		<div className={s.pushMessage}>
 			<span>Rules</span>

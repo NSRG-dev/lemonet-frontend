@@ -16,7 +16,9 @@ export const UserInfo = ({
 	<div className={s.user}>
 		<div className={s.left}>
 			<img src={avatarSrc} alt='avatar' />
-			<span>{username}</span>
+			<span>
+				{username.length > 12 ? `${username.substring(0, 12)}...` : username}
+			</span>
 			{prefix && <span className={s.prefix}>{prefix}</span>}
 		</div>
 		<div className={s.right}>

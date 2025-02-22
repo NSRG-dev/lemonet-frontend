@@ -12,17 +12,16 @@ export const Auth = () => {
 
 	const renderReferralCodeSection = () => (
 		<div className={s.tab}>
-			<div className={s.label}>
+			<div className={s.label} onClick={() => setOpenCode(prev => !prev)}>
 				<span>
 					<img src={icons.code} alt='code' loading='lazy' />
 					Do you have code?
 				</span>
-				<button onClick={() => setOpenCode(prev => !prev)}>
+				<button>
 					<img
 						src={icons.arrow}
 						alt='arrow'
 						className={isOpenCode ? s.rotated : ''}
-						
 					/>
 				</button>
 			</div>

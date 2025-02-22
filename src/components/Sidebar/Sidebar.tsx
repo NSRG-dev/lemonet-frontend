@@ -9,7 +9,7 @@ import s from './Sidebar.module.scss'
 
 export const Sidebar = () => {
 	const [isColumnsOpen, setColumnsOpen] = useState([true, true])
-	const { isOpenMenu, toggleMenu } = useBurger()
+	const { isOpenMenu, toggleMenu, handleCloseMenu } = useBurger()
 	const { toggleAuth } = useAuth()
 
 	const toggleColumn = (index: number) => {
@@ -22,8 +22,14 @@ export const Sidebar = () => {
 
 	const casinoItems = ['Favorites', 'Favorites', 'Favorites', 'Favorites']
 	return (
-		<div className={`${s.wind} ${!isOpenMenu ? s.open : s.closed}`}>
-			<aside className={`${s.sidebar} ${!isOpenMenu ? s.open : s.closed}`}>
+		<div
+			className={`${s.wind} ${isOpenMenu ? s.open : s.closed}`}
+			onClick={handleCloseMenu}
+		>
+			<aside
+				className={`${s.sidebar} ${isOpenMenu ? s.open : s.closed}`}
+				onClick={e => e.stopPropagation()}
+			>
 				<div className={s.gameBanner}>
 					<h3>Multiply your winnings – click and claim!</h3>
 					<Button type='default' onClick={toggleAuth}>

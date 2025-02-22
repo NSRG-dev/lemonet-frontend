@@ -2,7 +2,7 @@ import { icons } from '@/assets'
 import { COMMENTS } from '@/constant/data'
 import { useChat } from '@/Context/ChatProvider'
 import { IChat } from '@/types/chat'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { Comment } from '../Comment/Comment'
 import { PinMessage } from '../PinMessage/PinMessage'
@@ -17,94 +17,134 @@ const getFromLocalStorage = <T,>(key: string, defaultValue: T): T => {
 	}
 	return defaultValue
 }
-
 export const Chat = React.memo(() => {
 	const { isOpenChat, toggleChat } = useChat()
 	const [comment, setComment] = useState('')
-	const [comments, setComments] = useState<IChat[]>(() =>
-		getFromLocalStorage('comments', COMMENTS)
-	)
 	const [selectedComment, setSelectedComment] = useState<IChat | null>(null)
-	const [replies, setReplies] = useState<{ [key: string]: string }>(() =>
-		getFromLocalStorage('replies', {})
+
+	const savedChatData = getFromLocalStorage('chatData', {
+		pinnedMessage: null,
+		replies: {},
+		comments: COMMENTS,
+	})
+
+	const [comments, setComments] = useState<IChat[]>(savedChatData.comments)
+	const [replies, setReplies] = useState<{ [key: string]: IChat[] }>(
+		savedChatData.replies
 	)
-	const [pinnedMessage, setPinnedMessage] = useState<IChat | null>(() =>
-		getFromLocalStorage('pinnedMessage', null)
+	const [pinnedMessage, setPinnedMessage] = useState<IChat | null>(
+		savedChatData.pinnedMessage
+	)
+
+	const [openOptionsId, setOpenOptionsId] = useState<string | null>(null)
+	const [openReplyOptionsId, setOpenReplyOptionsId] = useState<string | null>(
+		null
 	)
 
 	useEffect(() => {
-		localStorage.setItem('pinnedMessage', JSON.stringify(pinnedMessage))
-		localStorage.setItem('replies', JSON.stringify(replies))
-		localStorage.setItem('comments', JSON.stringify(comments))
+		const chatData = {
+			pinnedMessage,
+			replies,
+			comments,
+		}
+		localStorage.setItem('chatData', JSON.stringify(chatData))
 	}, [pinnedMessage, replies, comments])
 
 	const notify = () => toast.error('You crossed the limit of 500 characters')
 
-	const createNewComment = (message: string): IChat => ({
-		id: Date.now().toString(),
-		time: new Date().toLocaleString(),
-		avatarSrc: icons.avatar,
-		muted: false,
-		username: '@canes',
-		message,
-	})
+	const createNewComment = useCallback(
+		(message: string, username: string = '@canes'): IChat => ({
+			id: Date.now().toString(),
+			time: new Date().toLocaleTimeString('en-US', {
+				hour: 'numeric',
+				minute: '2-digit',
+				hour12: true,
+			}),
+			avatarSrc: icons.avatar,
+			muted: false,
+			username,
+			message,
+		}),
+		[]
+	)
 
-	const handleSendMessage = () => {
+	const handleSendMessage = useCallback(() => {
 		if (comment.length > 500) {
 			notify()
 			return
 		}
 
-		if (selectedComment) {
-			setReplies(prev => ({
-				...prev,
-				[selectedComment.id]: comment,
-			}))
-			setComment('')
-			setSelectedComment(null)
-		} else {
-			const newComment = createNewComment(comment)
-			setComments(prev => [...prev, newComment])
-			setComment('')
-		}
-	}
+		const newComment = createNewComment(comment)
 
-	const handleDeleteComment = (commentId: string) => {
+		setComments(prev => (selectedComment ? prev : [...prev, newComment]))
+		setReplies(prev =>
+			selectedComment
+				? {
+						...prev,
+						[selectedComment.id]: [
+							...(prev[selectedComment.id] || []),
+							newComment,
+						],
+				  }
+				: prev
+		)
+
+		setComment('')
+		setSelectedComment(null)
+	}, [comment, selectedComment, createNewComment])
+
+	const handleDeleteComment = useCallback((commentId: string) => {
 		setComments(prev => prev.filter(comment => comment.id !== commentId))
-	}
+	}, [])
 
-	const handleMuteUser = (commentId: string) => {
-		setComments(prev =>
-			prev.map(comment =>
-				comment.id === commentId
-					? { ...comment, muted: !comment.muted }
-					: comment
+	const handleMuteUser = useCallback(
+		(commentId: string) => {
+			setComments(prev =>
+				prev.map(comment =>
+					comment.id === commentId
+						? { ...comment, muted: !comment.muted }
+						: comment
+				)
 			)
-		)
-		toast.info(
-			comments.find(comment => comment.id === commentId)?.muted
-				? "You're exhausted"
-				: 'You are tortured'
-		)
-	}
+			toast.info(
+				comments.find(comment => comment.id === commentId)?.muted
+					? "You're exhausted"
+					: 'You are tortured'
+			)
+		},
+		[comments]
+	)
 
-	const handleReplyToComment = (comment: IChat) => {
+	const handleReplyToComment = useCallback((comment: IChat) => {
 		setSelectedComment(comment)
 		setComment(`${comment.username} `)
-	}
+	}, [])
 
-	const handlePinMessage = (comment: IChat) => {
+	const handlePinMessage = useCallback((comment: IChat) => {
 		setPinnedMessage(comment)
 		toast.info('Message pinned')
-	}
+	}, [])
 
-	const handleUnpinMessage = () => {
+	const handleUnpinMessage = useCallback(() => {
 		setPinnedMessage(null)
 		toast.info('Message unpinned')
-	}
+	}, [])
+
+	const handleDeleteReply = useCallback(
+		(commentId: string, replyId: string) => {
+			setReplies(prev => ({
+				...prev,
+				[commentId]: prev[commentId].filter(reply => reply.id !== replyId),
+			}))
+		},
+		[]
+	)
 
 	return (
-		<aside className={`${s.chat} ${isOpenChat ? s.open : s.closed}`}>
+		<aside
+			className={`${s.chat} ${isOpenChat ? s.open : s.closed}`}
+			onClick={e => e.stopPropagation()}
+		>
 			<div className={s.title}>
 				<h3>
 					<img src={icons.chat} alt='chat' /> Chat
@@ -127,7 +167,12 @@ export const Chat = React.memo(() => {
 						onDelete={() => handleDeleteComment(comment.id)}
 						onDoubleClick={() => handleReplyToComment(comment)}
 						handlePinMessage={() => handlePinMessage(comment)}
-						reply={replies[comment.id]}
+						replies={replies[comment.id] || []}
+						onDeleteReply={replyId => handleDeleteReply(comment.id, replyId)}
+						openOptionsId={openOptionsId}
+						setOpenOptionsId={setOpenOptionsId}
+						openReplyOptionsId={openReplyOptionsId}
+						setOpenReplyOptionsId={setOpenReplyOptionsId}
 					/>
 				))}
 			</div>

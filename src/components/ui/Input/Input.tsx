@@ -10,6 +10,7 @@ interface Input {
 	newClass?: string
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
 	value?: string
+	onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>
 }
 
 export const Input = ({
@@ -21,6 +22,7 @@ export const Input = ({
 	newClass,
 	onChange,
 	value,
+	onKeyDown,
 }: Input) => {
 	const className = classNames({
 		[s.address]: type === 'address',
@@ -35,6 +37,7 @@ export const Input = ({
 				className={className}
 				onChange={onChange}
 				value={value}
+				onKeyDown={onKeyDown}
 			/>
 		</div>
 	)

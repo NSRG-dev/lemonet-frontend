@@ -3,6 +3,7 @@ import { createContext, useContext, useState } from 'react'
 interface IState {
 	isOpenMenu: boolean
 	toggleMenu: () => void
+	handleCloseMenu: () => void
 }
 
 export const Context = createContext<null | IState>(null)
@@ -14,8 +15,12 @@ export const BurgerProvider = ({ children }: { children: React.ReactNode }) => {
 		setOpenMenu(!isOpenMenu)
 	}
 
+	const handleCloseMenu = () => {
+		setOpenMenu(false)
+	}
+
 	return (
-		<Context.Provider value={{ isOpenMenu, toggleMenu }}>
+		<Context.Provider value={{ isOpenMenu, toggleMenu, handleCloseMenu }}>
 			{children}
 		</Context.Provider>
 	)

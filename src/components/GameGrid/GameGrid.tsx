@@ -1,5 +1,5 @@
 import { icons } from '@/assets'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Button } from '../ui'
 import s from './GameGrid.module.scss'
 
@@ -14,23 +14,32 @@ export const GameGrid = ({ gamesCount, imageSrc }: GameGridProps) => {
 		<>
 			<div className={s.contGame}>
 				{Array.from({ length: gamesCount }, (_, index) => (
-					<Link to={`/slots/${index}`}>
-						<div
-							className={s.image}
-							style={{
-								backgroundImage: `url(${imageSrc})`,
-							}}
-						>
-							<Button type='icon' newClass={s.icon}>
-								<img src={icons.star} alt='star' />
-							</Button>
+					<div
+						key={index}
+						className={s.image}
+						style={{
+							backgroundImage: `url(${imageSrc})`,
+						}}
+					>
+						<Button type='icon' newClass={s.icon}>
+							<img src={icons.star} alt='star' />
+						</Button>
 
-							<div className={s.btn}>
-								<Button type='default'>PLAY</Button>
-								<Button type='disabled'>DEMO</Button>
-							</div>
+						<div className={s.btn} onClick={e => e.stopPropagation()}>
+							<Button
+								type='default'
+								onClick={() => navigation(`/slots/${index}`)}
+							>
+								PLAY
+							</Button>
+							<Button
+								type='disabled'
+								onClick={() => navigation(`/slots/${index}`)}
+							>
+								DEMO
+							</Button>
 						</div>
-					</Link>
+					</div>
 				))}
 			</div>
 			<div className={s.footer}>

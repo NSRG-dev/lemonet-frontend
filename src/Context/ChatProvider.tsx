@@ -3,6 +3,7 @@ import { createContext, useContext, useState } from 'react'
 interface IState {
 	isOpenChat: boolean
 	toggleChat: () => void
+	handleCloseChat: () => void
 }
 
 export const Context = createContext<null | IState>(null)
@@ -14,8 +15,12 @@ export const ChatProvider = ({ children }: { children: React.ReactNode }) => {
 		setOpenMenu(!isOpenChat)
 	}
 
+	const handleCloseChat = () => {
+		setOpenMenu(false)
+	}
+
 	return (
-		<Context.Provider value={{ isOpenChat, toggleChat }}>
+		<Context.Provider value={{ isOpenChat, toggleChat, handleCloseChat }}>
 			{children}
 		</Context.Provider>
 	)

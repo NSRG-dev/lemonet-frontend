@@ -6,6 +6,7 @@ interface IButton {
 	type?: 'default' | 'icon' | 'text' | 'green' | 'disabled'
 	newClass?: string
 	onClick?: (ev: React.MouseEvent<HTMLButtonElement>) => void
+	ref?: React.LegacyRef<HTMLButtonElement>
 }
 
 export const Button = ({
@@ -13,6 +14,7 @@ export const Button = ({
 	type = 'default',
 	newClass,
 	onClick,
+	ref,
 }: IButton) => {
 	const isDisabled = type === 'disabled'
 
@@ -26,6 +28,7 @@ export const Button = ({
 
 	return (
 		<button
+			ref={ref}
 			className={className}
 			onClick={isDisabled ? undefined : onClick}
 			disabled={isDisabled}

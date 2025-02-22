@@ -56,9 +56,9 @@
 			top: 8px;
 			right: 8px;
 			padding: 8px;
-			opacity: 1; // По умолчанию видима
-			visibility: visible; // По умолчанию видима
-			transition: opacity 0.3s ease, visibility 0.3s ease; // Плавное исчезновение
+			opacity: 1;
+			visibility: visible;
+			transition: opacity 0.3s ease, visibility 0.3s ease;
 
 			img {
 				width: 14px;
@@ -72,7 +72,7 @@
 		}
 
 		&:hover .icon {
-			opacity: 0; // Прячем иконку при наведении
+			opacity: 0;
 			visibility: hidden;
 		}
 	}
