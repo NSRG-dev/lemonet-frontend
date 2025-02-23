@@ -10,7 +10,8 @@ import s from './Auth.module.scss'
 export const Auth = () => {
 	const [isTab, setTab] = useState<'Login' | 'Sign up'>('Login')
 	const [isOpenCode, setOpenCode] = useState(false)
-	const { isOpenAuth, toggleAuth, isRegistered, setIsRegistered } = useAuth()
+	const { isOpenAuth, toggleAuth, isRegistered, setIsRegistered, closeAuth } =
+		useAuth()
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [username, setUsername] = useState('')
@@ -22,16 +23,10 @@ export const Auth = () => {
 				alert('Пожалуйста, заполните все поля.')
 				return
 			}
-
-			try {
-				await registerUser({ email, password_hash: password })
-				setIsRegistered(true)
-				setTab('Login')
-			} catch (error) {
-				if (error as unknown as string) {
-					alert(error.message)
-				}
-			}
+			await registerUser({ email, password })
+			setIsRegistered(true)
+			setTab('Login')
+			closeAuth()
 		},
 		[email, password, setIsRegistered]
 	)
@@ -44,13 +39,10 @@ export const Auth = () => {
 				return
 			}
 
-			try {
-				await loginUser({ email, password_hash: password })
-				setIsRegistered(true)
-				toggleAuth()
-			} catch (error) {
-				alert(error.message)
-			}
+			await loginUser({ email, password })
+			setIsRegistered(true)
+			toggleAuth()
+			closeAuth()
 		},
 		[email, password, setIsRegistered, toggleAuth]
 	)

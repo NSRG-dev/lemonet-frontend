@@ -7,6 +7,7 @@ interface IState {
 	toggleAuth: () => void
 	toggleDeposit: () => void
 	setIsRegistered: (value: boolean) => void
+	closeAuth: () => void
 }
 
 export const Context = createContext<null | IState>(null)
@@ -24,12 +25,17 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		setOpenDeposit(!isOpenDeposit)
 	}
 
+	const closeAuth = () => {
+		setOpenAuth(false)
+	}
+
 	return (
 		<Context.Provider
 			value={{
 				isOpenAuth,
 				toggleDeposit,
 				toggleAuth,
+				closeAuth,
 				isOpenDeposit,
 				isRegistered,
 				setIsRegistered,
