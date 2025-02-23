@@ -21,8 +21,7 @@ interface CommentProps {
 	onDeleteReply?: (replyId: string) => void
 	openOptionsId: string | null
 	setOpenOptionsId: (id: string | null) => void
-
-	openReplyOptionsId: string | null // Новый пропс
+	openReplyOptionsId: string | null
 	setOpenReplyOptionsId: (id: string | null) => void
 }
 

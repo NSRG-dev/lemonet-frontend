@@ -1,3 +1,4 @@
+import { logoutUser } from '@/api/auth'
 import { icons } from '@/assets'
 import { BannerSection } from '@/components/BannerSection/BannerSection'
 import { FormBlock } from '@/components/FormBlock/FormBlock'
@@ -7,6 +8,7 @@ import { ReferralSystem } from '@/components/ReferralSystem/ReferralSystem'
 import { SumCounter } from '@/components/SumCounter/SumCounter'
 import { TransactionHistory } from '@/components/TransactionHistory/TransactionHistory'
 import { Tabs } from '@/components/ui'
+import { useAuth } from '@/Context/AuthProvider'
 import { useCallback, useState } from 'react'
 import s from './Profile.module.scss'
 
@@ -18,7 +20,16 @@ export const Profile = () => {
 		() => ['form1', 'form2'].map(key => <FormBlock key={key} />),
 		[]
 	)
+	const { logout } = useAuth()
 
+	const handleLogout = async () => {
+		try {
+			await logoutUser(true)
+			logout()
+		} catch (error) {
+			console.error('Ошибка при выходе:', error)
+		}
+	}
 	return (
 		<div className={s.profile}>
 			<BannerSection
@@ -30,7 +41,7 @@ export const Profile = () => {
 			/>
 			<div className={s.profileContent}>
 				<div className={s.left}>
-					<ProfileInfo />
+					<ProfileInfo handleLogout={handleLogout} />
 					<SumCounter />
 					<Tabs
 						type='sidebar'

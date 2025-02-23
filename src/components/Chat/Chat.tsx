@@ -1,5 +1,6 @@
 import { icons } from '@/assets'
 import { COMMENTS } from '@/constant/data'
+import { useAuth } from '@/Context/AuthProvider'
 import { useChat } from '@/Context/ChatProvider'
 import { IChat } from '@/types/chat'
 import React, { useCallback, useEffect, useState } from 'react'
@@ -23,6 +24,7 @@ export const Chat = React.memo(() => {
 	const [comment, setComment] = useState('')
 	const [selectedComment, setSelectedComment] = useState<IChat | null>(null)
 	const [isScrolled, setIsScrolled] = useState(false)
+	const { isAuthenticated } = useAuth()
 
 	const savedChatData = getFromLocalStorage('chatData', {
 		pinnedMessage: null,
@@ -210,11 +212,13 @@ export const Chat = React.memo(() => {
 					<img src={icons.arrow} alt='Scroll to bottom' />
 				</Button>
 			)}
-			<SendMessageBlock
-				comment={comment}
-				setComment={setComment}
-				handleSendMessage={handleSendMessage}
-			/>
+			{isAuthenticated && (
+				<SendMessageBlock
+					comment={comment}
+					setComment={setComment}
+					handleSendMessage={handleSendMessage}
+				/>
+			)}
 		</aside>
 	)
 })

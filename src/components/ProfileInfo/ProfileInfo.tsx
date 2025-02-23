@@ -2,7 +2,11 @@ import { icons } from '@/assets'
 import { Button } from '@/components/ui'
 import s from './Profile.module.scss'
 
-export const ProfileInfo = () => (
+interface ProfileInfoProps {
+	handleLogout: () => void
+}
+
+export const ProfileInfo = ({ handleLogout }: ProfileInfoProps) => (
 	<div className={s.profileInfo}>
 		<div className={s.top}>
 			<span className={s.avatar}>
@@ -18,7 +22,7 @@ export const ProfileInfo = () => (
 				<h3>@ribbondesign</h3>
 				<p>ribbonwork@gmail.com</p>
 			</div>
-			<Button type='icon'>
+			<Button type='icon' onClick={handleLogout}>
 				<img src={icons.logout} alt='logout' />
 			</Button>
 		</div>

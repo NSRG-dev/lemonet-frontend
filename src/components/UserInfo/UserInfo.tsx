@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import s from './UserInfo.module.scss'
 
 interface UserInfoProps {
@@ -15,7 +16,9 @@ export const UserInfo = ({
 }: UserInfoProps) => (
 	<div className={s.user}>
 		<div className={s.left}>
-			<img src={avatarSrc} alt='avatar' />
+			<Link to={'/profile'}>
+				<img src={avatarSrc} alt='avatar' />
+			</Link>
 			<span>
 				{username.length > 12 ? `${username.substring(0, 12)}...` : username}
 			</span>

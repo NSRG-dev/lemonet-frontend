@@ -1,4 +1,4 @@
-import { loginUser, registerUser } from '@/api/auth'
+import { saveTokens, siginUser, signupUser } from '@/api/auth'
 import { icons } from '@/assets'
 import { useAuth } from '@/Context/AuthProvider'
 import { Suspense, useCallback, useState } from 'react'
@@ -10,8 +10,14 @@ import s from './Auth.module.scss'
 export const Auth = () => {
 	const [isTab, setTab] = useState<'Login' | 'Sign up'>('Login')
 	const [isOpenCode, setOpenCode] = useState(false)
-	const { isOpenAuth, toggleAuth, isRegistered, setIsRegistered, closeAuth } =
-		useAuth()
+	const {
+		isOpenAuth,
+		toggleAuth,
+		isRegistered,
+		setIsRegistered,
+		closeAuth,
+		setIsAuthenticated,
+	} = useAuth()
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [username, setUsername] = useState('')
@@ -23,12 +29,19 @@ export const Auth = () => {
 				alert('Пожалуйста, заполните все поля.')
 				return
 			}
-			await registerUser({ email, password })
-			setIsRegistered(true)
-			setTab('Login')
-			closeAuth()
+			try {
+				const response = await signupUser({ email, password })
+				saveTokens(response.accessToken, response.refreshToken)
+				setIsRegistered(true)
+				setIsAuthenticated(true)
+				setTab('Login')
+				closeAuth()
+			} catch (error) {
+				console.error('Ошибка регистрации:', error)
+				alert('Ошибка регистрации. Проверьте введенные данные.')
+			}
 		},
-		[email, password, setIsRegistered]
+		[email, password, setIsRegistered, setIsAuthenticated, closeAuth]
 	)
 
 	const handleLoginAccount = useCallback(
@@ -38,13 +51,26 @@ export const Auth = () => {
 				alert('Пожалуйста, заполните все поля.')
 				return
 			}
-
-			await loginUser({ email, password })
-			setIsRegistered(true)
-			toggleAuth()
-			closeAuth()
+			try {
+				const response = await siginUser({ email, password })
+				saveTokens(response.accessToken, response.refreshToken)
+				setIsRegistered(true)
+				setIsAuthenticated(true)
+				toggleAuth()
+				closeAuth()
+			} catch (error) {
+				console.error('Ошибка входа:', error)
+				alert('Ошибка входа. Проверьте введенные данные.')
+			}
 		},
-		[email, password, setIsRegistered, toggleAuth]
+		[
+			email,
+			password,
+			setIsRegistered,
+			setIsAuthenticated,
+			toggleAuth,
+			closeAuth,
+		]
 	)
 
 	return (

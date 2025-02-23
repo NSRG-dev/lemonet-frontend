@@ -16,23 +16,16 @@ export const Button = ({
 	onClick,
 	ref,
 }: IButton) => {
-	const isDisabled = type === 'disabled'
-
 	const className = classNames(s.btn, newClass, {
 		[s.default]: type === 'default',
 		[s.icon]: type === 'icon',
 		[s.text]: type === 'text',
 		[s.green]: type === 'green',
-		[s.disabled]: isDisabled,
+		[s.disabled]: type === 'disabled',
 	})
 
 	return (
-		<button
-			ref={ref}
-			className={className}
-			onClick={isDisabled ? undefined : onClick}
-			disabled={isDisabled}
-		>
+		<button ref={ref} className={className} onClick={onClick}>
 			{children}
 		</button>
 	)
