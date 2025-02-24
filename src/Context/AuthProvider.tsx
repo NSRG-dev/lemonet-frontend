@@ -11,6 +11,13 @@ interface IState {
 	closeAuth: () => void
 	setIsAuthenticated: (value: boolean) => void
 	logout: () => void
+
+	email: string
+	password: string
+	setEmail: (value: string) => void
+	setPassword: (value: string) => void
+	setUsername: (value: string) => void
+	username: string
 }
 
 export const Context = createContext<null | IState>(null)
@@ -21,10 +28,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const [isRegistered, setIsRegistered] = useState(false)
 	const [isAuthenticated, setIsAuthenticated] = useState(false)
 
+	const [password, setPassword] = useState('')
+	const [email, setEmail] = useState('')
+	const [username, setUsername] = useState('')
+
 	useEffect(() => {
 		const token = localStorage.getItem('token')
 		if (token) {
 			setIsAuthenticated(true)
+			setUsername(localStorage.getItem('username') || '')
+			setEmail(localStorage.getItem('email') || '')
 		}
 	}, [])
 
@@ -43,6 +56,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const logout = () => {
 		setIsAuthenticated(false)
 		localStorage.removeItem('token')
+		localStorage.removeItem('username')
+		localStorage.removeItem('email')
 		console.log('Выход выполнен успешно!')
 	}
 
@@ -59,13 +74,19 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 				isAuthenticated,
 				setIsAuthenticated,
 				logout,
+
+				email,
+				password,
+				setEmail,
+				setPassword,
+				setUsername,
+				username,
 			}}
 		>
 			{children}
 		</Context.Provider>
 	)
 }
-
 export const useAuth = () => {
 	const context = useContext(Context)
 	if (!context) {

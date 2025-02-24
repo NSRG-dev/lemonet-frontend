@@ -4,9 +4,15 @@ import s from './Profile.module.scss'
 
 interface ProfileInfoProps {
 	handleLogout: () => void
+	username: string
+	email: string
 }
 
-export const ProfileInfo = ({ handleLogout }: ProfileInfoProps) => (
+export const ProfileInfo = ({
+	handleLogout,
+	username,
+	email,
+}: ProfileInfoProps) => (
 	<div className={s.profileInfo}>
 		<div className={s.top}>
 			<span className={s.avatar}>
@@ -19,8 +25,8 @@ export const ProfileInfo = ({ handleLogout }: ProfileInfoProps) => (
 		</div>
 		<div className={s.middle}>
 			<div className={s.user}>
-				<h3>@ribbondesign</h3>
-				<p>ribbonwork@gmail.com</p>
+				<h3>{username}</h3>
+				<p>{email}</p>
 			</div>
 			<Button type='icon' onClick={handleLogout}>
 				<img src={icons.logout} alt='logout' />

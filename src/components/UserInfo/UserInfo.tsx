@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Button } from '../ui'
 import s from './UserInfo.module.scss'
 
 interface UserInfoProps {
@@ -6,6 +6,10 @@ interface UserInfoProps {
 	username: string
 	prefix?: string
 	time: string
+
+	isAuthenticated: boolean
+	toggleAuth: () => void
+	navigation: (value: string) => void
 }
 
 export const UserInfo = ({
@@ -13,12 +17,21 @@ export const UserInfo = ({
 	username,
 	prefix,
 	time,
+
+	isAuthenticated,
+	toggleAuth,
+	navigation,
 }: UserInfoProps) => (
 	<div className={s.user}>
 		<div className={s.left}>
-			<Link to={'/profile'}>
+			<Button
+				type='text'
+				onClick={() => {
+					!isAuthenticated ? toggleAuth() : navigation('/profile')
+				}}
+			>
 				<img src={avatarSrc} alt='avatar' />
-			</Link>
+			</Button>
 			<span>
 				{username.length > 12 ? `${username.substring(0, 12)}...` : username}
 			</span>

@@ -9,12 +9,12 @@ import { router } from './router/index.tsx'
 
 createRoot(document.getElementById('root')!).render(
 	<StrictMode>
-		<BurgerProvider>
-			<ChatProvider>
-				<AuthProvider>
+		<AuthProvider>
+			<BurgerProvider>
+				<ChatProvider>
 					<RouterProvider router={router} />
-				</AuthProvider>
-			</ChatProvider>
-		</BurgerProvider>
+				</ChatProvider>
+			</BurgerProvider>
+		</AuthProvider>
 	</StrictMode>
 )

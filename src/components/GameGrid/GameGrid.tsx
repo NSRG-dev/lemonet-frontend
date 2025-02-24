@@ -1,4 +1,5 @@
 import { icons } from '@/assets'
+import { useAuth } from '@/Context/AuthProvider'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../ui'
 import s from './GameGrid.module.scss'
@@ -10,6 +11,8 @@ interface GameGridProps {
 
 export const GameGrid = ({ gamesCount, imageSrc }: GameGridProps) => {
 	const navigation = useNavigate()
+	const { toggleAuth, isAuthenticated } = useAuth()
+
 	return (
 		<>
 			<div className={s.contGame}>
@@ -28,13 +31,21 @@ export const GameGrid = ({ gamesCount, imageSrc }: GameGridProps) => {
 						<div className={s.btn} onClick={e => e.stopPropagation()}>
 							<Button
 								type='default'
-								onClick={() => navigation(`/slots/${index}`)}
+								onClick={() => {
+									!isAuthenticated
+										? toggleAuth()
+										: navigation(`/slots/${index}`)
+								}}
 							>
 								PLAY
 							</Button>
 							<Button
 								type='disabled'
-								onClick={() => navigation(`/slots/${index}`)}
+								onClick={() => {
+									!isAuthenticated
+										? toggleAuth()
+										: navigation(`/slots/${index}`)
+								}}
 							>
 								DEMO
 							</Button>

@@ -1,4 +1,3 @@
-import { logoutUser } from '@/api/auth'
 import { icons } from '@/assets'
 import { BannerSection } from '@/components/BannerSection/BannerSection'
 import { FormBlock } from '@/components/FormBlock/FormBlock'
@@ -10,25 +9,23 @@ import { TransactionHistory } from '@/components/TransactionHistory/TransactionH
 import { Tabs } from '@/components/ui'
 import { useAuth } from '@/Context/AuthProvider'
 import { useCallback, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import s from './Profile.module.scss'
 
 export const Profile = () => {
 	const [isTab, setTab] = useState('Personal information')
 	const [isTabs, setTabs] = useState('DAILY')
+	const navigation = useNavigate()
 
 	const renderForms = useCallback(
 		() => ['form1', 'form2'].map(key => <FormBlock key={key} />),
 		[]
 	)
-	const { logout } = useAuth()
+	const { logout, username, email } = useAuth()
 
 	const handleLogout = async () => {
-		try {
-			await logoutUser(true)
-			logout()
-		} catch (error) {
-			console.error('Ошибка при выходе:', error)
-		}
+		logout()
+		navigation('/')
 	}
 	return (
 		<div className={s.profile}>
@@ -41,7 +38,11 @@ export const Profile = () => {
 			/>
 			<div className={s.profileContent}>
 				<div className={s.left}>
-					<ProfileInfo handleLogout={handleLogout} />
+					<ProfileInfo
+						handleLogout={handleLogout}
+						username={username}
+						email={email}
+					/>
 					<SumCounter />
 					<Tabs
 						type='sidebar'

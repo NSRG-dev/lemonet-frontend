@@ -1,4 +1,3 @@
-import { saveTokens, siginUser, signupUser } from '@/api/auth'
 import { icons } from '@/assets'
 import { useAuth } from '@/Context/AuthProvider'
 import { Suspense, useCallback, useState } from 'react'
@@ -6,6 +5,8 @@ import { HeaderForm } from '../HeaderForm/HeaderForm'
 import { RenderReferralCodeSection } from '../RenderReferralCodeSection/RenderReferralCodeSection'
 import { Button, Input, Modal, Tabs } from '../ui'
 import s from './Auth.module.scss'
+import { siginUser, signupUser } from '@/api/auth/index'
+import { saveTokens } from '@/api/auth/tokens'
 
 export const Auth = () => {
 	const [isTab, setTab] = useState<'Login' | 'Sign up'>('Login')
@@ -17,21 +18,30 @@ export const Auth = () => {
 		setIsRegistered,
 		closeAuth,
 		setIsAuthenticated,
+
+		email,
+		setEmail,
+		password,
+		setPassword,
+		username,
+		setUsername,
 	} = useAuth()
-	const [email, setEmail] = useState('')
-	const [password, setPassword] = useState('')
-	const [username, setUsername] = useState('')
 
 	const handleCreateAccount = useCallback(
 		async (e: React.MouseEvent<HTMLButtonElement>) => {
 			e.preventDefault()
-			if (!email || !password) {
+			if (!email || !password || !username) {
 				alert('Пожалуйста, заполните все поля.')
 				return
 			}
 			try {
-				const response = await signupUser({ email, password })
+				const response = await signupUser({
+					email,
+					password,
+					username,
+				})
 				saveTokens(response.accessToken, response.refreshToken)
+				setUsername(username)
 				setIsRegistered(true)
 				setIsAuthenticated(true)
 				setTab('Login')
@@ -41,7 +51,15 @@ export const Auth = () => {
 				alert('Ошибка регистрации. Проверьте введенные данные.')
 			}
 		},
-		[email, password, setIsRegistered, setIsAuthenticated, closeAuth]
+		[
+			email,
+			password,
+			username,
+			setIsRegistered,
+			setIsAuthenticated,
+			closeAuth,
+			setUsername,
+		]
 	)
 
 	const handleLoginAccount = useCallback(
@@ -52,25 +70,20 @@ export const Auth = () => {
 				return
 			}
 			try {
-				const response = await siginUser({ email, password })
+				const response = await siginUser({
+					email,
+					password,
+				})
 				saveTokens(response.accessToken, response.refreshToken)
 				setIsRegistered(true)
 				setIsAuthenticated(true)
-				toggleAuth()
 				closeAuth()
 			} catch (error) {
 				console.error('Ошибка входа:', error)
 				alert('Ошибка входа. Проверьте введенные данные.')
 			}
 		},
-		[
-			email,
-			password,
-			setIsRegistered,
-			setIsAuthenticated,
-			toggleAuth,
-			closeAuth,
-		]
+		[email, password, setIsRegistered, setIsAuthenticated, closeAuth]
 	)
 
 	return (

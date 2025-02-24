@@ -1,5 +1,6 @@
 import { icons } from '@/assets'
 import { IChat } from '@/types/chat'
+import { useNavigate } from 'react-router-dom'
 import { OptionChat } from '../OptionChat/OptionChat'
 import { Button } from '../ui'
 import { UserInfo } from '../UserInfo/UserInfo'
@@ -23,6 +24,9 @@ interface CommentProps {
 	setOpenOptionsId: (id: string | null) => void
 	openReplyOptionsId: string | null
 	setOpenReplyOptionsId: (id: string | null) => void
+
+	isAuthenticated: boolean
+	toggleAuth: () => void
 }
 
 export const Comment = ({
@@ -43,6 +47,9 @@ export const Comment = ({
 	openReplyOptionsId,
 	setOpenReplyOptionsId,
 	setOpenOptionsId,
+
+	isAuthenticated,
+	toggleAuth,
 }: CommentProps) => {
 	const currentComment: IChat = {
 		id,
@@ -54,6 +61,7 @@ export const Comment = ({
 		color,
 		muted: false,
 	}
+	const navigation = useNavigate()
 
 	const handlePinMessageFromOption = () => {
 		handlePinMessage(currentComment)
@@ -84,6 +92,9 @@ export const Comment = ({
 				username={username}
 				prefix={prefix}
 				time={time}
+				isAuthenticated={isAuthenticated}
+				toggleAuth={toggleAuth}
+				navigation={navigation}
 			/>
 			<div
 				className={s.bottom}
@@ -121,6 +132,9 @@ export const Comment = ({
 									avatarSrc={reply.avatarSrc}
 									username={reply.username}
 									time={reply.time}
+									isAuthenticated={isAuthenticated}
+									toggleAuth={toggleAuth}
+									navigation={navigation}
 								/>
 								<div className={s.youMessage}>
 									<p>{reply.message}</p>

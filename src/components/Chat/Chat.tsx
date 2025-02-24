@@ -24,7 +24,7 @@ export const Chat = React.memo(() => {
 	const [comment, setComment] = useState('')
 	const [selectedComment, setSelectedComment] = useState<IChat | null>(null)
 	const [isScrolled, setIsScrolled] = useState(false)
-	const { isAuthenticated } = useAuth()
+	const { isAuthenticated, username, toggleAuth } = useAuth()
 
 	const savedChatData = getFromLocalStorage('chatData', {
 		pinnedMessage: null,
@@ -72,7 +72,7 @@ export const Chat = React.memo(() => {
 	const notify = () => toast.error('You crossed the limit of 500 characters')
 
 	const createNewComment = useCallback(
-		(message: string, username: string = '@canes'): IChat => ({
+		(message: string): IChat => ({
 			id: Date.now().toString(),
 			time: new Date().toLocaleTimeString('en-US', {
 				hour: 'numeric',
@@ -81,10 +81,10 @@ export const Chat = React.memo(() => {
 			}),
 			avatarSrc: icons.avatar,
 			muted: false,
-			username,
+			username: username || 'Guest',
 			message,
 		}),
-		[]
+		[username]
 	)
 
 	const handleSendMessage = useCallback(() => {
@@ -192,6 +192,9 @@ export const Chat = React.memo(() => {
 						setOpenOptionsId={setOpenOptionsId}
 						openReplyOptionsId={openReplyOptionsId}
 						setOpenReplyOptionsId={setOpenReplyOptionsId}
+
+						toggleAuth={toggleAuth}
+						isAuthenticated={isAuthenticated}
 					/>
 				))}
 			</div>

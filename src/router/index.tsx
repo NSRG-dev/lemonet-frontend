@@ -11,6 +11,7 @@ import { Slots } from '@/pages/Slots/Slots'
 import { Sport } from '@/pages/Sport/Sport'
 import { VipProgram } from '@/pages/VipProgram/VipProgram'
 import { createBrowserRouter } from 'react-router-dom'
+import { PrivateRoute } from './PrivateRoute'
 
 export const router = createBrowserRouter([
 	{
@@ -21,11 +22,14 @@ export const router = createBrowserRouter([
 			{
 				path: '/slots',
 				element: <Slots />,
-				children: [],
 			},
 			{
 				path: '/slots/:id',
-				element: <SlotGame />,
+				element: (
+					<PrivateRoute>
+						<SlotGame />
+					</PrivateRoute>
+				),
 			},
 			{
 				path: '/promotions',
@@ -62,3 +66,5 @@ export const router = createBrowserRouter([
 		],
 	},
 ])
+
+export default router
