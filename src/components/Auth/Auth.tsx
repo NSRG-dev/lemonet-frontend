@@ -1,12 +1,11 @@
 import { icons } from '@/assets'
 import { useAuth } from '@/Context/AuthProvider'
-import { Suspense, useCallback, useState } from 'react'
+import { useAuthForm } from '@/hooks/useAuthForm'
+import { Suspense, useState } from 'react'
 import { HeaderForm } from '../HeaderForm/HeaderForm'
 import { RenderReferralCodeSection } from '../RenderReferralCodeSection/RenderReferralCodeSection'
 import { Button, Input, Modal, Tabs } from '../ui'
 import s from './Auth.module.scss'
-import { siginUser, signupUser } from '@/api/auth/index'
-import { saveTokens } from '@/api/auth/tokens'
 
 export const Auth = () => {
 	const [isTab, setTab] = useState<'Login' | 'Sign up'>('Login')
@@ -15,10 +14,6 @@ export const Auth = () => {
 		isOpenAuth,
 		toggleAuth,
 		isRegistered,
-		setIsRegistered,
-		closeAuth,
-		setIsAuthenticated,
-
 		email,
 		setEmail,
 		password,
@@ -26,65 +21,7 @@ export const Auth = () => {
 		username,
 		setUsername,
 	} = useAuth()
-
-	const handleCreateAccount = useCallback(
-		async (e: React.MouseEvent<HTMLButtonElement>) => {
-			e.preventDefault()
-			if (!email || !password || !username) {
-				alert('Пожалуйста, заполните все поля.')
-				return
-			}
-			try {
-				const response = await signupUser({
-					email,
-					password,
-					username,
-				})
-				saveTokens(response.accessToken, response.refreshToken)
-				setUsername(username)
-				setIsRegistered(true)
-				setIsAuthenticated(true)
-				setTab('Login')
-				closeAuth()
-			} catch (error) {
-				console.error('Ошибка регистрации:', error)
-				alert('Ошибка регистрации. Проверьте введенные данные.')
-			}
-		},
-		[
-			email,
-			password,
-			username,
-			setIsRegistered,
-			setIsAuthenticated,
-			closeAuth,
-			setUsername,
-		]
-	)
-
-	const handleLoginAccount = useCallback(
-		async (e: React.MouseEvent<HTMLButtonElement>) => {
-			e.preventDefault()
-			if (!email || !password) {
-				alert('Пожалуйста, заполните все поля.')
-				return
-			}
-			try {
-				const response = await siginUser({
-					email,
-					password,
-				})
-				saveTokens(response.accessToken, response.refreshToken)
-				setIsRegistered(true)
-				setIsAuthenticated(true)
-				closeAuth()
-			} catch (error) {
-				console.error('Ошибка входа:', error)
-				alert('Ошибка входа. Проверьте введенные данные.')
-			}
-		},
-		[email, password, setIsRegistered, setIsAuthenticated, closeAuth]
-	)
+	const { errors, handleCreateAccount, handleLoginAccount } = useAuthForm()
 
 	return (
 		<Suspense fallback={<div>Loading...</div>}>
@@ -100,7 +37,7 @@ export const Auth = () => {
 				/>
 				<Tabs
 					tabs={['Sign up', 'Login']}
-					onClick={setTab}
+					onClick={value => setTab(value)}
 					isTab={isTab}
 					newClass={s.tabs}
 				/>
@@ -111,6 +48,7 @@ export const Auth = () => {
 							placeholder='Enter your username'
 							value={username}
 							onChange={e => setUsername(e.target.value)}
+							error={errors.username}
 						/>
 					)}
 					<Input
@@ -118,12 +56,14 @@ export const Auth = () => {
 						placeholder='Enter your e-mail'
 						value={email}
 						onChange={e => setEmail(e.target.value)}
+						error={errors.email}
 					/>
 					<Input
 						label='Your password'
 						placeholder='Enter your password'
 						value={password}
 						onChange={e => setPassword(e.target.value)}
+						error={errors.password}
 					/>
 				</form>
 				<a href='#'>Forgot password?</a>
@@ -146,7 +86,11 @@ export const Auth = () => {
 				)}
 				<Button
 					type='default'
-					onClick={isTab === 'Login' ? handleLoginAccount : handleCreateAccount}
+					onClick={
+						isTab === 'Login'
+							? e => handleLoginAccount(e, setTab)
+							: e => handleCreateAccount(e, setTab)
+					}
 				>
 					{isRegistered ? 'LOG IN' : 'SIGN UP'}
 				</Button>

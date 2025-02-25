@@ -17,7 +17,6 @@ export const UserInfo = ({
 	username,
 	prefix,
 	time,
-
 	isAuthenticated,
 	toggleAuth,
 	navigation,
@@ -27,7 +26,7 @@ export const UserInfo = ({
 			<Button
 				type='text'
 				onClick={() => {
-					!isAuthenticated ? toggleAuth() : navigation('/profile')
+					!isAuthenticated ? toggleAuth() : navigation(`/profile/${username}`)
 				}}
 			>
 				<img src={avatarSrc} alt='avatar' />
