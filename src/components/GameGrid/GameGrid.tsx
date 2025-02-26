@@ -1,5 +1,7 @@
+import { getSlots } from '@/api/slots'
 import { icons } from '@/assets'
 import { useAuth } from '@/Context/AuthProvider'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../ui'
 import s from './GameGrid.module.scss'
@@ -9,19 +11,44 @@ interface GameGridProps {
 	imageSrc: string
 }
 
-export const GameGrid = ({ gamesCount, imageSrc }: GameGridProps) => {
+export const GameGrid = ({ gamesCount = 9, imageSrc }: GameGridProps) => {
 	const navigation = useNavigate()
 	const { toggleAuth, isAuthenticated } = useAuth()
+	const [slots, setSlots] = useState<any[]>([])
+	const [page, setPage] = useState(1)
+	const [totalSlots, setTotalSlots] = useState(0)
+
+	useEffect(() => {
+		const loadSlots = async () => {
+			try {
+				const data = await getSlots(page, 9)
+				setSlots(data.slots)
+				setTotalSlots(data.total)
+			} catch (error) {
+				console.error('Ошибка при загрузке слотов:', error)
+			}
+		}
+		loadSlots()
+	}, [page])
+
+	const handleShowMore = () => {
+		setPage(prev => prev + 1)
+	}
+
+	const displayItems =
+		slots.length > 0
+			? slots
+			: Array.from({ length: gamesCount }, (_, index) => ({ id: index }))
 
 	return (
 		<>
 			<div className={s.contGame}>
-				{Array.from({ length: gamesCount }, (_, index) => (
+				{displayItems.map(item => (
 					<div
-						key={index}
+						key={item.id}
 						className={s.image}
 						style={{
-							backgroundImage: `url(${imageSrc})`,
+							backgroundImage: `url(${item.imageUrl || imageSrc})`,
 						}}
 					>
 						<Button type='icon' newClass={s.icon}>
@@ -34,7 +61,7 @@ export const GameGrid = ({ gamesCount, imageSrc }: GameGridProps) => {
 								onClick={() => {
 									!isAuthenticated
 										? toggleAuth()
-										: navigation(`/slots/${index}`)
+										: navigation(`/slots/${item.id}`)
 								}}
 							>
 								PLAY
@@ -44,7 +71,7 @@ export const GameGrid = ({ gamesCount, imageSrc }: GameGridProps) => {
 								onClick={() => {
 									!isAuthenticated
 										? toggleAuth()
-										: navigation(`/slots/${index}`)
+										: navigation(`/slots/${item.id}`)
 								}}
 							>
 								DEMO
@@ -54,10 +81,16 @@ export const GameGrid = ({ gamesCount, imageSrc }: GameGridProps) => {
 				))}
 			</div>
 			<div className={s.footer}>
-				<Button type='default' onClick={() => navigation('/slots')}>
-					SHOW MORE
-				</Button>
-				<p>Showe 9 out of 56 promotions</p>
+				{slots.length > 0 && (
+					<>
+						<Button type='default' onClick={handleShowMore}>
+							SHOW MORE
+						</Button>
+						<p>
+							Showing {slots.length} out of {totalSlots} slots
+						</p>
+					</>
+				)}
 			</div>
 		</>
 	)

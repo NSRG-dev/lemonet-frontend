@@ -69,7 +69,7 @@
 }
 
 @media (max-width: 768px) {
-	.default {
+	.default, .disabled{
 		font-size: 14px;
 		line-height: 100%;
 	}

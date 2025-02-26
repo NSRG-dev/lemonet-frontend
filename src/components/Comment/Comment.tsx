@@ -18,12 +18,14 @@ interface CommentProps {
 	onDelete?: () => void
 	onDoubleClick?: () => void
 	replies?: IChat[]
-	handlePinMessage: (comment: IChat) => void
 	onDeleteReply?: (replyId: string) => void
 	openOptionsId: string | null
 	setOpenOptionsId: (id: string | null) => void
 	openReplyOptionsId: string | null
 	setOpenReplyOptionsId: (id: string | null) => void
+
+	handleAddToBookmarks: (id: string) => void
+	handleRemoveFromBookmarks: (id: string) => void
 
 	isAuthenticated: boolean
 	toggleAuth: () => void
@@ -41,12 +43,12 @@ export const Comment = ({
 	onDelete,
 	onDoubleClick,
 	replies = [],
-	handlePinMessage,
 	onDeleteReply,
 	openOptionsId,
 	openReplyOptionsId,
 	setOpenReplyOptionsId,
 	setOpenOptionsId,
+	handleAddToBookmarks,
 
 	isAuthenticated,
 	toggleAuth,
@@ -64,7 +66,7 @@ export const Comment = ({
 	const navigation = useNavigate()
 
 	const handlePinMessageFromOption = () => {
-		handlePinMessage(currentComment)
+		handleAddToBookmarks(currentComment.id)
 	}
 
 	const toggleOptions = () => {
