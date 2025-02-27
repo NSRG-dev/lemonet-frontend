@@ -1,3 +1,10 @@
+import {
+	addToBookmarks,
+	deleteComment,
+	muteUser,
+	removeFromBookmarks,
+	sendMessage,
+} from '@/api/chat'
 import { icons } from '@/assets'
 import { COMMENTS } from '@/constant/data'
 import { useAuth } from '@/Context/AuthProvider'
@@ -87,49 +94,59 @@ export const Chat = React.memo(() => {
 		[username]
 	)
 
-	const handleSendMessage = useCallback(() => {
+	const handleSendMessage = useCallback(async () => {
 		if (comment.length > 500) {
 			notify()
 			return
 		}
+		try {
+			await sendMessage(  comment, username || 'Guest')
+			const newComment = createNewComment(comment)
+			setComments(prev => (selectedComment ? prev : [...prev, newComment]))
+			setReplies(prev =>
+				selectedComment
+					? {
+							...prev,
+							[selectedComment.id]: [
+								...(prev[selectedComment.id] || []),
+								newComment,
+							],
+					  }
+					: prev
+			)
 
-		const newComment = createNewComment(comment)
+			setComment('')
+			setSelectedComment(null)
+		} catch (error) {
+			console.error('Ошибка отправки сообщения:', error)
+		}
+	}, [comment, selectedComment, createNewComment, username])
 
-		setComments(prev => (selectedComment ? prev : [...prev, newComment]))
-		setReplies(prev =>
-			selectedComment
-				? {
-						...prev,
-						[selectedComment.id]: [
-							...(prev[selectedComment.id] || []),
-							newComment,
-						],
-				  }
-				: prev
-		)
-
-		setComment('')
-		setSelectedComment(null)
-	}, [comment, selectedComment, createNewComment])
-
-	const handleDeleteComment = useCallback((commentId: string) => {
-		setComments(prev => prev.filter(comment => comment.id !== commentId))
+	const handleDeleteComment = useCallback(async (commentId: string) => {
+		try {
+			await deleteComment(commentId)
+			setComments(prev => prev.filter(comment => comment.id !== commentId))
+		} catch (error) {
+			console.error('Ошибка удаления комментария:', error)
+		}
 	}, [])
 
 	const handleMuteUser = useCallback(
-		(commentId: string) => {
-			setComments(prev =>
-				prev.map(comment =>
-					comment.id === commentId
-						? { ...comment, muted: !comment.muted }
-						: comment
-				)
-			)
-			toast.info(
-				comments.find(comment => comment.id === commentId)?.muted
-					? "You're exhausted"
-					: 'You are tortured'
-			)
+		async (commentId: string) => {
+			try {
+				const comment = comments.find(c => c.id === commentId)
+				if (comment) {
+					await muteUser(comment.id, !comment.muted)
+					setComments(prev =>
+						prev.map(c => (c.id === commentId ? { ...c, muted: !c.muted } : c))
+					)
+					toast.info(
+						comment.muted ? 'Пользователь размьючен' : 'Пользователь замьючен'
+					)
+				}
+			} catch (error) {
+				console.error('Ошибка изменения статуса пользователя:', error)
+			}
 		},
 		[comments]
 	)
@@ -139,14 +156,29 @@ export const Chat = React.memo(() => {
 		setComment(`${comment.username} `)
 	}, [])
 
-	const handlePinMessage = useCallback((comment: IChat) => {
-		setPinnedMessage(comment)
-		toast.info('Message pinned')
-	}, [])
+	const handleAddToBookmarks = useCallback(
+		async (messageId: string) => {
+			try {
+				await addToBookmarks(messageId)
+				const pinnedComment = comments.find(comment => comment.id === messageId)
+				if (pinnedComment) {
+					setPinnedMessage(pinnedComment)
+					toast.success('Сообщение закреплено')
+				}
+			} catch (error) {
+				console.error('Ошибка добавления сообщения в закладки:', error)
+				toast.error('Ошибка добавления сообщения в закладки')
+			}
+		},
+		[comments]
+	)
 
-	const handleUnpinMessage = useCallback(() => {
-		setPinnedMessage(null)
-		toast.info('Message unpinned')
+	const handleRemoveFromBookmarks = useCallback(async (messageId: string) => {
+		try {
+			await removeFromBookmarks(messageId)
+		} catch (error) {
+			console.error('Ошибка удаления сообщения из закладок:', error)
+		}
 	}, [])
 
 	const handleDeleteReply = useCallback(
@@ -176,7 +208,16 @@ export const Chat = React.memo(() => {
 					/>
 				</Button>
 			</div>
-			<PinMessage pinnedMessage={pinnedMessage} onUnpin={handleUnpinMessage} />
+			<PinMessage
+				pinnedMessage={pinnedMessage}
+				onUnpin={() => {
+					if (pinnedMessage) {
+						handleRemoveFromBookmarks(pinnedMessage.id)
+					}
+				}}
+				toggleAuth={toggleAuth}
+				isAuthenticated={isAuthenticated}
+			/>
 			<div className={s.onlineChat}>
 				{comments.map(comment => (
 					<Comment
@@ -185,14 +226,16 @@ export const Chat = React.memo(() => {
 						onMute={() => handleMuteUser(comment.id)}
 						onDelete={() => handleDeleteComment(comment.id)}
 						onDoubleClick={() => handleReplyToComment(comment)}
-						handlePinMessage={() => handlePinMessage(comment)}
+						handleAddToBookmarks={() => handleAddToBookmarks(comment.id)}
+						handleRemoveFromBookmarks={() =>
+							handleRemoveFromBookmarks(comment.id)
+						}
 						replies={replies[comment.id] || []}
 						onDeleteReply={replyId => handleDeleteReply(comment.id, replyId)}
 						openOptionsId={openOptionsId}
 						setOpenOptionsId={setOpenOptionsId}
 						openReplyOptionsId={openReplyOptionsId}
 						setOpenReplyOptionsId={setOpenReplyOptionsId}
-
 						toggleAuth={toggleAuth}
 						isAuthenticated={isAuthenticated}
 					/>
