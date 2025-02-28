@@ -1,6 +1,7 @@
 import {
 	addToBookmarks,
 	deleteComment,
+	getMessage,
 	muteUser,
 	removeFromBookmarks,
 	sendMessage,
@@ -53,6 +54,18 @@ export const Chat = React.memo(() => {
 	)
 
 	useEffect(() => {
+		const fetchMessages = async () => {
+			try {
+				const messages = await getMessage()
+				setComments(messages)
+			} catch (error) {
+				toast.error('Ошибка загрузки сообщений')
+			}
+		}
+		fetchMessages()
+	}, [])
+
+	useEffect(() => {
 		const chatData = {
 			pinnedMessage,
 			replies,
@@ -100,8 +113,9 @@ export const Chat = React.memo(() => {
 			return
 		}
 		try {
-			await sendMessage(  comment, username || 'Guest')
-			const newComment = createNewComment(comment)
+			const response = await sendMessage(comment, username || 'Guest')
+			const newComment = createNewComment(response.data.content)
+
 			setComments(prev => (selectedComment ? prev : [...prev, newComment]))
 			setReplies(prev =>
 				selectedComment
@@ -258,13 +272,11 @@ export const Chat = React.memo(() => {
 					<img src={icons.arrow} alt='Scroll to bottom' />
 				</Button>
 			)}
-			{isAuthenticated && (
-				<SendMessageBlock
-					comment={comment}
-					setComment={setComment}
-					handleSendMessage={handleSendMessage}
-				/>
-			)}
+			<SendMessageBlock
+				comment={comment}
+				setComment={setComment}
+				handleSendMessage={handleSendMessage}
+			/>
 		</aside>
 	)
 })

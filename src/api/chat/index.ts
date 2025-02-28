@@ -1,120 +1,103 @@
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { API_BASE_URL } from './authService'
+import { IMessage } from './types'
 
-export const sendMessage = async (
-	message: string,
-	username: string
-): Promise<void> => {
+const getAuthHeader = () => {
+	const token = localStorage.getItem('token')
+	if (!token) throw new Error('Токен отсутствует.')
+	return { headers: { Authorization: `Bearer ${token}` } }
+}
+
+const handleRequest = async <T>(
+	request: () => Promise<T>,
+	successMessage: string,
+	errorMessage: string
+): Promise<T> => {
 	try {
-		const token = localStorage.getItem('token')
-		if (!token) throw new Error('Токен отсутствует.')
-
-		const response = await axios.post(
-			`${API_BASE_URL}/message`,
-			{
-				content: message,
-				username,
-			},
-			{
-				headers: { Authorization: `Bearer ${token}` },
-			}
-		)
-
-		console.log('Сообщение отправлено успешно!', response.data)
-		toast.success('Сообщение отправлено')
+		const response = await request()
+		console.log(successMessage, response)
+		toast.success(successMessage)
+		return response
 	} catch (error) {
-		console.error('Ошибка отправки сообщения:', error)
-		toast.error('Ошибка отправки сообщения')
+		console.error(errorMessage, error)
+		toast.error(errorMessage)
 		throw error
 	}
 }
 
+export const getMessage = async (): Promise<IMessage[]> => {
+	return handleRequest(
+		() =>
+			axios.get<IMessage[]>(`${API_BASE_URL}/message`).then(res => res.data),
+		'Сообщения получены',
+		'Ошибка получения сообщений'
+	)
+}
+
+export const sendMessage = async (
+	message: string,
+	username: string
+): Promise<IMessage> => {
+	return handleRequest(
+		() =>
+			axios
+				.post<IMessage>(
+					`${API_BASE_URL}/message`,
+					{ content: message, username },
+					getAuthHeader()
+				)
+				.then(res => res.data),
+		'Сообщение отправлено',
+		'Ошибка отправки сообщения'
+	)
+}
+
 export const deleteComment = async (commentId: string): Promise<void> => {
-	try {
-		const token = localStorage.getItem('token')
-		if (!token) throw new Error('Токен отсутствует.')
-
-		const response = await axios.delete(
-			`${API_BASE_URL}/message/${commentId}`,
-			{
-				headers: { Authorization: `Bearer ${token}` },
-			}
-		)
-
-		console.log('Комментарий удален успешно!', response.data)
-		toast.success('Комментарий удален')
-	} catch (error) {
-		console.error('Ошибка удаления комментария:', error)
-		toast.error('Ошибка удаления комментария')
-		throw error
-	}
+	return handleRequest(
+		() => axios.delete(`${API_BASE_URL}/message/${commentId}`, getAuthHeader()),
+		'Комментарий удален',
+		'Ошибка удаления комментария'
+	)
 }
 
 export const muteUser = async (
 	userId: string,
 	muted: boolean
 ): Promise<void> => {
-	try {
-		const token = localStorage.getItem('token')
-		if (!token) throw new Error('Токен отсутствует.')
-
-		const response = await axios.patch(
-			`${API_BASE_URL}/message/${userId}`,
-			{ muted },
-			{
-				headers: { Authorization: `Bearer ${token}` },
-			}
-		)
-
-		console.log('Пользователь успешно замьючен/размьючен!', response.data)
-		toast.success(muted ? 'Пользователь замьючен' : 'Пользователь размьючен')
-	} catch (error) {
-		console.error('Ошибка изменения статуса пользователя:', error)
-		toast.error('Ошибка изменения статуса пользователя')
-		throw error
-	}
+	return handleRequest(
+		() =>
+			axios.patch(
+				`${API_BASE_URL}/message/${userId}`,
+				{ muted },
+				getAuthHeader()
+			),
+		muted ? 'Пользователь замьючен' : 'Пользователь размьючен',
+		'Ошибка изменения статуса пользователя'
+	)
 }
 
-export const addToBookmarks = async (messageId: string): Promise<void> => {
-	try {
-		const token = localStorage.getItem('token')
-		if (!token) throw new Error('Токен отсутствует.')
-
-		const response = await axios.post(
-			`${API_BASE_URL}/message`,
-			{ messageId },
-			{
-				headers: { Authorization: `Bearer ${token}` },
-			}
-		)
-
-		console.log('Сообщение добавлено в закладки!', response.data)
-		toast.success('Сообщение добавлено в закладки')
-	} catch (error) {
-		console.error('Ошибка добавления сообщения в закладки:', error)
-		toast.error('Ошибка добавления сообщения в закладки')
-		throw error
-	}
+export const addToBookmarks = async (
+	messageId: string
+): Promise<{ id: number }> => {
+	return handleRequest(
+		() =>
+			axios
+				.post<{ id: number }>(
+					`${API_BASE_URL}/message`,
+					{ messageId },
+					getAuthHeader()
+				)
+				.then(res => res.data),
+		'Сообщение добавлено в закладки',
+		'Ошибка добавления сообщения в закладки'
+	)
 }
 
 export const removeFromBookmarks = async (messageId: string): Promise<void> => {
-	try {
-		const token = localStorage.getItem('token')
-		if (!token) throw new Error('Токен отсутствует.')
-
-		const response = await axios.delete(
-			`${API_BASE_URL}/message/${messageId}`,
-			{
-				headers: { Authorization: `Bearer ${token}` },
-			}
-		)
-
-		console.log('Сообщение удалено из закладок!', response.data)
-		toast.success('Сообщение удалено из закладок')
-	} catch (error) {
-		console.error('Ошибка удаления сообщения из закладок:', error)
-		toast.error('Ошибка удаления сообщения из закладок')
-		throw error
-	}
+	return handleRequest(
+		() => axios.delete(`${API_BASE_URL}/message/${messageId}`, getAuthHeader()),
+		'Сообщение удалено из закладок',
+		'Ошибка удаления сообщения из закладок'
+	)
 }

@@ -1,71 +1,23 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import { setupInterceptors } from './interceptors'
 import { removeTokens, saveEmail, saveTokens, saveUsername } from './tokens'
 import { API_BASE_URL, AuthResponse, LoginData, RegisterData } from './types'
 
 setupInterceptors()
 
-export const signupUser = async (data: RegisterData): Promise<AuthResponse> => {
+const handleRequest = async <T>(
+	request: () => Promise<AxiosResponse<T>>,
+	successMessage: string,
+	errorMessage: string,
+	onSuccess?: (data: T) => void
+): Promise<T> => {
 	try {
-		const response = await axios.post<AuthResponse>(
-			`${API_BASE_URL}/sign-up`,
-			data
-		)
-		removeTokens()
-		saveTokens(response.data.accessToken, response.data.refreshToken)
-		saveUsername(data.username)
-		saveEmail(data.email)
-		console.log('Регистрация прошла успешно!', response.data)
+		const response: AxiosResponse<T> = await request()
+		console.log(successMessage, response.data)
+		if (onSuccess) onSuccess(response.data)
 		return response.data
 	} catch (error) {
-		throw handleError(error, 'Ошибка регистрации')
-	}
-}
-
-export const siginUser = async (data: LoginData): Promise<AuthResponse> => {
-	try {
-		const response = await axios.post<AuthResponse>(
-			`${API_BASE_URL}/sign-in`,
-			data
-		)
-		removeTokens()
-		saveTokens(response.data.accessToken, response.data.refreshToken)
-		saveEmail(data.email)
-		console.log('Вход выполнен успешно!', response.data)
-		return response.data
-	} catch (error) {
-		throw handleError(error, 'Ошибка входа')
-	}
-}
-
-export const refreshToken = async (): Promise<AuthResponse> => {
-	try {
-		const refreshToken = localStorage.getItem('refreshToken')
-		if (!refreshToken) throw new Error('Refresh token отсутствует.')
-
-		const response = await axios.post<AuthResponse>(`${API_BASE_URL}/refresh`, {
-			refreshToken,
-		})
-		saveTokens(response.data.accessToken, response.data.refreshToken)
-		console.log('Токен обновлен успешно!', response.data)
-		return response.data
-	} catch (error) {
-		throw handleError(error, 'Ошибка обновления токена')
-	}
-}
-
-export const logoutUser = async (full: boolean = false): Promise<void> => {
-	try {
-		const token = localStorage.getItem('token')
-		if (!token) throw new Error('Токен отсутствует.')
-
-		removeTokens()
-		const response = await axios.delete(`${API_BASE_URL}/logout?full=${full}`, {
-			headers: { Authorization: `Bearer ${token}` },
-		})
-		console.log('Выход выполнен успешно!', response.data)
-	} catch (error) {
-		throw handleError(error, 'Ошибка выхода')
+		throw handleError(error, errorMessage)
 	}
 }
 
@@ -77,4 +29,66 @@ const handleError = (error: unknown, defaultMessage: string): Error => {
 		console.error('Неожиданная ошибка:', error)
 		return new Error('Неожиданная ошибка.')
 	}
+}
+
+const saveUserData = (data: { username?: string; email?: string }): void => {
+	if (data.username) saveUsername(data.username)
+	if (data.email) saveEmail(data.email)
+}
+
+export const signupUser = async (data: RegisterData): Promise<AuthResponse> => {
+	return handleRequest<AuthResponse>(
+		() => axios.post<AuthResponse>(`${API_BASE_URL}/sign-up`, data),
+		'Регистрация прошла успешно!',
+		'Ошибка регистрации',
+		(response: AuthResponse) => {
+			removeTokens()
+			saveTokens(response.accessToken, response.refreshToken)
+			saveUserData(data)
+		}
+	)
+}
+
+export const siginUser = async (data: LoginData): Promise<AuthResponse> => {
+	return handleRequest<AuthResponse>(
+		() => axios.post<AuthResponse>(`${API_BASE_URL}/sign-in`, data),
+		'Вход выполнен успешно!',
+		'Ошибка входа',
+		(response: AuthResponse) => {
+			removeTokens()
+			saveTokens(response.accessToken, response.refreshToken)
+			saveUserData({ email: data.email })
+		}
+	)
+}
+
+export const refreshToken = async (): Promise<AuthResponse> => {
+	const refreshToken: string | null = localStorage.getItem('refreshToken')
+	if (!refreshToken) throw new Error('Refresh token отсутствует.')
+
+	return handleRequest<AuthResponse>(
+		() => axios.post<AuthResponse>(`${API_BASE_URL}/refresh`, { refreshToken }),
+		'Токен обновлен успешно!',
+		'Ошибка обновления токена',
+		(response: AuthResponse) => {
+			saveTokens(response.accessToken, response.refreshToken)
+		}
+	)
+}
+
+export const logoutUser = async (full: boolean = false): Promise<void> => {
+	const token: string | null = localStorage.getItem('token')
+	if (!token) throw new Error('Токен отсутствует.')
+
+	return handleRequest<void>(
+		() =>
+			axios.delete(`${API_BASE_URL}/logout?full=${full}`, {
+				headers: { Authorization: `Bearer ${token}` },
+			}),
+		'Выход выполнен успешно!',
+		'Ошибка выхода',
+		() => {
+			removeTokens()
+		}
+	)
 }

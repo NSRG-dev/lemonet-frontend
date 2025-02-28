@@ -16,7 +16,7 @@ const GAME_ITEMS_COUNT = 14
 
 export const Home = () => {
 	const [isTab, setTab] = useState('DAILY')
-	const { toggleAuth } = useAuth()
+	const { toggleAuth, isAuthenticated } = useAuth()
 
 	return (
 		<div className={s.home}>
@@ -24,7 +24,7 @@ export const Home = () => {
 				title='100 Free Spins plus a $500 Bonus!'
 				description='Spin the reels and win big today'
 				image={icons.banner4}
-				buttonText='LOG IN'
+				buttonText={!isAuthenticated ? 'LOG IN' : 'DEPOSIT'}
 				onButtonClick={toggleAuth}
 				newClass={s.bannerBlock}
 			/>
