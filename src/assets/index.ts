@@ -54,8 +54,11 @@ import arrowc from '@/assets/arrowCr.svg'
 import notfoundimage from '@/assets/illustration (6).svg'
 import pinnend from '@/assets/pin.svg'
 
+import changeFiles from '@/assets/file-document-svgrepo-com.svg'
+
 export const icons = {
 	gamev,
+	changeFiles,
 	pinnend,
 	notfoundimage,
 	arrowc,
