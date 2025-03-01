@@ -51,7 +51,6 @@ export const Profile = () => {
 						tabs={[
 							'Personal information',
 							'Referal system',
-							'VIP program',
 							'Game history',
 							'Transactions history',
 						]}
