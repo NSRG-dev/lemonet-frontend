@@ -77,9 +77,11 @@ export const Home = () => {
 	const renderBannerText = (field: keyof BannerText, maxLength: number) => (
 		<div className={s.bannerChange}>
 			<span>{renderTextWithEllipsis(bannerText[field], maxLength)}</span>
-			<Button type='text' onClick={() => openModal(field)}>
-				<img src={icons.changeFiles} alt='changeFiles' />
-			</Button>
+			{isAuthenticated && (
+				<Button type='text' onClick={() => openModal(field)}>
+					<img src={icons.changeFiles} alt='changeFiles' />
+				</Button>
+			)}
 		</div>
 	)
 
