@@ -71,6 +71,24 @@
 			}
 		}
 	}
+	@media (max-width: 425px) {
+		position: fixed;
+		left: 50%;
+		transform: translate(-50%);
+		width: 95%;
+		border-radius: 12px;
+		height: 90vh;
+		overflow-y: auto;
+		max-height: 90vh;
+
+		&::-webkit-scrollbar{
+			width: 0;
+		}
+
+		.onlineChat {
+			height: calc(90vh - 150px);
+		}
+	}
 }
 
 .scrollToBottomButton {

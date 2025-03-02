@@ -1,7 +1,5 @@
 import axios from 'axios'
-import { toast } from 'react-toastify'
-import { API_BASE_URL } from './authService'
-import { IMessage } from './types'
+import { API_BASE_CHAT_URL, type IMessage } from './types'
 
 const getAuthHeader = () => {
 	const token = localStorage.getItem('token')
@@ -17,19 +15,16 @@ const handleRequest = async <T>(
 	try {
 		const response = await request()
 		console.log(successMessage, response)
-		toast.success(successMessage)
 		return response
 	} catch (error) {
 		console.error(errorMessage, error)
-		toast.error(errorMessage)
 		throw error
 	}
 }
 
 export const getMessage = async (): Promise<IMessage[]> => {
 	return handleRequest(
-		() =>
-			axios.get<IMessage[]>(`${API_BASE_URL}/message`).then(res => res.data),
+		() => axios.get<IMessage[]>(`${API_BASE_CHAT_URL}`).then(res => res.data),
 		'Сообщения получены',
 		'Ошибка получения сообщений'
 	)
@@ -43,7 +38,7 @@ export const sendMessage = async (
 		() =>
 			axios
 				.post<IMessage>(
-					`${API_BASE_URL}/message`,
+					`${API_BASE_CHAT_URL}`,
 					{ content: message, username },
 					getAuthHeader()
 				)
@@ -55,7 +50,7 @@ export const sendMessage = async (
 
 export const deleteComment = async (commentId: string): Promise<void> => {
 	return handleRequest(
-		() => axios.delete(`${API_BASE_URL}/message/${commentId}`, getAuthHeader()),
+		() => axios.delete(`${API_BASE_CHAT_URL}/${commentId}`, getAuthHeader()),
 		'Комментарий удален',
 		'Ошибка удаления комментария'
 	)
@@ -66,12 +61,7 @@ export const muteUser = async (
 	muted: boolean
 ): Promise<void> => {
 	return handleRequest(
-		() =>
-			axios.patch(
-				`${API_BASE_URL}/message/${userId}`,
-				{ muted },
-				getAuthHeader()
-			),
+		() => axios.patch(`${API_BASE_CHAT_URL}/${userId}`, { muted }, getAuthHeader()),
 		muted ? 'Пользователь замьючен' : 'Пользователь размьючен',
 		'Ошибка изменения статуса пользователя'
 	)
@@ -83,11 +73,7 @@ export const addToBookmarks = async (
 	return handleRequest(
 		() =>
 			axios
-				.post<{ id: number }>(
-					`${API_BASE_URL}/message`,
-					{ messageId },
-					getAuthHeader()
-				)
+				.post<{ id: number }>(`${API_BASE_CHAT_URL}`, { messageId }, getAuthHeader())
 				.then(res => res.data),
 		'Сообщение добавлено в закладки',
 		'Ошибка добавления сообщения в закладки'
@@ -96,7 +82,7 @@ export const addToBookmarks = async (
 
 export const removeFromBookmarks = async (messageId: string): Promise<void> => {
 	return handleRequest(
-		() => axios.delete(`${API_BASE_URL}/message/${messageId}`, getAuthHeader()),
+		() => axios.delete(`${API_BASE_CHAT_URL}/${messageId}`, getAuthHeader()),
 		'Сообщение удалено из закладок',
 		'Ошибка удаления сообщения из закладок'
 	)

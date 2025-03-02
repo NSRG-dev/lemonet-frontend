@@ -1,8 +1,11 @@
 import { icons } from '@/assets'
 import { Banner } from '@/components/Banner/Banner'
 import { BannerSection } from '@/components/BannerSection/BannerSection'
+import { EditableBannerText } from '@/components/EditableBannerText/EditableBannerText'
+import { EditModal } from '@/components/EditModal/EditModal'
 import { FAQSection } from '@/components/FAQSection/FAQSection'
 import { TABLE_HEADERS_VIP, TABLE_ROWS_VIP } from '@/constant/tableData'
+import { useEditContext } from '@/Context/EditProvider'
 import s from './VipProgram.module.scss'
 
 const TableCell = ({ children }: { children: React.ReactNode }) => (
@@ -12,15 +15,33 @@ const TableCell = ({ children }: { children: React.ReactNode }) => (
 )
 
 export const VipProgram = () => {
+	const { banners, showModal } = useEditContext()
+
 	return (
 		<div className={s.vipProgram}>
+			{showModal && <EditModal />}
 			<BannerSection
-				title='Join the VIP Program!'
-				description='Unlock exclusive bonuses, personalized service, and incredible perks.'
+				title={
+					<EditableBannerText
+						text={banners.vip.title}
+						field='title'
+						bannerKey='vip'
+						maxLength={35}
+					/>
+				}
+				description={
+					<EditableBannerText
+						text={banners.vip.description}
+						field='description'
+						bannerKey='vip'
+						maxLength={70}
+					/>
+				}
 				image={icons.banner3}
 				buttonText='FIND OUT MORE'
 				onButtonClick={() => console.log('Deposit clicked')}
 				newClass={s.banner3}
+				imgClass={s.imgC}
 			/>
 
 			<div className={s.bannersStarted}>

@@ -38,6 +38,17 @@
 			font-weight: 600;
 			line-height: 20px;
 			cursor: pointer;
+			border-radius: 8px;
+			transition: background 0.3s ease-in, color .3s ease-in;
+
+			&:hover {
+				color: white;
+				background: linear-gradient(
+					180deg,
+					rgba(255, 199, 27, 0.1),
+					rgba(255, 233, 43, 0.1) 100%
+				);
+			}
 		}
 	}
 

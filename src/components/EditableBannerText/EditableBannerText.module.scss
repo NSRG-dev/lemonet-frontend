@@ -1,0 +1,31 @@
+.bannerChange {
+	position: relative;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+
+	span {
+		white-space: normal;
+		word-wrap: break-word;
+	}
+
+	button {
+		position: absolute;
+		opacity: 0;
+		transition: opacity 0.3s ease;
+		z-index: 9999;
+		bottom: 0;
+		right: 0;
+
+		img {
+			width: 24px !important;
+			height: 24px !important;
+		}
+	}
+
+	&:hover {
+		button {
+			opacity: 1;
+		}
+	}
+}

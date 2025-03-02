@@ -25,3 +25,9 @@ body {
 	flex-direction: column;
 	overflow: hidden;
 }
+
+@media (max-width: 425px) {
+	body.no-scroll {
+		overflow: hidden;
+	}
+}

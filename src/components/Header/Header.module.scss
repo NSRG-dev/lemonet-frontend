@@ -5,6 +5,9 @@
 	align-items: center;
 	justify-content: space-between;
 
+	position: relative;
+	z-index: 99999999099;
+
 	.left {
 		display: flex;
 		gap: 20px;
@@ -124,10 +127,6 @@
 			}
 		}
 
-		.profile {
-			width: 195px;
-		}
-
 		.search {
 			padding: 14px 15px;
 			border-radius: 12px;
@@ -139,40 +138,6 @@
 
 		.chat {
 			padding: 16px;
-		}
-
-		.optText {
-			display: flex;
-			flex-direction: column;
-			gap: 2px;
-			margin-right: 8px;
-			span {
-				color: rgb(193, 195, 209);
-				font-size: 12px;
-				font-weight: 800;
-				line-height: 16px;
-			}
-
-			.rank {
-				display: flex;
-				align-items: center;
-				gap: 7px;
-
-				span {
-					width: 14px;
-					height: 14px;
-					border-radius: 4px;
-					background: rgb(141, 202, 255);
-				}
-
-				b {
-					color: rgb(116, 119, 131);
-					font-size: 12px;
-					font-weight: 800;
-					line-height: 16px;
-					text-transform: uppercase;
-				}
-			}
 		}
 	}
 

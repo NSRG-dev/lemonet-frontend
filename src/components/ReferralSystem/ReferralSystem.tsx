@@ -1,7 +1,10 @@
 import { icons } from '@/assets'
 import { Button, Tabs } from '@/components/ui'
+import { useEditContext } from '@/Context/EditProvider'
 import { useMemo } from 'react'
 import { BannerSection } from '../BannerSection/BannerSection'
+import { EditableBannerText } from '../EditableBannerText/EditableBannerText'
+import { EditModal } from '../EditModal/EditModal'
 import { InputForm } from '../InputForm/InputForm'
 import s from './ReferralSystem.module.scss'
 
@@ -50,6 +53,8 @@ const TableRow = ({
 )
 
 export const ReferralSystem = ({ isTabs, setTabs }: ReferralSystemProps) => {
+	const { banners, showModal } = useEditContext()
+
 	const balanceBlocks = useMemo(
 		() =>
 			[1, 2, 3].map((_, index) => (
@@ -68,9 +73,24 @@ export const ReferralSystem = ({ isTabs, setTabs }: ReferralSystemProps) => {
 
 	return (
 		<div className={s.referalSystem}>
+			{showModal && <EditModal />}
 			<BannerSection
-				title='Partner with Us and Earn Big!'
-				description='Join our affiliate program today and unlock unlimited earning potential with high commissions and exclusive rewards!'
+				title={
+					<EditableBannerText
+						text={banners.referral.title}
+						field='title'
+						bannerKey='referral'
+						maxLength={35}
+					/>
+				}
+				description={
+					<EditableBannerText
+						text={banners.referral.description}
+						field='description'
+						bannerKey='referral'
+						maxLength={120}
+					/>
+				}
 				image={icons.banner2}
 				newClass={s.banner2}
 			>

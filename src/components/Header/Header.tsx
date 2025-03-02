@@ -4,13 +4,15 @@ import { useBurger } from '@/Context/BurgerProvider'
 import { useChat } from '@/Context/ChatProvider'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Button, Input, Option } from '../ui'
+import { ProfileHeader } from '../ProfileHeader/ProfileHeader'
+import { Button, Input } from '../ui'
 import s from './Header.module.scss'
 
 export const Header = () => {
 	const { toggleMenu } = useBurger()
 	const { toggleChat } = useChat()
 	const { isAuthenticated, toggleAuth, toggleDeposit } = useAuth()
+	const [isOpenProfileOpt, setopenProfileOpt] = useState(false)
 
 	const [isSearch, setSearch] = useState(false)
 
@@ -50,25 +52,9 @@ export const Header = () => {
 			<div className={s.right}>
 				{isAuthenticated ? (
 					<>
-						<Option
-							open={false}
-							title={
-								<>
-									<img src={icons.avatar} alt='avatar' loading='lazy' />
-									<div className={s.optText}>
-										<span>ACCOUNT</span>
-										<div className={s.rank}>
-											<span></span>
-											<b>Silver</b>
-										</div>
-									</div>
-								</>
-							}
-							options={['Personal information']}
-							newClass={s.profile}
-							sxB={{
-								padding: '9px 16px',
-							}}
+						<ProfileHeader
+							isOpen={isOpenProfileOpt}
+							handleToggle={() => setopenProfileOpt(!isOpenProfileOpt)}
 						/>
 						<div className={s.inputSearch}>
 							<Button

@@ -7,6 +7,7 @@ interface IButton {
 	newClass?: string
 	onClick?: (ev: React.MouseEvent<HTMLButtonElement>) => void
 	ref?: React.LegacyRef<HTMLButtonElement>
+	disabled?: boolean
 }
 
 export const Button = ({
@@ -15,6 +16,7 @@ export const Button = ({
 	newClass,
 	onClick,
 	ref,
+	disabled,
 }: IButton) => {
 	const className = classNames(s.btn, newClass, {
 		[s.default]: type === 'default',
@@ -25,7 +27,12 @@ export const Button = ({
 	})
 
 	return (
-		<button ref={ref} className={className} onClick={onClick}>
+		<button
+			ref={ref}
+			className={className}
+			onClick={onClick}
+			disabled={disabled}
+		>
 			{children}
 		</button>
 	)

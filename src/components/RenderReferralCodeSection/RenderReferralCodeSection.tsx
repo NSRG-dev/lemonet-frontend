@@ -5,11 +5,15 @@ import s from './RenderReferralCodeSection.module.scss'
 interface RenderReferralCodeSectionProps {
 	setOpenCode: React.Dispatch<React.SetStateAction<boolean>>
 	isOpenCode: boolean
+	referralCode: string
+	setReferralCode: (value: string) => void
 }
 
 export const RenderReferralCodeSection = ({
 	setOpenCode,
 	isOpenCode,
+	referralCode,
+	setReferralCode,
 }: RenderReferralCodeSectionProps) => (
 	<div className={s.tab}>
 		<div className={s.label} onClick={() => setOpenCode(prev => !prev)}>
@@ -27,9 +31,10 @@ export const RenderReferralCodeSection = ({
 		</div>
 		<div className={`${s.input} ${isOpenCode ? s.open : ''}`}>
 			<Input
-				label='Your password'
+				open
 				placeholder='Enter referral code'
-				open={true}
+				value={referralCode}
+				onChange={e => setReferralCode(e.target.value)}
 			/>
 		</div>
 	</div>

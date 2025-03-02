@@ -84,3 +84,30 @@ export const navigationSections = [
 		],
 	},
 ]
+
+export const sidebarLinks = [
+	{
+		title: 'Casino',
+		links: [
+			'Favorites',
+			'Slots',
+			'Live casino',
+			'New Releases',
+			'Table games',
+			'Game shows',
+			'BlackJack',
+		],
+	},
+	{
+		title: 'Sport',
+		links: [
+			'Rugby',
+			'Basketball',
+			'MMA',
+			'Tennis',
+			'Soccer',
+			'Horse racing',
+			'Volleyball',
+		],
+	},
+]

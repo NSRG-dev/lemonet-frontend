@@ -1,16 +1,17 @@
 import classNames from 'classnames'
 import React from 'react'
-import s from './BannerSection.module.scss'
 import { Button } from '../ui'
+import s from './BannerSection.module.scss'
 
 interface BannerSectionProps {
-	title: string
-	description: string
+	title: React.ReactNode
+	description: React.ReactNode
 	image: string
 	newClass?: string
 	buttonText?: string
 	onButtonClick?: () => void
 	children?: React.ReactNode
+	imgClass?: string
 }
 
 export const BannerSection = ({
@@ -21,6 +22,7 @@ export const BannerSection = ({
 	buttonText,
 	onButtonClick,
 	children,
+	imgClass,
 }: BannerSectionProps) => {
 	return (
 		<div className={classNames(s.banner, newClass)}>
@@ -36,7 +38,7 @@ export const BannerSection = ({
 				)}
 				{children}
 			</div>
-			<img src={image} alt='banner' className={s.img} />
+			<img src={image} alt='banner' className={classNames(s.img, imgClass)} />
 		</div>
 	)
 }

@@ -4,6 +4,7 @@ import { RouterProvider } from 'react-router-dom'
 import { AuthProvider } from './Context/AuthProvider.tsx'
 import { BurgerProvider } from './Context/BurgerProvider.tsx'
 import { ChatProvider } from './Context/ChatProvider.tsx'
+import { EditProvider } from './Context/EditProvider.tsx'
 import './index.css'
 import { router } from './router/index.tsx'
 
@@ -12,7 +13,9 @@ createRoot(document.getElementById('root')!).render(
 		<AuthProvider>
 			<BurgerProvider>
 				<ChatProvider>
-					<RouterProvider router={router} />
+					<EditProvider>
+						<RouterProvider router={router} />
+					</EditProvider>
 				</ChatProvider>
 			</BurgerProvider>
 		</AuthProvider>

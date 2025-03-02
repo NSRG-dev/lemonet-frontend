@@ -21,7 +21,13 @@ export const Auth = () => {
 		username,
 		setUsername,
 	} = useAuth()
-	const { errors, handleCreateAccount, handleLoginAccount } = useAuthForm()
+	const {
+		errors,
+		handleCreateAccount,
+		handleLoginAccount,
+		referralCode,
+		setReferralCode,
+	} = useAuthForm()
 
 	return (
 		<Suspense fallback={<div>Loading...</div>}>
@@ -72,6 +78,8 @@ export const Auth = () => {
 						<RenderReferralCodeSection
 							setOpenCode={setOpenCode}
 							isOpenCode={isOpenCode}
+							referralCode={referralCode}
+							setReferralCode={setReferralCode}
 						/>
 						<div className={s.checked}>
 							<Button type='green'>

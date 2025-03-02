@@ -9,3 +9,5 @@ export interface IMessage {
 	muted?: boolean
 	dopMessage?: string
 }
+
+export const API_BASE_CHAT_URL = 'http://localhost:3000/api/message'

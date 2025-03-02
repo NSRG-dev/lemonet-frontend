@@ -15,6 +15,7 @@ export const useAuthForm = () => {
 		username,
 		setUsername,
 	} = useAuth()
+	const [referralCode, setReferralCode] = useState('') 
 	const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
 	const validateForm = (isSignUp: boolean) => {
@@ -51,7 +52,12 @@ export const useAuthForm = () => {
 			if (!validateForm(true)) return
 
 			try {
-				const response = await signupUser({ email, password, username })
+				const response = await signupUser({
+					email,
+					password,
+					username,
+					referralCode, 
+				})
 				saveTokens(response.accessToken, response.refreshToken)
 				setUsername(username)
 				setIsRegistered(true)
@@ -67,6 +73,7 @@ export const useAuthForm = () => {
 			email,
 			password,
 			username,
+			referralCode, 
 			setIsRegistered,
 			setIsAuthenticated,
 			closeAuth,
@@ -104,6 +111,8 @@ export const useAuthForm = () => {
 		setPassword,
 		username,
 		setUsername,
+		referralCode,
+		setReferralCode, 
 		errors,
 		handleCreateAccount,
 		handleLoginAccount,

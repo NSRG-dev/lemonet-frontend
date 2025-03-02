@@ -54,12 +54,24 @@ export const Chat = React.memo(() => {
 	)
 
 	useEffect(() => {
+		if (isOpenChat) {
+			document.body.classList.add('no-scroll')
+		} else {
+			document.body.classList.remove('no-scroll')
+		}
+
+		return () => {
+			document.body.classList.remove('no-scroll')
+		}
+	}, [isOpenChat])
+
+	useEffect(() => {
 		const fetchMessages = async () => {
 			try {
 				const messages = await getMessage()
 				setComments(messages)
 			} catch (error) {
-				toast.error('Ошибка загрузки сообщений')
+				console.error('Ошибка загрузки сообщений')
 			}
 		}
 		fetchMessages()

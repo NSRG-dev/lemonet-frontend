@@ -1,7 +1,12 @@
 import axios, { AxiosResponse } from 'axios'
 import { setupInterceptors } from './interceptors'
 import { removeTokens, saveEmail, saveTokens, saveUsername } from './tokens'
-import { API_BASE_URL, AuthResponse, LoginData, RegisterData } from './types'
+import {
+	API_BASE_URL,
+	type AuthResponse,
+	type LoginData,
+	type RegisterData,
+} from './types'
 
 setupInterceptors()
 

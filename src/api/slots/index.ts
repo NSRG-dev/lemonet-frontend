@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { toast } from 'react-toastify'
 import { API_BASE_SLOTS_URL } from './slotsService'
 
 const handleRequest = async <T>(
@@ -11,7 +10,6 @@ const handleRequest = async <T>(
 		return response.data
 	} catch (error) {
 		console.error(errorMessage, error)
-		toast.error(errorMessage)
 		throw error
 	}
 }

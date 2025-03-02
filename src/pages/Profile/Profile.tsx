@@ -1,5 +1,7 @@
 import { icons } from '@/assets'
 import { BannerSection } from '@/components/BannerSection/BannerSection'
+import { EditableBannerText } from '@/components/EditableBannerText/EditableBannerText'
+import { EditModal } from '@/components/EditModal/EditModal'
 import { FormBlock } from '@/components/FormBlock/FormBlock'
 import { GameHistory } from '@/components/GameHistory/GameHistory'
 import { ProfileInfo } from '@/components/ProfileInfo/ProfileInfo'
@@ -8,6 +10,7 @@ import { SumCounter } from '@/components/SumCounter/SumCounter'
 import { TransactionHistory } from '@/components/TransactionHistory/TransactionHistory'
 import { Tabs } from '@/components/ui'
 import { useAuth } from '@/Context/AuthProvider'
+import { useEditContext } from '@/Context/EditProvider'
 import { useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import s from './Profile.module.scss'
@@ -22,20 +25,38 @@ export const Profile = () => {
 		[]
 	)
 	const { logout, username, email } = useAuth()
+	const { banners, showModal } = useEditContext()
 
 	const handleLogout = async () => {
 		logout()
 		navigation('/')
 	}
+
 	return (
 		<div className={s.profile}>
+			{showModal && <EditModal />}
 			<BannerSection
-				title='Deposit and Claim Your Bonus'
-				description='Deposit up to $100 and get 180% added to your account!'
+				title={
+					<EditableBannerText
+						text={banners.home.title}
+						field='title'
+						bannerKey='home'
+						maxLength={35}
+					/>
+				}
+				description={
+					<EditableBannerText
+						text={banners.home.description}
+						field='description'
+						bannerKey='home'
+						maxLength={40}
+					/>
+				}
 				image={icons.banner}
 				buttonText='DEPOSIT'
-				onButtonClick={() => console.log('Deposit clicked')}
+				onButtonClick={() => console.log('Button clicked')}
 			/>
+
 			<div className={s.profileContent}>
 				<div className={s.left}>
 					<ProfileInfo

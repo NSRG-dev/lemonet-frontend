@@ -1,7 +1,8 @@
 import { icons } from '@/assets'
+import { sidebarLinks } from '@/constant/navigation'
 import { useAuth } from '@/Context/AuthProvider'
 import { useBurger } from '@/Context/BurgerProvider'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { NavigationColumn } from '../NavigationColumn/NavigationColumn'
 import { Button } from '../ui'
@@ -12,6 +13,18 @@ export const Sidebar = () => {
 	const { isOpenMenu, toggleMenu, handleCloseMenu } = useBurger()
 	const { toggleAuth } = useAuth()
 
+	useEffect(() => {
+		if (isOpenMenu) {
+			document.body.classList.add('no-scroll')
+		} else {
+			document.body.classList.remove('no-scroll')
+		}
+
+		return () => {
+			document.body.classList.remove('no-scroll')
+		}
+	}, [isOpenMenu])
+
 	const toggleColumn = (index: number) => {
 		setColumnsOpen(prevState => {
 			const newState = [...prevState]
@@ -20,7 +33,6 @@ export const Sidebar = () => {
 		})
 	}
 
-	const casinoItems = ['Favorites', 'Favorites', 'Favorites', 'Favorites']
 	return (
 		<div
 			className={`${s.wind} ${isOpenMenu ? s.open : s.closed}`}
@@ -52,22 +64,17 @@ export const Sidebar = () => {
 							/>
 						</Button>
 					</div>
-					<NavigationColumn
-						title='Casino'
-						items={casinoItems}
-						iconSrc={icons.arrow}
-						alt='arrow'
-						isColumn={isColumnsOpen[0]}
-						setColumn={() => toggleColumn(0)}
-					/>
-					<NavigationColumn
-						title='Casino'
-						items={casinoItems}
-						iconSrc={icons.arrow}
-						alt='arrow'
-						isColumn={isColumnsOpen[1]}
-						setColumn={() => toggleColumn(1)}
-					/>
+					{sidebarLinks.map((link, index) => (
+						<NavigationColumn
+							key={index}
+							title={link.title}
+							items={link.links}
+							iconSrc={icons.arrow}
+							alt='arrow'
+							isColumn={isColumnsOpen[index]}
+							setColumn={() => toggleColumn(index)}
+						/>
+					))}
 					<Button type='disabled'>Buy crypto</Button>
 				</div>
 			</aside>
