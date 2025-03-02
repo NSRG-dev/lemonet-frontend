@@ -5,7 +5,7 @@ type BannerText = {
 	description: string
 }
 
-type BannerKey = 'home' | 'profile' | 'referral' | 'affiliates' | 'vip'
+type BannerKey = 'home' | 'profile' | 'referral' | 'affiliates' | 'vip' | 'faq'
 
 type EditContextType = {
 	banners: Record<BannerKey, BannerText>
@@ -60,6 +60,12 @@ export const EditProvider = ({ children }: EditProviderProps) => {
 			title: 'Join the VIP Program!',
 			description:
 				'Unlock exclusive bonuses, personalized service, and incredible perks.',
+		},
+		faq: {
+			title:
+				'What are the requirements to join the VIP Program, and how can I qualify for it?',
+			description:
+				'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur esse, mollitia labore rem neque reprehenderit nesciunt aut sed nam soluta dolor ipsam totam iusto velit laboriosam! Illo distinctio nihil deserunt?',
 		},
 	})
 

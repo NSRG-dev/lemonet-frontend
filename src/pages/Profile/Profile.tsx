@@ -1,7 +1,6 @@
 import { icons } from '@/assets'
 import { BannerSection } from '@/components/BannerSection/BannerSection'
 import { EditableBannerText } from '@/components/EditableBannerText/EditableBannerText'
-import { EditModal } from '@/components/EditModal/EditModal'
 import { FormBlock } from '@/components/FormBlock/FormBlock'
 import { GameHistory } from '@/components/GameHistory/GameHistory'
 import { ProfileInfo } from '@/components/ProfileInfo/ProfileInfo'
@@ -25,7 +24,7 @@ export const Profile = () => {
 		[]
 	)
 	const { logout, username, email } = useAuth()
-	const { banners, showModal } = useEditContext()
+	const { banners } = useEditContext()
 
 	const handleLogout = async () => {
 		logout()
@@ -34,7 +33,6 @@ export const Profile = () => {
 
 	return (
 		<div className={s.profile}>
-			{showModal && <EditModal />}
 			<BannerSection
 				title={
 					<EditableBannerText

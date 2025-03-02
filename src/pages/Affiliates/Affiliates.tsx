@@ -3,18 +3,16 @@ import { Banner } from '@/components/Banner/Banner'
 import { BannerSection } from '@/components/BannerSection/BannerSection'
 import { ChooseUsSection } from '@/components/ChooseUsSection/ChooseUsSection'
 import { EditableBannerText } from '@/components/EditableBannerText/EditableBannerText'
-import { EditModal } from '@/components/EditModal/EditModal'
 import { FAQSection } from '@/components/FAQSection/FAQSection'
 import { InputForm } from '@/components/InputForm/InputForm'
 import { useEditContext } from '@/Context/EditProvider'
 import s from './Affiliates.module.scss'
 
 export const Affiliates = () => {
-	const { banners, showModal } = useEditContext()
+	const { banners } = useEditContext()
 
 	return (
 		<div className={s.affiliates}>
-			{showModal && <EditModal />}
 			<BannerSection
 				title={
 					<EditableBannerText

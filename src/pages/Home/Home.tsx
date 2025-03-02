@@ -1,7 +1,6 @@
 import { icons } from '@/assets'
 import { BannerSection } from '@/components/BannerSection/BannerSection'
 import { EditableBannerText } from '@/components/EditableBannerText/EditableBannerText'
-import { EditModal } from '@/components/EditModal/EditModal'
 import { GameGrid } from '@/components/GameGrid/GameGrid'
 import { HomeBanner } from '@/components/HomeBanner/HomeBanner'
 import { RecentBigWins } from '@/components/RecentBigWins/RecentBigWins'
@@ -18,12 +17,11 @@ import sportBanner from '/sport banner.jpeg'
 const GAME_ITEMS_COUNT = 14
 export const Home = () => {
 	const [isTab, setTab] = useState<'DAILY' | 'WEEKLY' | 'MONTHLY'>('DAILY')
-	const { banners, showModal } = useEditContext()
+	const { banners } = useEditContext()
 	const { isAuthenticated, toggleAuth, toggleDeposit } = useAuth()
 
 	return (
 		<div className={s.home}>
-			{showModal && <EditModal />}
 			<BannerSection
 				title={
 					<EditableBannerText

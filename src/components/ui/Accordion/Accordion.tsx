@@ -4,7 +4,7 @@ import React from 'react'
 import s from './Accordion.module.scss'
 
 interface AccordionProps {
-	title: string
+	title: React.ReactNode
 	isOpen: boolean
 	onClick: () => void
 	children: React.ReactNode
@@ -25,7 +25,7 @@ export const Accordion = ({
 					borderRadius: !isOpen ? '12px' : '12px 12px 0px 0px',
 				}}
 			>
-				<h3>{title}</h3>
+				<div className={s.title}>{title}</div>
 				<Button type='icon' newClass={isOpen ? s.active : ''}>
 					<img
 						src={icons.arrow}

@@ -1,9 +1,12 @@
+import { useEditContext } from '@/Context/EditProvider'
 import { useState } from 'react'
+import { EditableAccordionText } from '../EditableAccordionText/EditableAccordionText'
 import { Accordion } from '../ui/Accordion/Accordion'
 import s from './FAQSection.module.scss'
 
 export const FAQSection = () => {
 	const [isOpenAccordion, setOpenAccordion] = useState(false)
+	const { banners } = useEditContext()
 
 	return (
 		<div className={s.questions}>
@@ -12,15 +15,24 @@ export const FAQSection = () => {
 
 			<div className={s.contAccr}>
 				<Accordion
-					title='What are the requirements to join the VIP Program, and how can I qualify for it?'
+					title={
+						<EditableAccordionText
+							text={banners.faq.title}
+							field='title'
+							accordionKey='faq'
+							maxLength={100}
+						/>
+					}
 					isOpen={isOpenAccordion}
 					onClick={() => setOpenAccordion(!isOpenAccordion)}
 				>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur
-						esse, mollitia labore rem neque reprehenderit nesciunt aut sed nam
-						soluta dolor ipsam totam iusto velit laboriosam! Illo distinctio
-						nihil deserunt?
+						<EditableAccordionText
+							text={banners.faq.description}
+							field='description'
+							accordionKey='faq'
+							maxLength={200}
+						/>
 					</p>
 				</Accordion>
 			</div>

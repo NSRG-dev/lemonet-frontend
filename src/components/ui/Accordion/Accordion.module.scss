@@ -9,7 +9,8 @@
 		transition: border-radius 0.3s ease;
 		cursor: pointer;
 
-		h3 {
+		.title {
+			width: 100%;
 			color: rgb(255, 255, 255);
 			font-size: 16px;
 			font-weight: 600;

@@ -2,7 +2,6 @@ import { icons } from '@/assets'
 import { Banner } from '@/components/Banner/Banner'
 import { BannerSection } from '@/components/BannerSection/BannerSection'
 import { EditableBannerText } from '@/components/EditableBannerText/EditableBannerText'
-import { EditModal } from '@/components/EditModal/EditModal'
 import { FAQSection } from '@/components/FAQSection/FAQSection'
 import { TABLE_HEADERS_VIP, TABLE_ROWS_VIP } from '@/constant/tableData'
 import { useEditContext } from '@/Context/EditProvider'
@@ -15,11 +14,10 @@ const TableCell = ({ children }: { children: React.ReactNode }) => (
 )
 
 export const VipProgram = () => {
-	const { banners, showModal } = useEditContext()
+	const { banners } = useEditContext()
 
 	return (
 		<div className={s.vipProgram}>
-			{showModal && <EditModal />}
 			<BannerSection
 				title={
 					<EditableBannerText
