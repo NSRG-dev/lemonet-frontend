@@ -1,7 +1,24 @@
 import { Linkback } from '@/components/LinkBack/Linkback'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import s from './PromotionInfo.module.scss'
 
 export const PromotionInfo = () => {
+	const [promotions, setPromotions] = useState([])
+	const { id } = useParams()
+
+	useEffect(() => {
+		const getPromotions = async () => {
+			try {
+				const response = await fetch(`http://localhost:3000/promotions/${id}`)
+				const data = await response.json()
+				setPromotions(data)
+			} catch (error) {
+				console.error('Error fetching promotions:', error)
+			}
+		}
+		getPromotions()
+	}, [])
 	return (
 		<div className={s.promotionInfo}>
 			<Linkback />

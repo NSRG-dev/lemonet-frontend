@@ -1,11 +1,19 @@
 import { icons } from '@/assets'
+import { EditableAccordionText } from '@/components/EditableAccordionText/EditableAccordionText'
 import { Linkback } from '@/components/LinkBack/Linkback'
 import { Tabs } from '@/components/ui'
 import { Accordion } from '@/components/ui/Accordion/Accordion'
+import { useEditContext } from '@/Context/EditProvider'
 import { useCallback, useState } from 'react'
 import s from './Help.module.scss'
 
 interface IFAQContent {
+	banners: {
+		faq: {
+			title: string
+			description: string
+		}
+	}
 	isOpenAccordion: boolean
 	toggleAccordion: () => void
 }
@@ -46,18 +54,31 @@ const PrivacyPolicyContent = () => (
 	</>
 )
 
-const FAQContent = ({ isOpenAccordion, toggleAccordion }: IFAQContent) => (
+const FAQContent = ({
+	isOpenAccordion,
+	toggleAccordion,
+	banners,
+}: IFAQContent) => (
 	<div className={s.faq}>
 		<Accordion
-			title='What are the requirements to join the VIP Program, and how can I qualify for it?'
+			title={
+				<EditableAccordionText
+					text={banners.faq.title}
+					field='title'
+					accordionKey='faq'
+					maxLength={100}
+				/>
+			}
 			isOpen={isOpenAccordion}
 			onClick={toggleAccordion}
 		>
 			<p>
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur esse,
-				mollitia labore rem neque reprehenderit nesciunt aut sed nam soluta
-				dolor ipsam totam iusto velit laboriosam! Illo distinctio nihil
-				deserunt?
+				<EditableAccordionText
+					text={banners.faq.description}
+					field='description'
+					accordionKey='faq'
+					maxLength={200}
+				/>
 			</p>
 		</Accordion>
 	</div>
@@ -66,6 +87,7 @@ const FAQContent = ({ isOpenAccordion, toggleAccordion }: IFAQContent) => (
 export const Help = () => {
 	const [activeTab, setActiveTab] = useState('Privacy Policy')
 	const [isOpenAccordion, setOpenAccordion] = useState(false)
+	const { banners } = useEditContext()
 
 	const toggleAccordion = useCallback(() => {
 		setOpenAccordion(prev => !prev)
@@ -89,6 +111,7 @@ export const Help = () => {
 				<FAQContent
 					isOpenAccordion={isOpenAccordion}
 					toggleAccordion={toggleAccordion}
+					banners={banners}
 				/>
 			)}
 		</div>
