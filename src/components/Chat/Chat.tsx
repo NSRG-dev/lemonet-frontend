@@ -1,11 +1,12 @@
 import {
 	addToBookmarks,
 	deleteComment,
-	getMessage,
+	getCurrentUser,
 	muteUser,
 	removeFromBookmarks,
 	sendMessage,
 } from '@/api/chat'
+import { IUser } from '@/api/chat/types'
 import { icons } from '@/assets'
 import { COMMENTS } from '@/constant/data'
 import { useAuth } from '@/Context/AuthProvider'
@@ -53,6 +54,21 @@ export const Chat = React.memo(() => {
 		null
 	)
 
+	const [user, setUser] = useState<IUser | null>(null)
+
+	useEffect(() => {
+		if (isAuthenticated) {
+			getCurrentUser()
+				.then(response => {
+					console.log('Server response:', response)
+					setUser(response)
+				})
+				.catch(error =>
+					console.error('Ошибка загрузки данных пользователя:', error)
+				)
+		}
+	}, [isAuthenticated])
+
 	useEffect(() => {
 		if (isOpenChat) {
 			document.body.classList.add('no-scroll')
@@ -64,18 +80,6 @@ export const Chat = React.memo(() => {
 			document.body.classList.remove('no-scroll')
 		}
 	}, [isOpenChat])
-
-	useEffect(() => {
-		const fetchMessages = async () => {
-			try {
-				const messages = await getMessage()
-				setComments(messages)
-			} catch (error) {
-				console.error('Ошибка загрузки сообщений')
-			}
-		}
-		fetchMessages()
-	}, [])
 
 	useEffect(() => {
 		const chatData = {
@@ -249,6 +253,8 @@ export const Chat = React.memo(() => {
 					<Comment
 						key={comment.id}
 						{...comment}
+						avatarSrc={user?.avatar || icons.avatar}
+						username={user?.username || 'Guest'}
 						onMute={() => handleMuteUser(comment.id)}
 						onDelete={() => handleDeleteComment(comment.id)}
 						onDoubleClick={() => handleReplyToComment(comment)}

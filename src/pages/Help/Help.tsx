@@ -1,19 +1,20 @@
 import { icons } from '@/assets'
-import { EditableAccordionText } from '@/components/EditableAccordionText/EditableAccordionText'
 import { Linkback } from '@/components/LinkBack/Linkback'
 import { Tabs } from '@/components/ui'
 import { Accordion } from '@/components/ui/Accordion/Accordion'
-import { useEditContext } from '@/Context/EditProvider'
-import { useCallback, useState } from 'react'
+import axios from 'axios'
+import { useCallback, useEffect, useState } from 'react'
 import s from './Help.module.scss'
 
+interface IFAQ {
+	id: string
+	question: string
+	answer: string
+}
+
 interface IFAQContent {
-	banners: {
-		faq: {
-			title: string
-			description: string
-		}
-	}
+	question: string
+	answer: string
 	isOpenAccordion: boolean
 	toggleAccordion: () => void
 }
@@ -57,40 +58,40 @@ const PrivacyPolicyContent = () => (
 const FAQContent = ({
 	isOpenAccordion,
 	toggleAccordion,
-	banners,
+	question,
+	answer,
 }: IFAQContent) => (
 	<div className={s.faq}>
 		<Accordion
-			title={
-				<EditableAccordionText
-					text={banners.faq.title}
-					field='title'
-					accordionKey='faq'
-					maxLength={100}
-				/>
-			}
+			title={question}
 			isOpen={isOpenAccordion}
 			onClick={toggleAccordion}
 		>
-			<p>
-				<EditableAccordionText
-					text={banners.faq.description}
-					field='description'
-					accordionKey='faq'
-					maxLength={200}
-				/>
-			</p>
+			<p>{answer}</p>
 		</Accordion>
 	</div>
 )
 
 export const Help = () => {
 	const [activeTab, setActiveTab] = useState('Privacy Policy')
-	const [isOpenAccordion, setOpenAccordion] = useState(false)
-	const { banners } = useEditContext()
+	const [isOpenAccordion, setOpenAccordion] = useState(null)
+	const [faqContent, setFaqContent] = useState<IFAQ[]>([])
 
-	const toggleAccordion = useCallback(() => {
-		setOpenAccordion(prev => !prev)
+	const toggleAccordion = useCallback((index: string) => {
+		setOpenAccordion(prev => (prev === index ? null : (index as null)))
+	}, [])
+
+	const getFaq = async () => {
+		try {
+			const res = await axios.get<IFAQ[]>('http://localhost:3000/api/faq')
+			setFaqContent(res.data)
+		} catch (error) {
+			console.error('Ошибка загрузки FAQ:', error)
+		}
+	}
+
+	useEffect(() => {
+		getFaq()
 	}, [])
 
 	return (
@@ -108,11 +109,17 @@ export const Help = () => {
 			/>
 			{activeTab === 'Privacy Policy' && <PrivacyPolicyContent />}
 			{activeTab === 'FAQ' && (
-				<FAQContent
-					isOpenAccordion={isOpenAccordion}
-					toggleAccordion={toggleAccordion}
-					banners={banners}
-				/>
+				<>
+					{faqContent.map(item => (
+						<FAQContent
+							key={item.id}
+							isOpenAccordion={isOpenAccordion === item.id}
+							toggleAccordion={() => toggleAccordion(item.id)}
+							question={item.question}
+							answer={item.answer}
+						/>
+					))}
+				</>
 			)}
 		</div>
 	)

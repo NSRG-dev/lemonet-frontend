@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { Button } from '../ui'
 import s from './HomeBanner.module.scss'
 
@@ -20,7 +21,9 @@ export const HomeBanner = ({
 			}}
 		>
 			<p>{description}</p>
-			<Button type='default'>{buttonText}</Button>
+			<Button type='default'>
+				<Link to={'/sport'}>{buttonText}</Link>
+			</Button>
 		</div>
 	)
 }

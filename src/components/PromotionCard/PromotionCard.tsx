@@ -3,13 +3,24 @@ import { Link } from 'react-router-dom'
 import { Button } from '../ui'
 import s from './PromotionCard.module.scss'
 
-export const PromotionCard = ({ index }: { index: number }) => {
+interface PromotionCardProps {
+	promotion: {
+		title: string
+		image?: string
+	}
+}
+
+export const PromotionCard = ({ promotion }: PromotionCardProps) => {
 	return (
-		<Link to={`/promotions/${index}`}>
+		<Link to={`/promotions/${promotion.title}`}>
 			<article className={s.card}>
-				<img src='/public/image 13.png' alt='game' className={s.image} />
+				<img
+					src={promotion.image || '/public/image 13.png'}
+					alt='game'
+					className={s.image}
+				/>
 				<div className={s.info}>
-					<h3>10X POINTS every tuesd...</h3>
+					<h3>{promotion.title || '10X POINTS every tuesd...'}</h3>
 					<Button type='text'>
 						Details <img src={icons.arrow} alt='' />
 					</Button>

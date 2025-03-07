@@ -21,9 +21,17 @@
 		width: 350px;
 	}
 
+	button {
+		a {
+			color: inherit;
+			text-decoration: none;
+		}
+	}
+
 	@media (max-width: 950px) {
 		flex-shrink: 0;
 	}
+	
 	@media (max-width: 600px) {
 		width: 100%;
 		text-align: center;

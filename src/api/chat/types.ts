@@ -10,4 +10,17 @@ export interface IMessage {
 	dopMessage?: string
 }
 
-export const API_BASE_CHAT_URL = 'http://localhost:3000/api/message'
+export interface IUser {
+	id: string
+	username: string
+	email: string
+	avatar?: string 
+	createdAt: string
+	updatedAt: string
+	role: {
+		id: string
+		name: string
+	}
+}
+
+export const API_BASE_CHAT_URL = 'http://localhost:3000/api'

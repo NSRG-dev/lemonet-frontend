@@ -6,17 +6,19 @@ import s from './Profile.module.scss'
 interface ProfileInfoProps {
 	handleLogout: () => void
 	username: string
+	avatarSrc: string
 	email: string
 }
 
 export const ProfileInfo = ({
 	handleLogout,
 	username,
+	avatarSrc,
 	email,
 }: ProfileInfoProps) => {
 	const [avatar, setAvatar] = useState(() => {
 		const savedAvatar = localStorage.getItem('avatar')
-		return savedAvatar ? JSON.parse(savedAvatar) : icons.avatar
+		return savedAvatar ? JSON.parse(savedAvatar) : avatarSrc
 	})
 
 	const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {

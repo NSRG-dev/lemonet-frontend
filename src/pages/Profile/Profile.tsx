@@ -1,3 +1,5 @@
+import { getCurrentUser } from '@/api/chat'
+import { IUser } from '@/api/chat/types'
 import { icons } from '@/assets'
 import { BannerSection } from '@/components/BannerSection/BannerSection'
 import { EditableBannerText } from '@/components/EditableBannerText/EditableBannerText'
@@ -10,7 +12,7 @@ import { TransactionHistory } from '@/components/TransactionHistory/TransactionH
 import { Tabs } from '@/components/ui'
 import { useAuth } from '@/Context/AuthProvider'
 import { useEditContext } from '@/Context/EditProvider'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import s from './Profile.module.scss'
 
@@ -23,13 +25,27 @@ export const Profile = () => {
 		() => ['form1', 'form2'].map(key => <FormBlock key={key} />),
 		[]
 	)
-	const { logout, username, email } = useAuth()
+	const { logout, isAuthenticated } = useAuth()
 	const { banners } = useEditContext()
 
 	const handleLogout = async () => {
 		logout()
 		navigation('/')
 	}
+	const [user, setUser] = useState<IUser | null>(null)
+
+	useEffect(() => {
+		if (isAuthenticated) {
+			getCurrentUser()
+				.then(response => {
+					console.log('Server response:', response)
+					setUser(response)
+				})
+				.catch(error =>
+					console.error('Ошибка загрузки данных пользователя:', error)
+				)
+		}
+	}, [isAuthenticated])
 
 	return (
 		<div className={s.profile}>
@@ -59,8 +75,9 @@ export const Profile = () => {
 				<div className={s.left}>
 					<ProfileInfo
 						handleLogout={handleLogout}
-						username={username}
-						email={email}
+						username={user?.username}
+						email={user?.email}
+						avatarSrc={user?.avatar}
 					/>
 					<SumCounter />
 					<Tabs
