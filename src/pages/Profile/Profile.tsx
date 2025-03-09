@@ -75,9 +75,9 @@ export const Profile = () => {
 				<div className={s.left}>
 					<ProfileInfo
 						handleLogout={handleLogout}
-						username={user?.username}
-						email={user?.email}
-						avatarSrc={user?.avatar}
+						username={user?.username || 'Guest'}
+						email={user?.email || 'No email'}
+						avatarSrc={user?.avatar || icons.avatar}
 					/>
 					<SumCounter />
 					<Tabs

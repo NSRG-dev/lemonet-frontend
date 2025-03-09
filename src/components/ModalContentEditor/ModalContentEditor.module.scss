@@ -1,0 +1,15 @@
+.contentEditor {
+	.form {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+
+		button {
+			text-transform: uppercase;
+		}
+
+		.fileInput {
+			display: none;
+		}
+	}
+}

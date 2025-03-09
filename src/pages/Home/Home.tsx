@@ -8,17 +8,23 @@ import { TableHome } from '@/components/TableHome/TableHome'
 import { Tabs } from '@/components/ui'
 import { useAuth } from '@/Context/AuthProvider'
 import { useEditContext } from '@/Context/EditProvider'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import s from './Home.module.scss'
 import casinoBanner from '/casino banner.jpeg'
 import cardImage from '/public/container game (6).jpeg'
 import sportBanner from '/sport banner.jpeg'
+import { getBanner } from '@/api/banner'
 
 const GAME_ITEMS_COUNT = 14
 export const Home = () => {
 	const [isTab, setTab] = useState<'DAILY' | 'WEEKLY' | 'MONTHLY'>('DAILY')
 	const { banners } = useEditContext()
 	const { isAuthenticated, toggleAuth, toggleDeposit } = useAuth()
+
+
+	useEffect(() => {
+		getBanner()
+	}, [])
 
 	return (
 		<div className={s.home}>

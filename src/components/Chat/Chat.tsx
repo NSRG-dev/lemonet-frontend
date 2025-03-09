@@ -108,7 +108,7 @@ export const Chat = React.memo(() => {
 	const notify = () => toast.error('You crossed the limit of 500 characters')
 
 	const createNewComment = useCallback(
-		(message: string): IChat => ({
+		(content: string): IChat => ({
 			id: Date.now().toString(),
 			time: new Date().toLocaleTimeString('en-US', {
 				hour: 'numeric',
@@ -118,7 +118,7 @@ export const Chat = React.memo(() => {
 			avatarSrc: icons.avatar,
 			muted: false,
 			username: username || 'Guest',
-			message,
+			message: content,
 		}),
 		[username]
 	)
@@ -129,28 +129,39 @@ export const Chat = React.memo(() => {
 			return
 		}
 		try {
-			const response = await sendMessage(comment, username || 'Guest')
-			const newComment = createNewComment(response.data.content)
-
-			setComments(prev => (selectedComment ? prev : [...prev, newComment]))
-			setReplies(prev =>
-				selectedComment
-					? {
-							...prev,
-							[selectedComment.id]: [
-								...(prev[selectedComment.id] || []),
-								newComment,
-							],
-					  }
-					: prev
+			const response = await sendMessage(
+				comment,
+				username || 'Guest',
+				user?.email || ''
 			)
+			console.log('Response:', response) 
 
-			setComment('')
-			setSelectedComment(null)
+			if (Array.isArray(response) && response.length > 0) {
+				const newComment = createNewComment(response[0].content)
+
+				setComments(prev => (selectedComment ? prev : [...prev, newComment]))
+				setReplies(prev =>
+					selectedComment
+						? {
+								...prev,
+								[selectedComment.id]: [
+									...(prev[selectedComment.id] || []),
+									newComment,
+								],
+						  }
+						: prev
+				)
+
+				setComment('')
+				setSelectedComment(null)
+			} else {
+				throw new Error('Неверный формат ответа сервера')
+			}
 		} catch (error) {
 			console.error('Ошибка отправки сообщения:', error)
+			toast.error('Ошибка отправки сообщения')
 		}
-	}, [comment, selectedComment, createNewComment, username])
+	}, [comment, selectedComment, createNewComment, username, user?.email])
 
 	const handleDeleteComment = useCallback(async (commentId: string) => {
 		try {

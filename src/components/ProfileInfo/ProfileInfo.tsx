@@ -1,3 +1,4 @@
+import { uploadAvatar } from '@/api/users'
 import { icons } from '@/assets'
 import { Button } from '@/components/ui'
 import { useState } from 'react'
@@ -16,22 +17,33 @@ export const ProfileInfo = ({
 	avatarSrc,
 	email,
 }: ProfileInfoProps) => {
-	const [avatar, setAvatar] = useState(() => {
-		const savedAvatar = localStorage.getItem('avatar')
-		return savedAvatar ? JSON.parse(savedAvatar) : avatarSrc
-	})
+	const [avatar, setAvatar] = useState(avatarSrc)
 
-	const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+	const handleAvatarChange = async (
+		event: React.ChangeEvent<HTMLInputElement>
+	) => {
 		const file = event.target.files?.[0]
 		if (file) {
-			const reader = new FileReader()
-			reader.onload = e => {
-				if (e.target?.result) {
-					setAvatar(e.target.result as string)
-					localStorage.setItem('avatar', JSON.stringify(e.target.result))
-				}
+			const validTypes = ['image/jpeg', 'image/png', 'image/gif']
+			if (!validTypes.includes(file.type)) {
+				console.error(
+					'Неверный формат файла. Пожалуйста, выберите изображение.'
+				)
+				return
 			}
-			reader.readAsDataURL(file)
+
+			try {
+				const response = await uploadAvatar(file)
+				console.log('Ответ сервера:', response)
+
+				if (response.url) {
+					const newAvatarUrl = response.url
+					console.log('Новый URL аватара:', newAvatarUrl)
+					setAvatar(newAvatarUrl)
+				}
+			} catch (error) {
+				console.error('Ошибка при загрузке аватара:', error)
+			}
 		}
 	}
 

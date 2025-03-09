@@ -4,13 +4,22 @@ import { Button } from '../ui'
 import s from './PromotionCard.module.scss'
 
 interface PromotionCardProps {
-	promotion: {
+	promotion?: {
+		id: string
 		title: string
 		image?: string
 	}
+	handleDeletePromotion: (id: string) => void
 }
 
-export const PromotionCard = ({ promotion }: PromotionCardProps) => {
+export const PromotionCard = ({
+	promotion,
+	handleDeletePromotion,
+}: PromotionCardProps) => {
+	if (!promotion) {
+		return null
+	}
+
 	return (
 		<Link to={`/promotions/${promotion.title}`}>
 			<article className={s.card}>
@@ -19,6 +28,17 @@ export const PromotionCard = ({ promotion }: PromotionCardProps) => {
 					alt='game'
 					className={s.image}
 				/>
+				<Button
+					newClass={s.btnHover}
+					type='default'
+					onClick={e => {
+						e.preventDefault()
+						e.stopPropagation()
+						handleDeletePromotion(promotion.id)
+					}}
+				>
+					Delete
+				</Button>
 				<div className={s.info}>
 					<h3>{promotion.title || '10X POINTS every tuesd...'}</h3>
 					<Button type='text'>

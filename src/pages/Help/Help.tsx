@@ -1,16 +1,11 @@
+import { IFAQ } from '@/api/faq/types'
 import { icons } from '@/assets'
 import { Linkback } from '@/components/LinkBack/Linkback'
-import { Tabs } from '@/components/ui'
+import { ModalContentEditor } from '@/components/ModalContentEditor/ModalContentEditor'
+import { Button, Tabs } from '@/components/ui'
 import { Accordion } from '@/components/ui/Accordion/Accordion'
-import axios from 'axios'
 import { useCallback, useEffect, useState } from 'react'
 import s from './Help.module.scss'
-
-interface IFAQ {
-	id: string
-	question: string
-	answer: string
-}
 
 interface IFAQContent {
 	question: string
@@ -76,23 +71,48 @@ export const Help = () => {
 	const [activeTab, setActiveTab] = useState('Privacy Policy')
 	const [isOpenAccordion, setOpenAccordion] = useState(null)
 	const [faqContent, setFaqContent] = useState<IFAQ[]>([])
+	const [isOpenModal, setOpenModal] = useState(false)
+	const [question, setQuestion] = useState('')
+	const [answer, setAnswer] = useState('')
 
 	const toggleAccordion = useCallback((index: string) => {
 		setOpenAccordion(prev => (prev === index ? null : (index as null)))
 	}, [])
 
-	const getFaq = async () => {
+	useEffect(() => {
+		// getFaq().then(res => setFaqContent(res))
+	}, [])
+
+	const handleSave = e => {
+		e.preventDefault()
 		try {
-			const res = await axios.get<IFAQ[]>('http://localhost:3000/api/faq')
-			setFaqContent(res.data)
+			if (!answer || !question) {
+				alert('Question and content are required.')
+				return
+			}
+
+			const newPromotion = {
+				answer,
+				question,
+			}
+
+			// const newPromotion = await createPromotion(title, content, mediaId)
+			console.log('Promotion created successfully', newPromotion)
+
+			if (typeof setFaqContent === 'function') {
+				setFaqContent(prevPromotions => [...prevPromotions, newPromotion])
+			} else {
+				console.error('setPromotions is not a function')
+			}
+
+			setOpenModal(false)
 		} catch (error) {
-			console.error('Ошибка загрузки FAQ:', error)
+			console.error('Error creating promotion:', error)
+			alert(
+				'Ошибка при создании промоакции. Проверьте данные и попробуйте снова.'
+			)
 		}
 	}
-
-	useEffect(() => {
-		getFaq()
-	}, [])
 
 	return (
 		<div className={s.help}>
@@ -119,8 +139,27 @@ export const Help = () => {
 							answer={item.answer}
 						/>
 					))}
+					<Button
+						type='default'
+						onClick={() => setOpenModal(!isOpenModal)}
+						newClass={s.create}
+					>
+						Create FAQ
+					</Button>
 				</>
 			)}
+			<ModalContentEditor
+				modalTitle='FAQ'
+				modalSubTitle='Create faq'
+				isOpenModal={isOpenModal}
+				setOpenModal={setOpenModal}
+				content={answer}
+				title={question}
+				setContent={setAnswer}
+				setTitle={setQuestion}
+				handleSave={handleSave}
+				showFileUpload={false}
+			/>
 		</div>
 	)
 }

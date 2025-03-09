@@ -55,9 +55,11 @@ import notfoundimage from '@/assets/illustration (6).svg'
 import pinnend from '@/assets/pin.svg'
 
 import changeFiles from '@/assets/pen-svgrepo-com.svg'
+import plus from '@/assets/plus-svgrepo-com.svg'
 
 export const icons = {
 	gamev,
+	plus,
 	changeFiles,
 	pinnend,
 	notfoundimage,

@@ -1,11 +1,12 @@
 import close from '@/assets/close.svg'
+import React from 'react'
 import { Button } from '../ui'
 import s from './HeaderForm.module.scss'
 
 interface IHeaderForm {
 	title: string
 	subtitle: string
-	onClose?: () => void
+	onClose?: (valye: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 export const HeaderForm = ({ title, subtitle, onClose }: IHeaderForm) => {

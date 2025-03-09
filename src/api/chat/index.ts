@@ -34,18 +34,28 @@ export const getCurrentUser = async (): Promise<IUser> => {
 }
 
 export const sendMessage = async (
-	message: string,
-	username: string
+	content: string,
+	username: string,
+	email: string
 ): Promise<IMessage> => {
 	return handleRequest(
 		() =>
 			axios
 				.post<IMessage>(
 					`${API_BASE_CHAT_URL}/messages`,
-					{ content: message, username },
+					{
+						content: content,
+						sender: {
+							email: email,
+							username: username,
+						},
+					},
 					getAuthHeader()
 				)
-				.then(res => res.data),
+				.then(res => {
+					console.log('Server response:', res.data)
+					return res.data
+				}),
 		'Сообщение отправлено',
 		'Ошибка отправки сообщения'
 	)

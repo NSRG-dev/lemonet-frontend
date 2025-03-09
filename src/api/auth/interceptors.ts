@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { removeTokens } from './tokens'
 import { refreshToken } from './index'
+import { removeTokens } from './tokens'
 
 export const setupInterceptors = () => {
 	axios.interceptors.response.use(
@@ -8,7 +8,7 @@ export const setupInterceptors = () => {
 		async error => {
 			const originalRequest = error.config
 
-			if (error.config.url.includes('/logout')) {
+			if (error.config.url.includes('/')) {
 				return Promise.reject(error)
 			}
 
@@ -27,6 +27,7 @@ export const setupInterceptors = () => {
 				} catch (refreshError) {
 					console.error('Ошибка обновления токена:', refreshError)
 					removeTokens()
+					window.location.href = '/'
 					return Promise.reject(refreshError)
 				}
 			}

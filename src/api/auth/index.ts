@@ -69,7 +69,10 @@ export const siginUser = async (data: LoginData): Promise<AuthResponse> => {
 
 export const refreshToken = async (): Promise<AuthResponse> => {
 	const refreshToken: string | null = localStorage.getItem('refreshToken')
-	if (!refreshToken) throw new Error('Refresh token отсутствует.')
+	if (!refreshToken) {
+		window.location.href = '/'
+		throw new Error('Refresh token отсутствует.')
+	}
 
 	return handleRequest<AuthResponse>(
 		() => axios.post<AuthResponse>(`${API_BASE_URL}/refresh`, { refreshToken }),

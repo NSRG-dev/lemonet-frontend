@@ -1,11 +1,35 @@
-import { useState } from 'react'
+import { getCurrentUser } from '@/api/chat'
+import { IUser } from '@/api/chat/types'
+import { useAuth } from '@/Context/AuthProvider'
+import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { Button, Input } from '../ui'
 import s from './InputForm.module.scss'
 
 export const InputForm = () => {
-	const [referalCode, setReferalCode] = useState('v4K9300dfnm0')
+	const [user, setUser] = useState<IUser | null>(null)
+	const [referalCode, setReferalCode] = useState<string>('')
 	const [isCopied, setIsCopied] = useState(false)
+	const { isAuthenticated } = useAuth()
+
+	useEffect(() => {
+		if (isAuthenticated) {
+			getCurrentUser()
+				.then(response => {
+					console.log('Server response:', response)
+					setUser(response)
+				})
+				.catch(error =>
+					console.error('Ошибка загрузки данных пользователя:', error)
+				)
+		}
+	}, [isAuthenticated])
+
+	useEffect(() => {
+		if (user) {
+			setReferalCode(user.referalCode)
+		}
+	}, [user])
 
 	const handleCopyAndSubmit = async (
 		e: React.MouseEvent<HTMLButtonElement>
@@ -22,7 +46,7 @@ export const InputForm = () => {
 		<div className={s.bannerInput}>
 			<Input
 				label='Your referral code'
-				placeholder='v4K9300dfnm0'
+				placeholder={referalCode}
 				newClass={s.input}
 				disabled
 				type='address'

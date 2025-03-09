@@ -1,22 +1,22 @@
 export interface IMessage {
 	id: string
-	avatarSrc: string
-	username: string
-	time: string
-	message: string
-	prefix?: string
-	color?: string
-	muted?: boolean
-	dopMessage?: string
+	content: string
+	sender: {
+		email: string
+		username: string
+	}
+	createdAt: string
+	updatedAt: string
 }
 
 export interface IUser {
 	id: string
 	username: string
 	email: string
-	avatar?: string 
+	avatar?: string
 	createdAt: string
 	updatedAt: string
+	referalCode: string
 	role: {
 		id: string
 		name: string
