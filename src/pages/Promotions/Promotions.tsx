@@ -109,9 +109,6 @@ export const Promotions = () => {
 			setOpenModal(false)
 		} catch (error) {
 			console.error('Error creating promotion:', error)
-			alert(
-				'Ошибка при создании промоакции. Проверьте данные и попробуйте снова.'
-			)
 		}
 	}
 

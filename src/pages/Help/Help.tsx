@@ -1,5 +1,6 @@
 import { getCurrentUser } from '@/api/chat'
 import { IUser } from '@/api/chat/types'
+import { createFaq, deletePromotion, getFaq } from '@/api/faq'
 import { IFAQ } from '@/api/faq/types'
 import { icons } from '@/assets'
 import { Linkback } from '@/components/LinkBack/Linkback'
@@ -7,7 +8,7 @@ import { ModalContentEditor } from '@/components/ModalContentEditor/ModalContent
 import { Button, Tabs } from '@/components/ui'
 import { Accordion } from '@/components/ui/Accordion/Accordion'
 import { useAuth } from '@/Context/AuthProvider'
-import { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import s from './Help.module.scss'
 
 interface IFAQContent {
@@ -98,10 +99,10 @@ export const Help = () => {
 	}, [])
 
 	useEffect(() => {
-		// getFaq().then(res => setFaqContent(res))
+		getFaq().then(res => setFaqContent(res))
 	}, [])
 
-	const handleSave = e => {
+	const handleSave = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault()
 		try {
 			if (!answer || !question) {
@@ -109,27 +110,19 @@ export const Help = () => {
 				return
 			}
 
-			const newPromotion = {
-				answer,
-				question,
-			}
-
-			// const newPromotion = await createPromotion(title, content, mediaId)
-			console.log('Promotion created successfully', newPromotion)
-
-			if (typeof setFaqContent === 'function') {
-				setFaqContent(prevPromotions => [...prevPromotions, newPromotion])
-			} else {
-				console.error('setPromotions is not a function')
-			}
+			const newPromotion = await createFaq(answer, question)
+			console.log('faqContent created successfully', newPromotion)
+			setFaqContent(prevPromotions => [...prevPromotions, newPromotion])
 
 			setOpenModal(false)
 		} catch (error) {
 			console.error('Error creating promotion:', error)
-			alert(
-				'Ошибка при создании промоакции. Проверьте данные и попробуйте снова.'
-			)
 		}
+	}
+
+	const handleDeleteFaq = async (question: string) => {
+		await deletePromotion(question)
+		setFaqContent(faqContent.filter(faq => faq.question !== question))
 	}
 
 	return (
