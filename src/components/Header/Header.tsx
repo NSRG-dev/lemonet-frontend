@@ -53,6 +53,7 @@ export const Header = () => {
 				{isAuthenticated ? (
 					<>
 						<ProfileHeader
+							isAuthenticated={isAuthenticated}
 							isOpen={isOpenProfileOpt}
 							handleToggle={() => setopenProfileOpt(!isOpenProfileOpt)}
 						/>

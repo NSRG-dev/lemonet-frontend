@@ -78,6 +78,7 @@ export const Profile = () => {
 						username={user?.username || 'Guest'}
 						email={user?.email || 'No email'}
 						avatarSrc={user?.avatar || icons.avatar}
+						role={user?.role?.name || 'Silver'}
 					/>
 					<SumCounter />
 					<Tabs

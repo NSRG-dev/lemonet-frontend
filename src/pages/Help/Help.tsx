@@ -1,9 +1,12 @@
+import { getCurrentUser } from '@/api/chat'
+import { IUser } from '@/api/chat/types'
 import { IFAQ } from '@/api/faq/types'
 import { icons } from '@/assets'
 import { Linkback } from '@/components/LinkBack/Linkback'
 import { ModalContentEditor } from '@/components/ModalContentEditor/ModalContentEditor'
 import { Button, Tabs } from '@/components/ui'
 import { Accordion } from '@/components/ui/Accordion/Accordion'
+import { useAuth } from '@/Context/AuthProvider'
 import { useCallback, useEffect, useState } from 'react'
 import s from './Help.module.scss'
 
@@ -74,6 +77,21 @@ export const Help = () => {
 	const [isOpenModal, setOpenModal] = useState(false)
 	const [question, setQuestion] = useState('')
 	const [answer, setAnswer] = useState('')
+	const [user, setUser] = useState<IUser | null>(null)
+	const { isAuthenticated } = useAuth()
+
+	useEffect(() => {
+		if (isAuthenticated) {
+			getCurrentUser()
+				.then(response => {
+					console.log('Server response:', response)
+					setUser(response)
+				})
+				.catch(error =>
+					console.error('Ошибка загрузки данных пользователя:', error)
+				)
+		}
+	}, [isAuthenticated])
 
 	const toggleAccordion = useCallback((index: string) => {
 		setOpenAccordion(prev => (prev === index ? null : (index as null)))
@@ -139,13 +157,15 @@ export const Help = () => {
 							answer={item.answer}
 						/>
 					))}
-					<Button
-						type='default'
-						onClick={() => setOpenModal(!isOpenModal)}
-						newClass={s.create}
-					>
-						Create FAQ
-					</Button>
+					{user?.role.name === 'admin' && (
+						<Button
+							type='default'
+							onClick={() => setOpenModal(!isOpenModal)}
+							newClass={s.create}
+						>
+							Create FAQ
+						</Button>
+					)}
 				</>
 			)}
 			<ModalContentEditor

@@ -3,9 +3,12 @@ import { IPromotion } from '@/api/promotion/types'
 import { icons } from '@/assets'
 import { Linkback } from '@/components/LinkBack/Linkback'
 
+import { getCurrentUser } from '@/api/chat'
+import { IUser } from '@/api/chat/types'
 import { ModalContentEditor } from '@/components/ModalContentEditor/ModalContentEditor'
 import { PromotionCard } from '@/components/PromotionCard/PromotionCard'
 import { Button, Input } from '@/components/ui'
+import { useAuth } from '@/Context/AuthProvider'
 import { useEffect, useState } from 'react'
 import s from './Promotions.module.scss'
 
@@ -16,6 +19,21 @@ export const Promotions = () => {
 	const [content, setContent] = useState('')
 	const [title, setTitle] = useState('')
 	const [mediaId, setMediaId] = useState<File | null>(null)
+	const [user, setUser] = useState<IUser | null>(null)
+	const { isAuthenticated } = useAuth()
+
+	useEffect(() => {
+		if (isAuthenticated) {
+			getCurrentUser()
+				.then(response => {
+					console.log('Server response:', response)
+					setUser(response)
+				})
+				.catch(error =>
+					console.error('Ошибка загрузки данных пользователя:', error)
+				)
+		}
+	}, [isAuthenticated])
 
 	const fetchPromotions = async (filters = {}) => {
 		try {
@@ -121,11 +139,14 @@ export const Promotions = () => {
 								key={index}
 								promotion={promotion}
 								handleDeletePromotion={handleDeletePromotion}
+								role={user?.role.name}
 							/>
 						))}
-					<Button type='default' onClick={handleCreatePromotion}>
-						Create promotion
-					</Button>
+					{user?.role.name === 'admin' && (
+						<Button type='default' onClick={handleCreatePromotion}>
+							Create promotion
+						</Button>
+					)}
 				</div>
 			</div>
 

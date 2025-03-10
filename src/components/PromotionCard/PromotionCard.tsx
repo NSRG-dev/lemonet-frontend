@@ -9,12 +9,14 @@ interface PromotionCardProps {
 		title: string
 		image?: string
 	}
+	role: string
 	handleDeletePromotion: (id: string) => void
 }
 
 export const PromotionCard = ({
 	promotion,
 	handleDeletePromotion,
+	role,
 }: PromotionCardProps) => {
 	if (!promotion) {
 		return null
@@ -28,17 +30,19 @@ export const PromotionCard = ({
 					alt='game'
 					className={s.image}
 				/>
-				<Button
-					newClass={s.btnHover}
-					type='default'
-					onClick={e => {
-						e.preventDefault()
-						e.stopPropagation()
-						handleDeletePromotion(promotion.id)
-					}}
-				>
-					Delete
-				</Button>
+				{role === 'admin' && (
+					<Button
+						newClass={s.btnHover}
+						type='default'
+						onClick={e => {
+							e.preventDefault()
+							e.stopPropagation()
+							handleDeletePromotion(promotion.id)
+						}}
+					>
+						Delete
+					</Button>
+				)}
 				<div className={s.info}>
 					<h3>{promotion.title || '10X POINTS every tuesd...'}</h3>
 					<Button type='text'>

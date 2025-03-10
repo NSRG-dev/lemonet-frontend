@@ -1,4 +1,4 @@
-import { uploadAvatar } from '@/api/users'
+import { API_BASE_IMG_URL, uploadAvatar } from '@/api/users'
 import { icons } from '@/assets'
 import { Button } from '@/components/ui'
 import { useState } from 'react'
@@ -9,6 +9,7 @@ interface ProfileInfoProps {
 	username: string
 	avatarSrc: string
 	email: string
+	role: string
 }
 
 export const ProfileInfo = ({
@@ -16,6 +17,7 @@ export const ProfileInfo = ({
 	username,
 	avatarSrc,
 	email,
+	role,
 }: ProfileInfoProps) => {
 	const [avatar, setAvatar] = useState(avatarSrc)
 
@@ -37,7 +39,9 @@ export const ProfileInfo = ({
 				console.log('Ответ сервера:', response)
 
 				if (response.url) {
-					const newAvatarUrl = response.url
+					const newAvatarUrl = `${API_BASE_IMG_URL}/media/${
+						response.url
+					}?${Date.now()}`
 					console.log('Новый URL аватара:', newAvatarUrl)
 					setAvatar(newAvatarUrl)
 				}
@@ -66,7 +70,7 @@ export const ProfileInfo = ({
 				</label>
 				<div className={s.rank}>
 					<span></span>
-					<b>SILVER</b>
+					<b>{role}</b>
 				</div>
 			</div>
 			<div className={s.middle}>

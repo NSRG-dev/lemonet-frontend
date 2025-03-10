@@ -1,10 +1,14 @@
+import { getCurrentUser } from '@/api/chat'
+import { IUser } from '@/api/chat/types'
 import { icons } from '@/assets'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import s from './ProfileHeader.module.scss'
 
 interface ProfileHeaderProps {
 	isOpen: boolean
 	handleToggle: () => void
+	isAuthenticated: boolean
 }
 
 const navigation = [
@@ -26,7 +30,25 @@ const navigation = [
 	},
 ]
 
-export const ProfileHeader = ({ isOpen, handleToggle }: ProfileHeaderProps) => {
+export const ProfileHeader = ({
+	isOpen,
+	handleToggle,
+	isAuthenticated,
+}: ProfileHeaderProps) => {
+	const [user, setUser] = useState<IUser | null>(null)
+
+	useEffect(() => {
+		if (isAuthenticated) {
+			getCurrentUser()
+				.then(response => {
+					console.log('Server response:', response)
+					setUser(response)
+				})
+				.catch(error =>
+					console.error('Ошибка загрузки данных пользователя:', error)
+				)
+		}
+	}, [isAuthenticated])
 	return (
 		<div className={s.profileOption}>
 			<div className={s.block} onClick={handleToggle}>
@@ -35,7 +57,7 @@ export const ProfileHeader = ({ isOpen, handleToggle }: ProfileHeaderProps) => {
 					<span>ACCOUNT</span>
 					<div className={s.rank}>
 						<span></span>
-						<b>Silver</b>
+						<b>{user?.role.name}</b>
 					</div>
 				</div>
 				<button

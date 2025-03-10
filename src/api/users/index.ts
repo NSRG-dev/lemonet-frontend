@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_BASE_URL = 'http://localhost:3000/api'
+export const API_BASE_IMG_URL = 'http://localhost:3000/api'
 
 const getAuthHeader = () => {
 	const token = localStorage.getItem('token')
@@ -19,7 +19,7 @@ export const uploadAvatar = async (file: File, type: string = 'AVATAR') => {
 
 	try {
 		const response = await axios.post(
-			`${API_BASE_URL}/media/upload`,
+			`${API_BASE_IMG_URL}/media/upload`,
 			formData,
 			{
 				headers: {
@@ -39,7 +39,7 @@ export const uploadAvatar = async (file: File, type: string = 'AVATAR') => {
 
 export const getAvatar = async (key: string) => {
 	try {
-		const response = await axios.get(`${API_BASE_URL}/media/${key}`, {
+		const response = await axios.get(`${API_BASE_IMG_URL}/media/${key}`, {
 			...getAuthHeader(),
 			responseType: 'blob',
 		})
