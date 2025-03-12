@@ -1,10 +1,33 @@
 import axios from 'axios'
+import { API_BASE_ADMIN_URL, API_BASE_USER_URL } from '../url'
 
-const API_BASE_PROMOTION_CARD_URL = 'http://localhost:3000/api'
+const getAuthHeader = () => {
+	const token = localStorage.getItem('token')
+	if (!token) throw new Error('Токен отсутствует.')
+	return { headers: { Authorization: `Bearer ${token}` } }
+}
 
-const token = localStorage.getItem('token')
+export const uploadMedia = async (file: File, type: string = 'PROMOTION') => {
+	const formData = new FormData()
+	formData.append('file', file)
+	formData.append('type', type)
 
-console.log(token)
+	try {
+		const response = await axios.post(
+			`${API_BASE_USER_URL}/media/upload`,
+			formData,
+			{
+				headers: {
+					...getAuthHeader().headers,
+					'Content-Type': 'multipart/form-data',
+				},
+			}
+		)
+		return response.data
+	} catch (error) {
+		throw error
+	}
+}
 
 export const createPromotion = async (
 	title: string,
@@ -19,12 +42,12 @@ export const createPromotion = async (
 
 	try {
 		const response = await axios.post(
-			'http://localhost:3001/api/promotions',
+			`${API_BASE_ADMIN_URL}/promotions`,
 			data,
 			{
 				headers: {
 					'Content-Type': 'application/json',
-					Authorization: `Bearer ${token}`,
+					Authorization: `Bearer ${localStorage.getItem('token')}`,
 				},
 			}
 		)
@@ -37,12 +60,9 @@ export const createPromotion = async (
 
 export const deletePromotion = async (id: string) => {
 	const token = localStorage.getItem('token')
-	if (!token) {
-		throw new Error('Токен отсутствует. Пожалуйста, авторизуйтесь.')
-	}
 
 	const response = await axios.delete(
-		`http://localhost:3001/api/promotions/${id}`,
+		`${API_BASE_ADMIN_URL}/promotions/${id}`,
 		{
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -60,7 +80,7 @@ export const searchPromotions = async (searchQuery: string, filters = {}) => {
 	}
 
 	const response = await axios.post(
-		`${API_BASE_PROMOTION_CARD_URL}/promotions/search`,
+		`${API_BASE_USER_URL}/promotions/search`,
 		{
 			pagination: {
 				count: 10,

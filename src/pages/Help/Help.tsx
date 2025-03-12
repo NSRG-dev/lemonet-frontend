@@ -1,6 +1,6 @@
 import { getCurrentUser } from '@/api/chat'
 import { IUser } from '@/api/chat/types'
-import { createFaq, deletePromotion, getFaq } from '@/api/faq'
+import { createFaq, deleteFaq, getFaq } from '@/api/faq'
 import { IFAQ } from '@/api/faq/types'
 import { icons } from '@/assets'
 import { Linkback } from '@/components/LinkBack/Linkback'
@@ -16,6 +16,8 @@ interface IFAQContent {
 	answer: string
 	isOpenAccordion: boolean
 	toggleAccordion: () => void
+	handleDelete: () => void
+	user: IUser
 }
 
 const PrivacyPolicyContent = () => (
@@ -59,6 +61,8 @@ const FAQContent = ({
 	toggleAccordion,
 	question,
 	answer,
+	handleDelete,
+	user,
 }: IFAQContent) => (
 	<div className={s.faq}>
 		<Accordion
@@ -67,6 +71,11 @@ const FAQContent = ({
 			onClick={toggleAccordion}
 		>
 			<p>{answer}</p>
+			{user?.role.name === 'admin' && (
+				<Button type='green' onClick={handleDelete} newClass={s.delete}>
+					Delete
+				</Button>
+			)}
 		</Accordion>
 	</div>
 )
@@ -120,9 +129,9 @@ export const Help = () => {
 		}
 	}
 
-	const handleDeleteFaq = async (question: string) => {
-		await deletePromotion(question)
-		setFaqContent(faqContent.filter(faq => faq.question !== question))
+	const handleDeleteFaq = async (id: string) => {
+		await deleteFaq(id)
+		setFaqContent(faqContent.filter(faq => faq.id !== id))
 	}
 
 	return (
@@ -148,6 +157,8 @@ export const Help = () => {
 							toggleAccordion={() => toggleAccordion(item.id)}
 							question={item.question}
 							answer={item.answer}
+							user={user}
+							handleDelete={() => handleDeleteFaq(item.id)}
 						/>
 					))}
 					{user?.role.name === 'admin' && (

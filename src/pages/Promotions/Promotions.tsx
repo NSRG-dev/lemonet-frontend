@@ -1,10 +1,14 @@
-import { searchPromotions } from '@/api/promotion'
+import { getCurrentUser } from '@/api/chat'
+import { IUser } from '@/api/chat/types'
+import {
+	createPromotion,
+	deletePromotion,
+	searchPromotions,
+	uploadMedia,
+} from '@/api/promotion'
 import { IPromotion } from '@/api/promotion/types'
 import { icons } from '@/assets'
 import { Linkback } from '@/components/LinkBack/Linkback'
-
-import { getCurrentUser } from '@/api/chat'
-import { IUser } from '@/api/chat/types'
 import { ModalContentEditor } from '@/components/ModalContentEditor/ModalContentEditor'
 import { PromotionCard } from '@/components/PromotionCard/PromotionCard'
 import { Button, Input } from '@/components/ui'
@@ -18,7 +22,7 @@ export const Promotions = () => {
 	const [isOpenModal, setOpenModal] = useState(false)
 	const [content, setContent] = useState('')
 	const [title, setTitle] = useState('')
-	const [mediaId, setMediaId] = useState<File | null>(null)
+	const [mediaFile, setMediaFile] = useState<File | null>(null)
 	const [user, setUser] = useState<IUser | null>(null)
 	const { isAuthenticated } = useAuth()
 
@@ -70,13 +74,13 @@ export const Promotions = () => {
 	}
 
 	const handleDeletePromotion = async (id: string) => {
-		// await deletePromotion(id)
+		await deletePromotion(id)
 		setPromotions(promotions.filter(promotion => promotion.id !== id))
 	}
 
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files && e.target.files[0]) {
-			setMediaId(e.target.files[0])
+			setMediaFile(e.target.files[0])
 		}
 	}
 
@@ -88,25 +92,39 @@ export const Promotions = () => {
 				return
 			}
 
-			const newPromotion = {
-				id: Date.now().toString(),
+			let uploadedMedia = null
+			if (mediaFile) {
+				const mediaResponse = await uploadMedia(mediaFile, 'PROMOTION')
+				uploadedMedia = {
+					id: mediaResponse.id,
+					url: mediaResponse.url,
+					type: 'PROMOTION',
+				}
+			}
+
+			const newPromotion = await createPromotion(
 				title,
 				content,
-				mediaId: mediaId
-					? URL.createObjectURL(mediaId)
-					: '/public/image 13.png',
-			}
-
-			// const newPromotion = await createPromotion(title, content, mediaId)
+				uploadedMedia?.id
+			)
 			console.log('Promotion created successfully', newPromotion)
 
-			if (typeof setPromotions === 'function') {
-				setPromotions(prevPromotions => [...prevPromotions, newPromotion])
-			} else {
-				console.error('setPromotions is not a function')
+			if (!newPromotion.id || !newPromotion.title || !newPromotion.content) {
+				throw new Error('Неверный формат данных от сервера')
 			}
 
+			setPromotions(prevPromotions => [
+				...prevPromotions,
+				{
+					...newPromotion,
+					media: uploadedMedia,
+				},
+			])
+
 			setOpenModal(false)
+			setTitle('')
+			setContent('')
+			setMediaFile(null)
 		} catch (error) {
 			console.error('Error creating promotion:', error)
 		}
@@ -131,9 +149,9 @@ export const Promotions = () => {
 				<div className={s.grid}>
 					{promotions
 						.filter(promotion => promotion)
-						.map((promotion, index) => (
+						.map(promotion => (
 							<PromotionCard
-								key={index}
+								key={promotion.id}
 								promotion={promotion}
 								handleDeletePromotion={handleDeletePromotion}
 								role={user?.role.name}

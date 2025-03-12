@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { API_BASE_CHAT_URL, IUser, type IMessage } from './types'
+import { API_BASE_USER_URL } from '../url'
+import { IUser, type IMessage } from './types'
 
 const getAuthHeader = () => {
 	const token = localStorage.getItem('token')
@@ -26,7 +27,7 @@ export const getCurrentUser = async (): Promise<IUser> => {
 	return handleRequest(
 		() =>
 			axios
-				.get<IUser>(`${API_BASE_CHAT_URL}/users/me`, getAuthHeader())
+				.get<IUser>(`${API_BASE_USER_URL}/users/me`, getAuthHeader())
 				.then(res => res.data),
 		'Данные пользователя получены',
 		'Ошибка получения данных пользователя'
@@ -42,7 +43,7 @@ export const sendMessage = async (
 		() =>
 			axios
 				.post<IMessage>(
-					`${API_BASE_CHAT_URL}/messages`,
+					`${API_BASE_USER_URL}/messages`,
 					{
 						content: content,
 						sender: {
@@ -65,7 +66,7 @@ export const deleteComment = async (commentId: string): Promise<void> => {
 	return handleRequest(
 		() =>
 			axios.delete(
-				`${API_BASE_CHAT_URL}/messages/${commentId}`,
+				`${API_BASE_USER_URL}/messages/${commentId}`,
 				getAuthHeader()
 			),
 		'Комментарий удален',
@@ -80,7 +81,7 @@ export const muteUser = async (
 	return handleRequest(
 		() =>
 			axios.patch(
-				`${API_BASE_CHAT_URL}/messages/${userId}`,
+				`${API_BASE_USER_URL}/messages/${userId}`,
 				{ muted },
 				getAuthHeader()
 			),
@@ -96,7 +97,7 @@ export const addToBookmarks = async (
 		() =>
 			axios
 				.post<{ id: number }>(
-					`${API_BASE_CHAT_URL}/messages`,
+					`${API_BASE_USER_URL}/messages`,
 					{ messageId },
 					getAuthHeader()
 				)
@@ -110,7 +111,7 @@ export const removeFromBookmarks = async (messageId: string): Promise<void> => {
 	return handleRequest(
 		() =>
 			axios.delete(
-				`${API_BASE_CHAT_URL}/messages/${messageId}`,
+				`${API_BASE_USER_URL}/messages/${messageId}`,
 				getAuthHeader()
 			),
 		'Сообщение удалено из закладок',

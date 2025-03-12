@@ -6,6 +6,15 @@
 		width: 100%;
 	}
 
+	.creatingBanner {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+
+		button {
+			text-transform: uppercase;
+		}
+	}
 
 	.games {
 		display: flex;

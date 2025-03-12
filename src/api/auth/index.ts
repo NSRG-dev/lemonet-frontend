@@ -1,12 +1,8 @@
 import axios, { AxiosResponse } from 'axios'
+import { API_BASE_USER_URL } from '../url'
 import { setupInterceptors } from './interceptors'
 import { removeTokens, saveEmail, saveTokens, saveUsername } from './tokens'
-import {
-	API_BASE_URL,
-	type AuthResponse,
-	type LoginData,
-	type RegisterData,
-} from './types'
+import { type AuthResponse, type LoginData, type RegisterData } from './types'
 
 setupInterceptors()
 
@@ -43,7 +39,7 @@ const saveUserData = (data: { username?: string; email?: string }): void => {
 
 export const signupUser = async (data: RegisterData): Promise<AuthResponse> => {
 	return handleRequest<AuthResponse>(
-		() => axios.post<AuthResponse>(`${API_BASE_URL}/sign-up`, data),
+		() => axios.post<AuthResponse>(`${API_BASE_USER_URL}/auth/sign-up`, data),
 		'Регистрация прошла успешно!',
 		'Ошибка регистрации',
 		(response: AuthResponse) => {
@@ -56,7 +52,7 @@ export const signupUser = async (data: RegisterData): Promise<AuthResponse> => {
 
 export const siginUser = async (data: LoginData): Promise<AuthResponse> => {
 	return handleRequest<AuthResponse>(
-		() => axios.post<AuthResponse>(`${API_BASE_URL}/sign-in`, data),
+		() => axios.post<AuthResponse>(`${API_BASE_USER_URL}/auth/sign-in`, data),
 		'Вход выполнен успешно!',
 		'Ошибка входа',
 		(response: AuthResponse) => {
@@ -75,7 +71,10 @@ export const refreshToken = async (): Promise<AuthResponse> => {
 	}
 
 	return handleRequest<AuthResponse>(
-		() => axios.post<AuthResponse>(`${API_BASE_URL}/refresh`, { refreshToken }),
+		() =>
+			axios.post<AuthResponse>(`${API_BASE_USER_URL}/auth/refresh`, {
+				refreshToken,
+			}),
 		'Токен обновлен успешно!',
 		'Ошибка обновления токена',
 		(response: AuthResponse) => {
@@ -90,7 +89,7 @@ export const logoutUser = async (full: boolean = false): Promise<void> => {
 
 	return handleRequest<void>(
 		() =>
-			axios.delete(`${API_BASE_URL}/logout?full=${full}`, {
+			axios.delete(`${API_BASE_USER_URL}/auth/logout?full=${full}`, {
 				headers: { Authorization: `Bearer ${token}` },
 			}),
 		'Выход выполнен успешно!',

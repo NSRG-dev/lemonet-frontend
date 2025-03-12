@@ -7,7 +7,12 @@ interface PromotionCardProps {
 	promotion?: {
 		id: string
 		title: string
-		image?: string
+		content: string
+		media?: {
+			id: string
+			url: string
+			type: string
+		}
 	}
 	role: string
 	handleDeletePromotion: (id: string) => void
@@ -26,7 +31,7 @@ export const PromotionCard = ({
 		<Link to={`/promotions/${promotion.title}`}>
 			<article className={s.card}>
 				<img
-					src={promotion.image || '/public/image 13.png'}
+					src={promotion.media?.url || '/public/image 13.png'}
 					alt='game'
 					className={s.image}
 				/>

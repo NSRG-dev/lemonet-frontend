@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { API_BASE_SLOTS_URL } from './slotsService'
+import { API_BASE_USER_URL } from '../url'
 
 const handleRequest = async <T>(
 	request: () => Promise<T>,
@@ -21,21 +21,23 @@ export const getSlots = async (
 ): Promise<any> => {
 	return handleRequest(
 		() =>
-			axios.get(`${API_BASE_SLOTS_URL}`, { params: { page, limit, sortBy } }),
+			axios.get(`${API_BASE_USER_URL}/slots`, {
+				params: { page, limit, sortBy },
+			}),
 		'Ошибка при загрузке слотов'
 	)
 }
 
 export const searchSlots = async (query: string): Promise<any> => {
 	return handleRequest(
-		() => axios.get(`${API_BASE_SLOTS_URL}/search`, { params: { query } }),
+		() => axios.get(`${API_BASE_USER_URL}/slots/search`, { params: { query } }),
 		'Ошибка при поиске слотов'
 	)
 }
 
 export const getSlotDetails = async (slotId: string): Promise<any> => {
 	return handleRequest(
-		() => axios.get(`${API_BASE_SLOTS_URL}/${slotId}`),
+		() => axios.get(`${API_BASE_USER_URL}/slots/${slotId}`),
 		'Ошибка при загрузке деталей слота'
 	)
 }

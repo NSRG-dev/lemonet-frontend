@@ -1,4 +1,5 @@
-import { API_BASE_IMG_URL, uploadAvatar } from '@/api/users'
+import { API_BASE_USER_URL } from '@/api/url'
+import { uploadAvatar } from '@/api/users'
 import { icons } from '@/assets'
 import { Button } from '@/components/ui'
 import { useState } from 'react'
@@ -39,7 +40,7 @@ export const ProfileInfo = ({
 				console.log('Ответ сервера:', response)
 
 				if (response.url) {
-					const newAvatarUrl = `${API_BASE_IMG_URL}/media/${
+					const newAvatarUrl = `${API_BASE_USER_URL}/media/${
 						response.url
 					}?${Date.now()}`
 					console.log('Новый URL аватара:', newAvatarUrl)
