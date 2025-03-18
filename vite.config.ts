@@ -3,7 +3,10 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   plugins: [react()],
-  server: {},
+  server: {
+    host: "tao-sweeps.online",
+    allowedHosts: ["tao-sweeps.online"],
+  },
   resolve: {
     alias: {
       "@": "/src",
