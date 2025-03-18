@@ -15,8 +15,7 @@ import banner3 from './Frame 51 (2).svg'
 import banner from './Frame 51.svg'
 import google from './google.svg'
 import headphone from './headphone.svg'
-import home from './home.svg'
-import bonus from './illustration (3).svg'
+import home from './home.svg'git
 import banner4 from './illustration (5).svg'
 import gamev from './image 23.svg'
 import instagram from './instagram.svg'
@@ -60,7 +59,7 @@ import plus from './plus-svgrepo-com.svg'
 export const icons = {
 	gamev,
 	plus,
-	changeFiles,
+	changeFiles,git
 	pinnend,
 	notfoundimage,
 	arrowc,
