@@ -12,7 +12,7 @@ interface CommentProps {
 	username: string
 	time: string
 	message: string
-	prefix?: string
+	prefix?: string | undefined
 	color?: string
 	onMute?: () => void
 	onDelete?: () => void

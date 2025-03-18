@@ -42,7 +42,9 @@ export const TableSportbook = ({ option }: TableSportbookProps) => {
 }
 
 export const TableMobile = ({ option }: TableMobileProps) => {
-	const headers = [option === 'Live' && '', '1', 'X', '2']
+	const headers = [option === 'Live' && '', '1', 'X', '2'].filter(
+    (header): header is string => typeof header === 'string'
+  );
 	const data = [
 		{
 			teams: [

@@ -6,6 +6,7 @@ interface TableRowMobileProps {
 	scores?: string[]
 	odds?: number[]
 	option: string
+	headers: string[]
 }
 
 export const TableRowMobile = ({

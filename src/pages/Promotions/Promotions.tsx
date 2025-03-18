@@ -42,7 +42,7 @@ export const Promotions = () => {
 	const fetchPromotions = async (filters = {}) => {
 		try {
 			const data = await searchPromotions(searchQuery, filters)
-			const formattedPromotions = data.map(item => ({
+			const formattedPromotions = data.map((item: IPromotion) => ({
 				id: item.id,
 				title: item.title,
 				content: item.content,

@@ -43,7 +43,7 @@ export const Auth = () => {
 				/>
 				<Tabs
 					tabs={['Sign up', 'Login']}
-					onClick={value => setTab(value)}
+					onClick={(value: string) => setTab(value as 'Sign up' | 'Login')}
 					isTab={isTab}
 					newClass={s.tabs}
 				/>

@@ -9,7 +9,11 @@ export const FAQSection = () => {
 	const [faqContent, setFaqContent] = useState<IFAQ[]>([])
 
 	useEffect(() => {
-		getFaq().then(res => setFaqContent(res))
+		getFaq().then(res => {
+			if (res) {
+				setFaqContent(res)
+			}
+		})
 	}, [])
 
 	return (

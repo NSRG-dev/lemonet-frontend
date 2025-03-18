@@ -185,7 +185,9 @@ export const Home = () => {
 						</h3>
 						<Tabs
 							isTab={isTab}
-							onClick={setTab}
+							onClick={(value: string) =>
+								setTab(value as 'DAILY' | 'WEEKLY' | 'MONTHLY')
+							}
 							tabs={['DAILY', 'WEEKLY', 'MONTHLY']}
 						/>
 					</div>

@@ -1,6 +1,5 @@
 import { icons } from '@/assets'
 import {
-	gameHistoryTableHeaders,
 	transactionHistoryTableData,
 	transactionHistoryTableHeaders,
 } from '@/constant/tableData'

@@ -7,7 +7,7 @@ const handleRequest = async <T>(
 ): Promise<T> => {
 	try {
 		const response = await request()
-		return response.data
+		return (response as { data: T }).data
 	} catch (error) {
 		console.error(errorMessage, error)
 		throw error

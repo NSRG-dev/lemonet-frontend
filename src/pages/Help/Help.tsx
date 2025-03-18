@@ -17,7 +17,7 @@ interface IFAQContent {
 	isOpenAccordion: boolean
 	toggleAccordion: () => void
 	handleDelete: () => void
-	user: IUser
+	user?: IUser
 }
 
 const PrivacyPolicyContent = () => (
@@ -82,7 +82,7 @@ const FAQContent = ({
 
 export const Help = () => {
 	const [activeTab, setActiveTab] = useState('Privacy Policy')
-	const [isOpenAccordion, setOpenAccordion] = useState(null)
+	const [isOpenAccordion, setOpenAccordion] = useState<string | null>(null)
 	const [faqContent, setFaqContent] = useState<IFAQ[]>([])
 	const [isOpenModal, setOpenModal] = useState(false)
 	const [question, setQuestion] = useState('')
@@ -104,11 +104,15 @@ export const Help = () => {
 	}, [isAuthenticated])
 
 	const toggleAccordion = useCallback((index: string) => {
-		setOpenAccordion(prev => (prev === index ? null : (index as null)))
+		setOpenAccordion(prev => (prev === index ? null : index))
 	}, [])
 
 	useEffect(() => {
-		getFaq().then(res => setFaqContent(res))
+		getFaq().then(res => {
+			if (res) {
+				setFaqContent(res)
+			}
+		})
 	}, [])
 
 	const handleSave = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -157,7 +161,7 @@ export const Help = () => {
 							toggleAccordion={() => toggleAccordion(item.id)}
 							question={item.question}
 							answer={item.answer}
-							user={user}
+							user={user || undefined}
 							handleDelete={() => handleDeleteFaq(item.id)}
 						/>
 					))}

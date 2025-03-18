@@ -23,7 +23,6 @@ export const SlotGame = () => {
 				<GameGrid
 					gamesCount={GAME_ITEMS_COUNT}
 					imageSrc='/public/container game (6).jpeg'
-					altText='game'
 				/>
 			</div>
 		</div>

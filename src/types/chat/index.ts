@@ -3,6 +3,8 @@ export interface IChat {
 	time: string
 	avatarSrc: string
 	username: string
+	prefix?: string
 	message: string
 	muted: boolean
+	color?: string
 }

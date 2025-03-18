@@ -14,7 +14,7 @@ interface PromotionCardProps {
 			type: string
 		}
 	}
-	role: string
+	role: string | undefined
 	handleDeletePromotion: (id: string) => void
 }
 

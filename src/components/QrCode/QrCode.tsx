@@ -1,11 +1,9 @@
 import clone from '@/assets/clone-3 1.svg'
 import qrcode from '@/assets/qrcode.svg'
-import { toast } from 'react-toastify'
 import { Button, Input } from '../ui'
 import s from './QrCode.module.scss'
 
-export const QrCode = ({ notify }) => {
-
+export const QrCode = ({ notify }: { notify: () => void }) => {
 	const handleCopy = () => {
 		navigator.clipboard.writeText('GJlxpep749djkkdgUJKVFYUfjicen78bHY')
 		notify()

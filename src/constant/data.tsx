@@ -15,7 +15,7 @@ export const COMMENTS: IChat[] = [
 		avatarSrc: icons.avatar,
 		username: '@canes',
 		time: '12:00 PM',
-		prefix: 'Admin',
+		prefix: 'admin',
 		message: 'Anxiety don’t let the pressure get to your head !!! @3493002',
 		color: 'rgba(255, 215, 12, 0.09)',
 		muted: false
