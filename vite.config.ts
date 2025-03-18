@@ -5,9 +5,7 @@ import { defineConfig } from 'vite'
 export default defineConfig({
 	plugins: [react()],
 	server: {
-		allowedHosts: [
-			'tao-sweeps.online'
-		]
+		host: 'tao-sweeps.online',
 	},
 	resolve: {
 		alias: {
